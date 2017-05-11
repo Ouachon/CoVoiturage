@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
-<title>Insert title here</title>
+<title>CoVoiturage pour l'Entreprise </title>
 </head>
 <body>
 	<ul id="menu">
