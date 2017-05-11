@@ -1,0 +1,47 @@
+@CHARSET "ISO-8859-1";
+form .requis {
+	color: #c00;
+}
+
+requis {
+	color: #c00;
+}
+
+.error {
+	color: #900}
+}
+
+.info {
+	font-style: italic;
+	color: #E8A22B;
+}
+
+table {
+	border-collapse: collapse;
+}
+tr.pair {
+	background-color: #E8A22B;
+}
+tr.impair {
+	background-color: #900;
+}
+th {
+	color: #0568CD;
+	border: 1px solid #0568CD;
+	padding: 5px;
+}
+th.action {
+	border: 1px solid #900;
+	solid #900;
+}
+td {
+	border: 1px solid #ddd;
+	padding: 5px;
+}
+td.action {
+	text-align: center;
+}
+
+tr {
+	background-color: #ddd;
+}
