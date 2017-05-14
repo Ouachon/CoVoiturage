@@ -17,6 +17,8 @@ body {
 </style>
 </head>
 <body>
+	<c:import url="/WEB-INF/menu/menu.jsp" />
+	<br>
 	<form class="form-horizontal no-margin" action="preferenceConducteur"
 		method="post">
 
@@ -54,7 +56,7 @@ body {
 			</div>
 		</div>
 
-		
+
 		<div class="control-group">
 			<label class="control-label"> Nombre de passagers </label>
 			<div class="controls controls-row">
@@ -116,12 +118,13 @@ body {
 
 		<div class="clearfix"></div>
 
-	</form><div class="control-group">
-			<label class="control-label"> Date Obtention Permis </label>
-			<div class="controls controls-row">
-				<input type="date" name="datePermis">
-			</div>
+	</form>
+	<div class="control-group">
+		<label class="control-label"> Date Obtention Permis </label>
+		<div class="controls controls-row">
+			<input type="date" name="datePermis">
 		</div>
+	</div>
 
 </body>
 </html>

@@ -8,19 +8,39 @@
 <link type="text/css" rel="stylesheet" href="styles.css" />
 </head>
 <body>
-Include MENU
-    
-    Demander login mot de passe et type user pour revenir sur cet page
-    si login correct
-    
-    Afficher la liste des passagers interéssé si conducteur
-    
-    Ou la liste des conducteurs passant pres de chez moi si passager
-    
-    Voir s'il faut faire 2 pages différentes car pas grand chose en commun
+	Include MENU Demander login mot de passe et type user pour revenir sur
+	cet page si login correct Afficher la liste des passagers interéssé si
+	conducteur Ou la liste des conducteurs passant pres de chez moi si
+	passager Voir s'il faut faire 2 pages différentes car pas grand chose
+	en commun
 	<c:import url="/WEB-INF/menu/menu.jsp" />
 	<br>
-	<c:import url="/WEB-INF/login/form.jsp" />
-	<br />
+	<form method="post" action="login">
+		<fieldset>
+			<legend>Connexion</legend>
+			<p>Les champs (*) sont obligatoires</p>
+
+			<label for="nom">Adresse email <span class="requis">*</span></label>
+			<input type="email" name="email" value="${form.email}" size="20"
+				maxlength="60" /> <span class="erreur">${error['email']}</span> <br />
+
+			<label for="motdepasse">Mot de passe <span class="requis">*</span></label>
+			<input type="password" name="pwd" value="" size="20" maxlength="20" />
+			<span class="erreur">${error['motdepasse']}</span> <br /> <br>
+
+			<div class="control-group">
+				En tant que :
+				<div id="specification">
+					<input type="radio" name="typeCovoit" value="typeconducteur"
+						checked="checked" /> Conducteur <br /> <input type="radio"
+						name="typeCovoit" value="typepassager" /> Passager <br />
+				</div>
+			</div>
+			<br> <input type="submit" value="Connexion" class="sansLabel" />
+			<br />
+
+			<p class="${statusOK ? 'succes' : 'erreur'}">${statusMessage}</p>
+		</fieldset>
+	</form>
 </body>
 </html>

@@ -4,11 +4,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Passager</title>
+<title>Conducteur</title>
 </head>
 <body>
-	Liste des conducteurs proposés pour le passager
-	<Br>
-	<a href="<c:url value="prefPassager"/>">preference passager</a>
+	<form method="post" action="ConducteurCovoit">
+		<fieldset>
+			Liste des passagers voulant voyager avec le conducteur <Br> <a
+				href="<c:url value="prefConducteur.jsp"/>">preference Conducteur</a>
+		</fieldset>
+	</form>
 </body>
 </html>
