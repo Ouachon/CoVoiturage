@@ -7,7 +7,10 @@
 <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
 <title>Site de co-voiturage BL</title>
 <c:import url="/WEB-INF/menu/menu.jsp" />
-<link type="text/css" rel="stylesheet" href="style.css" />
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+ <link type="text/css" rel="stylesheet" href="style.css" /> 
+<!-- <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.3.0/bootstrap.min.css" /> -->
 
  <meta name="map" content="initial-scale=1.0, user-scalable=no" />
 <!--importation de l'API google MAP Version 3-->
@@ -20,16 +23,20 @@
 	<body onload="initMap();">
 	
 	<h2>Bienvenue sur le site de covoiturage de l'entreprise HEP</h2>
-		<div>
+		<div id="destinationForm">
+			<form action="" method="get" name="direction" id="direction">
 			<table>
-				<tr><td><b>Départ: </b></td>
+				<tr><td><b><label>Départ: </label></b></td>
 				<td><input type="text" id="adrDep" value="" style="width:300px;"></td>
-				<tr><td><b>Arrivée: </b></td>
-				<td><input type="text" id="adrArr" value=""style="width:300px;"></td>
-				<td><input type="button" value="Recherche" onclick="rechercher('adrDep','adrArr')">
+		  		<tr><td><b><label>Arrivée: </label></b></td> 
+				<td><input type="text" id="adrArr" value=""style="width:300px;"></td> 
+				<td><input type="button" value="Recherche" onclick="rechercher('adrDep','true')">
 				</td></tr>
 			</table>
+			</form>
 		</div>
+
+<div id="panel"></div>
 	<div id="map">
 	<style>
   #map {
