@@ -29,16 +29,13 @@
 				<tr><td><b><label>Départ: </label></b></td>
 				<td><input type="text" id="adrDep" value="" style="width:300px;"></td>
 				<td><b><label>Lat.: </label></b></td>
-				<td><input type="text" id="latDep" value="" style="width:50px;"></td>
+				<td name="latDep" id="latDep" style="width:50px;">&nbsp;</td>
 				<td><b><label>Long.: </label></b></td>
-				<td><input type="text" id="longDep" value="" style="width:50px;"></td>
+				<td name="longDep" id="longDep" style="width:50px;">&nbsp;</td>
 				
 		  		<tr><td><b><label>Arrivée: </label></b></td> 
-				<td><input type="text" id="adrArr" value=""style="width:300px;"></td> 
-				<td><b><label>Lat.: </label></b></td>
-				<td><input type="text" id="latArr" value="" style="width:50px;"></td>
-				<td><b><label>Long.: </label></b></td>
-				<td><input type="text" id="longArr" value="" style="width:50px;"></td>
+
+				<td><input type="text" id="adrArr" value="" style="width:300px;"></td>
 				<td><input type="button" value="Recherche" onclick="rechercher('adrDep','adrArr')">
 				</td></tr>
 			</table>

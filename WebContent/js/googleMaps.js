@@ -31,6 +31,10 @@ function initMap() {
 function trouveRoute() {
 	/* test si les variables sont bien initialisés */
 	if (depart && arrivee) {
+//		latDep =  depart.lat();
+//	    longDep = depart.lng();
+//		latArr =  arrivee.lat();
+//	    longArr = arrivee.lng();
 		var request = {
 			origin :depart,
 			destination :arrivee,
@@ -70,8 +74,10 @@ function rechercher(src, src2) {
 								 */
 								document.getElementById(src).value = results[0].formatted_address;
 								depart = results[0].formatted_address;
-//								latDep =  depart.lat();
-//							    longDep =  depart.lng();							
+								latDep =  position.lat();
+							    longDep =  position.lng();
+							    document.getElementById("latDep").innerHTML = "43.543265"; // BL 43.543265, 1.512196
+							    document.getElementById("longDep").innerHTML = longDep;
 								/* trace la route */
 								trouveRoute();
 							}
@@ -97,8 +103,8 @@ function rechercher(src, src2) {
 								 */
 								document.getElementById(src2).value = results[0].formatted_address;
 								arrivee = results[0].formatted_address;
-//								latArr =  arrivee.lat();
-//							    longArr =  arrivee.lng();
+								//latArr =  arrivee.lat();
+							    //longArr =  arrivee.lng();
 								/* trace la route */
 							}
 							trouveRoute();
