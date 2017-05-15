@@ -7,7 +7,10 @@
 <title>Passager</title>
 </head>
 <body>
-	
-	<a href="<c:url value="prefPassager.jsp"/>">preference passager</a>
+	<form method="post" action="PassagerCovoit">
+		<fieldset>
+			<a href="<c:url value="prefPassager.jsp"/>">preference passager</a>
+			 </fieldset>
+    </form>
 </body>
 </html>
