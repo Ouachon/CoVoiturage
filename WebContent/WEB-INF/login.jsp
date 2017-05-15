@@ -8,12 +8,10 @@
 <link type="text/css" rel="stylesheet" href="styles.css" />
 </head>
 <body>
-	Include MENU Demander login mot de passe et type user pour revenir sur
-	cet page si login correct Afficher la liste des passagers interéssé si
-	conducteur Ou la liste des conducteurs passant pres de chez moi si
-	passager Voir s'il faut faire 2 pages différentes car pas grand chose
-	en commun
-	<c:import url="/WEB-INF/menu/menu.jsp" />
+
+	<ul id="menu">
+            <li> <a href="<c:url value="index.jsp"/>">Accueil</a>   
+    </ul>
 	<br>
 	<form method="post" action="login">
 		<fieldset>
