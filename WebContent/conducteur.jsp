@@ -9,7 +9,7 @@
 <body>
 	<form method="post" action="ConducteurCovoit">
 		<fieldset>
-			Liste des passagers voulant voyager avec le conducteur <Br> <a
+			 <a
 				href="<c:url value="prefConducteur.jsp"/>">preference Conducteur</a>
 		</fieldset>
 	</form>
