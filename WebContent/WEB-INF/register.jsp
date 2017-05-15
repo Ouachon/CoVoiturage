@@ -13,8 +13,10 @@
 <script src="formulaire.js" type="text/javascript" language="Javascript"></script>
 </head>
 <body>
-	<c:import url="/WEB-INF/menu/menu.jsp" />
-	
+	<ul id="menu">
+            <li> <a href="<c:url value="index.jsp"/>">Accueil</a>   
+    </ul>
+    <br>
 	<c:import url="/WEB-INF/user/form.jsp" />
 	<br/>	
 	<c:if test="${ !errorStatus }">
