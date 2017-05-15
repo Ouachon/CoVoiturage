@@ -8,19 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class WelcomeServlet
+ * Servlet implementation class ConducteurCovoit
  */
-@WebServlet("/WelcomeServlet")
-public class WelcomeServlet extends HttpServlet {
+@WebServlet("/ConducteurCovoit")
+public class ConducteurCovoit extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-	public static String VIEW_PAGES_URL="/WEB-INF/login.jsp"; // Page jsp de demarrage
-	   
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public WelcomeServlet() {
+    public ConducteurCovoit() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,9 +26,8 @@ public class WelcomeServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//response.getWriter().append(" Bienvenue " + request.getParameter("email") + ":" + request.getParameter("name"));
-		this.getServletContext().getRequestDispatcher(VIEW_PAGES_URL).forward( request, response );
-
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -39,7 +35,6 @@ public class WelcomeServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
+		}
 
 }

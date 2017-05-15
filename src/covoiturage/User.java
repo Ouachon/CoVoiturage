@@ -17,9 +17,9 @@ public class User {
 	private HashMap<String,String>  hashMapErrors=new HashMap<String,String>();
 	private HashMap<String,String>  hashMapValeurs=new HashMap<String,String>();
 	
-
+	CoordGPS coordonneesGPS;
 	
-	static UserGestionnaireInSession unUserManager=null;
+	public static UserGestionnaireInSession unUserManager=null;
 	
 	private static final String FIELD_PWD1 = "pwd1";
 	public static final String FIELD_EMAIL = "email";
@@ -57,6 +57,14 @@ public class User {
 	}
 	public void setId(Long id) {
 		Id = id;
+	}
+	
+	
+	public CoordGPS getCoordonneesGPS() {
+		return coordonneesGPS;
+	}
+	public void setCoordonneesGPS(CoordGPS coordonneesGPS) {
+		this.coordonneesGPS = coordonneesGPS;
 	}
 	// Il faudrait les fonctions de validation dans la classe User pour etre plus propre
 	public String validateEmail() {
@@ -136,11 +144,19 @@ public class User {
 		return unUserManager.getListeDesUsers();
 	}
 	
+	
+	
 	public void addToUsers() {
 		unUserManager.add(this);
 	}
 	
+	boolean estProcheDeUser(User autreUser, int rayon)  {
+		return (coordonneesGPS.estProche(autreUser.getCoordonneesGPS(),rayon));
+	}
 
+	boolean estProcheDeCoord(CoordGPS autreCoord, int rayon)  {
+		return coordonneesGPS.estProche(autreCoord,rayon);
+	}
 	
 	
 	
