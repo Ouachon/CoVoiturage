@@ -19,23 +19,24 @@ public class CoordGPSTest {
 	}
 
 	@Test
-	public void estProche() {
-		CoordGPS BL = new CoordGPS(45.25,45.25);
-		CoordGPS StOrens = new CoordGPS(45.26,45.25);
+	public void estNonProche() {
+		CoordGPS escalquens = new CoordGPS(43.518063, 1.562549);  
+		CoordGPS carrefourLabege = new  CoordGPS(43.550481, 1.508069);
 		
-		assertTrue ( BL.estProche(StOrens,5));   // BL a moins de 5km de st orens
+		
+		assertFalse ( escalquens.estProche(carrefourLabege,5));   // Carrefour labege est a 7km de escalquens
+		
 	
 	}
 	
 	@Test
-	public void estNonProche() {
+	public void estProche() {
+		CoordGPS carrefourLabege = new  CoordGPS(43.550481, 1.508069);
+		CoordGPS occitanie5 = new CoordGPS(43.542660, 1.508887);
 		
-		CoordGPS BL = new CoordGPS(45.25,45.25);
-		CoordGPS Blagnac = new CoordGPS(55.25,50.25);
-		
-		assertFalse ( BL.estProche(Blagnac, 5));   // BL a plus  de 5km de Blagnac
+		assertTrue ( occitanie5.estProche(carrefourLabege, 5));   
+		// Carrefour labege est a moins de 5 km de 5 rue occitanie
 	
-		fail("Not yet implemented");
 	}
 
 }

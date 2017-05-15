@@ -29,7 +29,11 @@ public class User {
 	}
 	public User(String email, String pwd, String nom) {
 		super();
-		if (unUserManager==null) unUserManager = new UserGestionnaireInSession();
+		if (unUserManager==null) {
+			//TODO
+			unUserManager = new UserGestionnaireInSession();
+			unUserManager.preRemplir();
+		}
 		// Ici on pourrait changer pour passer sur un UserDAO pour la base de données
 		this.email = email;
 		this.pwd = pwd;
