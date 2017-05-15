@@ -47,7 +47,7 @@ body {
 				<input class="span12" type="time" name="heureR">
 			</div>
 		</div>
-
+        <br>
 		<div class="control-group">
 			<label class="control-label"> Type véhicule </label>
 			<div class="controls controls-row">
@@ -87,29 +87,32 @@ body {
 			<label class="control-label" for="type"> Type de passagers </label>
 			<div id="sexe">
 				<input type="radio" name="type_passager" value="homme" /> Homme <br />
-
 				<input type="radio" name="type_passager" value="femme" /> Femme <br />
-
-
 				<input type="radio" name="type_passager" value="homme/femme" />
 				Homme/Femme <br />
-
 			</div>
 		</div>
-
+		<br>
 		<div class="control-group">
 			<label class="control-label">Km mini à parcourir </label>
 			<div class="controls controls-row">
 				<select class="span4" name="mini_kmr">
 					<option value="0">Selectionner...</option>
-					<option value="1">1</option>
-					<option value="2">2</option>
-					<option value="3">3</option>
+					<option value="1">0</option>
+					<option value="2">5</option>
+					<option value="3">10</option>
 				</select>
-
 			</div>
 		</div>
+		<br>
 
+		<div class="control-group">
+			<label class="control-label"> Date Obtention Permis </label>
+			<div class="controls controls-row">
+				<input type="date" name="datePermis">
+			</div>
+		</div>
+		<br>
 		<div class="controls">
 			<input type="submit" value=" Enregistrer"> <input
 				type="reset" value="Reinistialiser"
@@ -117,14 +120,6 @@ body {
 		</div>
 
 		<div class="clearfix"></div>
-
 	</form>
-	<div class="control-group">
-		<label class="control-label"> Date Obtention Permis </label>
-		<div class="controls controls-row">
-			<input type="date" name="datePermis">
-		</div>
-	</div>
-
 </body>
 </html>
