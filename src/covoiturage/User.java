@@ -13,6 +13,14 @@ public class User {
 	private String telephone;	
 	private int age;
 	private int nbAnneesPermis;
+	private String adresseComplete;
+	private String sexe;
+	private String fumeur; 
+	
+	ProfilUser profilConducteur;
+	ProfilUser profilPassager;
+	
+	private CoordGPS[] route = null; //new CoordGPS[]();
 	
 	private HashMap<String,String>  hashMapErrors=new HashMap<String,String>();
 	private HashMap<String,String>  hashMapValeurs=new HashMap<String,String>();
@@ -27,14 +35,16 @@ public class User {
 	public String getEmail() {
 		return email;
 	}
+	
+	// EN package car les users ne se crée que depuis la fabrique
 	public User(String email, String pwd, String nom) {
 		super();
-		if (unUserManager==null) {
-			//TODO
-			unUserManager = new UserGestionnaireInSession();
-			unUserManager.preRemplir();
-		}
-		// Ici on pourrait changer pour passer sur un UserDAO pour la base de données
+//		if (unUserManager==null) {
+//			//TODO
+//			unUserManager = new UserGestionnaireInSession();
+//			//unUserManager.preRemplir();
+//		}
+//		// Ici on pourrait changer pour passer sur un UserDAO pour la base de données
 		this.email = email;
 		this.pwd = pwd;
 		this.nom = nom;
@@ -70,6 +80,40 @@ public class User {
 	public void setCoordonneesGPS(CoordGPS coordonneesGPS) {
 		this.coordonneesGPS = coordonneesGPS;
 	}
+	
+	
+	public String getAdresseComplete() {
+		return adresseComplete;
+	}
+	public void setAdresseComplete(String adresseComplete) {
+		this.adresseComplete = adresseComplete;
+	}
+	
+	
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+	public String getSexe() {
+		return sexe;
+	}
+
+	public void setSexe(String sexe) {
+		this.sexe = sexe;
+	}
+
+	public String getFumeur() {
+		return fumeur;
+	}
+
+	public void setFumeur(String fumeur) {
+		this.fumeur = fumeur;
+	}
+
 	// Il faudrait les fonctions de validation dans la classe User pour etre plus propre
 	public String validateEmail() {
 	  	String ret = "";
@@ -160,6 +204,23 @@ public class User {
 
 	boolean estProcheDeCoord(CoordGPS autreCoord, int rayon)  {
 		return coordonneesGPS.estProche(autreCoord,rayon);
+	}
+	
+	boolean passePresDeCoord(CoordGPS autreCoord, int rayon) {
+		// On balaye tous les points de la route de ce user
+		// Et si un des points est a proximité de la coordonnée recu
+		// On repond true et on sort
+		
+		// Rq: Inutile de regarder tous les points mais seulement
+		// si le point est a plus de <rayon> km du point précédent
+		
+		boolean retour = false;
+		return retour;
+		
+		// COMMENT ALIMENTER TOUTE LA ROUTE coté serveur ???
+		// Actuellement connue qu'en java script
+		//(alimenter 800 balise cachées HTML et les lire)
+		// depuis la servlet ???
 	}
 	
 	

@@ -24,23 +24,27 @@
 	<c:import url="/WEB-INF/menu/menu.jsp" />
 	<h2>Bienvenue sur le site de covoiturage de l'entreprise HEP</h2>
 		<div id="destinationForm">
-			<form action="" method="get" name="direction" id="direction">
+			<form action="UsersProcheServlet" method="post" name="direction" id="direction">
 			<table>
 				<tr><td><b><label>Départ: </label></b></td>
-				<td><input type="text" id="adrDep" value="" style="width:300px;"></td>
+				<td><input type="text" name = "adrDep" id="adrDep" value="${formAccueil['adrDep']}" style="width:300px;"></td>
 				<td><b><label>Lat.: </label></b></td>
-				<td name="latDep" id="latDep" style="width:50px;">&nbsp;</td>
+				<td name="latDep" id="latDep" value="${formAccueil['latDep']}" style="width:50px;">&nbsp;</td>
 				<td><b><label>Long.: </label></b></td>
-				<td name="longDep" id="longDep" style="width:50px;">&nbsp;</td>
+				<td name="longDep" id="longDep" value="${formAccueil['longDep']}" style="width:50px;">&nbsp;</td>
 				
 		  		<tr><td><b><label>Arrivée: </label></b></td> 
 
-				<td><input type="text" id="adrArr" value="" style="width:300px;"></td>
-				<td><input type="button" value="Recherche" onclick="rechercher('adrDep','adrArr')">
+				<td><input type="text" name="adrArr" id="adrArr" value="capitole toulouse" style="width:300px;"></td>
+				<td><input type="submit" value="Recherche" onclick="rechercher('adrDep','adrArr')">
 				</td></tr>
 			</table>
 			</form>
+			
+			Nombre d'utilisateurs proche de chez moi: 
+			${ sessionScope.listeUsersProche.size() }
 		</div>
+		
 
 <div id="panel"></div>
 	<div id="map">
@@ -62,5 +66,6 @@
 	</div>
 		<center>
 		</center>
+		
 	</body>
 </html>
