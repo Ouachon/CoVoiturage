@@ -6,7 +6,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
 <title>Site de co-voiturage BL</title>
-<c:import url="/WEB-INF/menu/menu.jsp" />
+
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
  <link type="text/css" rel="stylesheet" href="style.css" /> 
@@ -14,23 +14,32 @@
 
  <meta name="map" content="initial-scale=1.0, user-scalable=no" />
 <!--importation de l'API google MAP Version 3-->
-	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
-	 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtwziXLbi6nDuAq5KxSsFjg9jGByOe698&callback=initMap" type="text/javascript"></script>
+
+	 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtwziXLbi6nDuAq5KxSsFjg9jGByOe698&callback=initMap&sensor=false" type="text/javascript"></script>
 
 	<script type="text/javascript" src="js/googleMaps.js" language ="javascript"></script>
 
 </head>
 	<body onload="initMap();">
-	
+	<c:import url="/WEB-INF/menu/menu.jsp" />
 	<h2>Bienvenue sur le site de covoiturage de l'entreprise HEP</h2>
 		<div id="destinationForm">
 			<form action="" method="get" name="direction" id="direction">
 			<table>
 				<tr><td><b><label>Départ: </label></b></td>
 				<td><input type="text" id="adrDep" value="" style="width:300px;"></td>
+				<td><b><label>Lat.: </label></b></td>
+				<td><input type="text" id="latDep" value="" style="width:50px;"></td>
+				<td><b><label>Long.: </label></b></td>
+				<td><input type="text" id="longDep" value="" style="width:50px;"></td>
+				
 		  		<tr><td><b><label>Arrivée: </label></b></td> 
 				<td><input type="text" id="adrArr" value=""style="width:300px;"></td> 
-				<td><input type="button" value="Recherche" onclick="rechercher('adrDep','true')">
+				<td><b><label>Lat.: </label></b></td>
+				<td><input type="text" id="latArr" value="" style="width:50px;"></td>
+				<td><b><label>Long.: </label></b></td>
+				<td><input type="text" id="longArr" value="" style="width:50px;"></td>
+				<td><input type="button" value="Recherche" onclick="rechercher('adrDep','adrArr')">
 				</td></tr>
 			</table>
 			</form>
