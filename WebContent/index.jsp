@@ -52,22 +52,31 @@
 </div>		
 		
 <!-- Second Container -->
-<div class="container-fluid bg-2 text-center">
-				 <div class="form-group">
-					<form action="" method="post" action="servletCoord">		
-						<label>Départ: </label>
-							<span class="glyphicon glyphicon-envelope"></span>
-							<input type="text" id="adrDep" value="" style="width:300px;">
-		  				<label>Arrivée: </label>
-							<span class="glyphicon glyphicon-envelope"></span>
-							<input type="text" id="adrArr" value = "Capitole, Toulouse, France"  style="width:300px;">
-						<a><button type="submit" class="btn btn-primary" onclick="rechercher('adrDep','adrArr')"><span class="glyphicon glyphicon-search"></span>Rechercher</button></a>
-					<hr>PositionGPS départ : <span id="text_latlng"></span></hr>
-					</form>
+	<div class="container-fluid bg-2 text-center">
+		<form action="" method="post" action="servletCoord">
+			<div class="form-group">
+				<label for="adrDep">Départ: </label>
+				<div class="input-group mb-2 mr-sm-2 mb-sm-0">
+					<div class="input-group-addon glyphicon glyphicon-envelope"></div>
+					<input class="form-control" type="text" id="adrDep" value="Labège"
+						placeholder="adrDep" style="width: 300px;">
 				</div>
-</div>		
-
-
+			</div>
+			<div class="form-group">
+				<label for="adrArr">Arrivée: </label> <span
+					class="glyphicon glyphicon-envelope"></span> <input
+					class="form-control" type="text" id="adrArr"
+					value="Capitole, Toulouse" style="width: 300px;">
+			</div>
+			<a><button type="submit" class="btn btn-primary"
+					onclick="rechercher('adrDep','adrArr')">
+					<span class="glyphicon glyphicon-search"></span>Rechercher
+				</button></a>
+			<hr>
+			PositionGPS départ : <span input type="text" id="text_latlng"></span>
+			</hr>
+		</form>
+	</div>
 
 </body>
 </html>
