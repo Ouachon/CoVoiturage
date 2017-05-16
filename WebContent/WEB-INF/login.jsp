@@ -16,15 +16,15 @@
 	<form method="post" action="login">
 		<fieldset>
 			<legend>Connexion</legend>
-			<p>Les champs (*) sont obligatoires</p>
+			<!--  Tous donc inutiles <p>Les champs (*) sont obligatoires</p>  -->
 
-			<label for="nom">Adresse email <span class="requis">*</span></label>
-			<input type="email" name="email" value="${form.email}" size="20"
-				maxlength="60" style="width: 203px; "/> <span class="erreur">${error['email']}</span> <br />
+			<label for="nom">Adresse email </label>
+			<input type="email" name="email" value="${formLogin['email']}" size="20"
+				maxlength="60" style="width: 203px; "/> <span class="erreur">${errorLogin['email']}</span> <br />
 
-			<label for="motdepasse">Mot de passe <span class="requis">*</span></label>
+			<label for="motdepasse">Mot de passe </label>
 			<input type="password" name="pwd" value="" size="20" maxlength="60" style="width: 204px; "/>
-			<span class="erreur">${error['motdepasse']}</span> <br /> <br>
+			<span class="erreur">${errorLogin['pwd']}</span> <br /> <br>
 
 			<div class="control-group">
 				En tant que :
@@ -37,7 +37,7 @@
 			<br> <input type="submit" value="Connexion" class="sansLabel" />
 			<br />
 
-			<p class="${statusOK ? 'succes' : 'erreur'}">${statusMessage}</p>
+			<!--  <p class="${statusOK ? 'succes' : 'erreur'}">${statusMessage}</p> -->
 		</fieldset>
 	</form>
 </body>

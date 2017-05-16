@@ -13,7 +13,9 @@ public class UserGestionnaireInSession implements UserGestionnaireInterface {
 	private static UserGestionnaireInSession userManagerUnique;
 	
 	public static UserGestionnaireInSession getInstance() {
-		if (userManagerUnique==null) userManagerUnique=new UserGestionnaireInSession();
+		if (userManagerUnique==null){
+			userManagerUnique=new UserGestionnaireInSession();
+		}
 		return userManagerUnique;
 	}
 
@@ -23,7 +25,6 @@ public class UserGestionnaireInSession implements UserGestionnaireInterface {
 		
 	}
 
-	
 	@Override
 	public void add(User newUser) {
 		listeDesUsers.put(newUser.getEmail(), newUser);
@@ -66,7 +67,7 @@ public class UserGestionnaireInSession implements UserGestionnaireInterface {
 	}
 	
 	public void preRemplir() {
-		CoordGPS blagnac = new CoordGPS(43.518063, 1.562549);  
+		CoordGPS blagnac = new CoordGPS(43.637167, 1.390881);  
 		CoordGPS carrefourLabege = new  CoordGPS(43.550481, 1.508069);
 		CoordGPS gaumontLabege = new CoordGPS(43.540139, 1.510688);
 		
@@ -74,12 +75,12 @@ public class UserGestionnaireInSession implements UserGestionnaireInterface {
 		user1.setCoordonneesGPS(blagnac);
 		add(user1);
 		
-		User user2 = new User("GAUMONT@gmail","11","titi");
+		User user2 = new User("GAUMONT@gmail","12","titi");
 		user2.setCoordonneesGPS(gaumontLabege);
 		add(user2);
 		
 			
-		User user3 = new User("CARREFOURLABEGE@gmail","11","tutu");
+		User user3 = new User("CARREFOURLABEGE@gmail","13","tutu");
 		user3.setCoordonneesGPS(carrefourLabege);
 		add(user3);
 		

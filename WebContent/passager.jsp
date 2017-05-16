@@ -7,6 +7,11 @@
 <title>Passager</title>
 </head>
 <body>
+	Bienvenue ${formLogin['nomUser']}
+	<br><br>
+	ON AFFICHE ICI LA LISTE DES CONDUCTEURS PASSANT PRES de CE PASSAGER
+	et trié par préférence,
+	(et une carte java script)
 	<form method="post" action="PassagerCovoit">
 		<fieldset>
 			<a href="<c:url value="prefPassager.jsp"/>">preference passager</a>

@@ -76,9 +76,12 @@
 					onclick="rechercher('adrDep','adrArr')">
 					<span class="glyphicon glyphicon-search"></span>Rechercher</button></a>
 			<hr>
-			<input type="hidden" name="latDep" id="latDep" value="${formAccueil['latDep']}">
-			<input type="hidden" name="longDep" id="longDep" value="${formAccueil['longDep']}">
+			<input type="hidden" name="latDep" id="latDep" value="">
+			<input type="hidden" name="longDep" id="longDep" value="">
+			
+			
 			PositionGPS départ : <span input type="text" id="text_latlng"></span>
+			<input type="submit"  name="utProche" id="utProche" >
 			</hr>
 			Nombre d'utilisateurs proche de chez moi: 
 			${ sessionScope.listeUsersProche.size() }

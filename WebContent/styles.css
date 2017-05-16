@@ -3,13 +3,14 @@ form .requis {
 	color: #c00;
 }
 
-requis {
+.erreur {
 	color: #c00;
 }
 
 .error {
 	color: #900}
 }
+
 
 .info {
 	font-style: italic;

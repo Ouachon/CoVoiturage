@@ -7,6 +7,10 @@
 <title>Conducteur</title>
 </head>
 <body>
+	Bienvenue ${formLogin['nomUser']}
+	<br><br>
+	ON AFFICHE ICI LA LISTE DES PASSAGERS 
+	AYANT essayé de me contacter et le status pour chacun (accepté refusé)
 	<form method="post" action="ConducteurCovoit">
 		<fieldset>
 			 <a

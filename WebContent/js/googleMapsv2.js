@@ -81,7 +81,11 @@ var navigator;
 											strposition=strposition.replace('(','');
 											strposition=strposition.replace(')','');
 											//affichage des coordonnées dans le <span>
-											document.getElementById('text_latlng').innerHTML= strposition;		
+											document.getElementById('text_latlng').innerHTML= strposition;
+											
+											document.getElementById('latDep').value = strposition;
+											//document.getElementById('longDep').value = strposition;
+											
 											if (marker) {
 												marker.setMap(null);
 											}
