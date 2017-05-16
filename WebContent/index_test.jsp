@@ -7,30 +7,51 @@
 <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
 <title>Site de co-voiturage BL</title>
 
+
+<!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+ <link type="text/css" rel="stylesheet" href="style.css" /> 
+ <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.3.0/bootstrap.min.css" /> -->
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <link type="text/css" rel="stylesheet" href="style.css" />
 
+
  <meta name="map" content="initial-scale=1.0, user-scalable=no" />
+<!--importation de l'API google MAP Version 3-->
+
 	 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtwziXLbi6nDuAq5KxSsFjg9jGByOe698&callback=initMap&sensor=false" type="text/javascript"></script>
+
 	<script type="text/javascript" src="js/googleMapsv2.js" language ="javascript"></script>
 
 </head>
-<body onload="initMap();">
 
-			<nav class="navbar navbar-default">
- 				 <div class="container">
-   					 <div class="navbar-header">
-   					  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar"> </button>
-					<h5><c:import url="/WEB-INF/menu/menu.jsp" /></h5>
-				    </div>
-			  </div>
-			</nav>
-<!-- First Container -->
-<div class="container-fluid bg-1 text-center">
-  <h3 class="margin">Bienvenue sur le site de covoiturage de l'entreprise HEP</h3>
- 			<div id="panel">
+<body onload="initMap();">
+	<div class="container">
+		<div class="jumbotron">
+			<h3>Bienvenue sur le site de covoiturage de l'entreprise HEP</h3>
+		</div>
+			
+				<div class="col-sm-3 sidenav" >
+					<h4><c:import url="/WEB-INF/menu/menu.jsp" /></h4>	
+				</div>
+
+				 <div class="form-group">
+					<form action="" method="post" action="servletCoord">		
+						<label>Départ: </label>
+							<span class="glyphicon glyphicon-envelope"></span>
+							<input type="text" id="adrDep" value="" style="width:300px;">
+		  				<label>Arrivée: </label>
+							<span class="glyphicon glyphicon-envelope"></span>
+							<input type="text" id="adrArr" value = "Capitole, Toulouse, France"  style="width:300px;">
+						<input type="button" class="btn btn-primary" value="Recherche" onclick="rechercher('adrDep','adrArr')">
+						<hr>PositionGPS départ : <span id="text_latlng"></span></hr>
+					</form>
+				</div>
+			</div>
+		
+			<div class="col-sm-9"id="panel">
 				<div id="map">
 				 <style>	
 					  #map {
@@ -49,25 +70,6 @@
 				<div id="divRoute" style="float:right;width:30%;height 80%"></div>		
 			</div>
 		</div>
-</div>		
-		
-<!-- Second Container -->
-<div class="container-fluid bg-2 text-center">
-				 <div class="form-group">
-					<form action="" method="post" action="servletCoord">		
-						<label>Départ: </label>
-							<span class="glyphicon glyphicon-envelope"></span>
-							<input type="text" id="adrDep" value="" style="width:300px;">
-		  				<label>Arrivée: </label>
-							<span class="glyphicon glyphicon-envelope"></span>
-							<input type="text" id="adrArr" value = "Capitole, Toulouse, France"  style="width:300px;">
-						<a><button type="submit" class="btn btn-primary" onclick="rechercher('adrDep','adrArr')"><span class="glyphicon glyphicon-search"></span>Rechercher</button></a>
-					<hr>PositionGPS départ : <span id="text_latlng"></span></hr>
-					</form>
-				</div>
-</div>		
-
-
-
+	</div>
 </body>
 </html>

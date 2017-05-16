@@ -1,21 +1,15 @@
 
 	/* emplacement par défaut de la carte (Toulouse) */
 //	var maison = new google.maps.LatLng(43.534352, 1.517772);  //sigems 44.406115, 0.738207   //rue du colombier 43.534352, 1.517772 //BL 43.534352, 1.517772
-var direction;
-var depart,arrivee = "24 rue Rostand, Labège" ,ptCheck;
+var depart,arrivee,ptCheck;
 var directionsDisplay;
-var directionsService = new google.maps.DirectionsService();
+var directionsService ;
+var map, geocoder, marker, marker2, markerUser; // La carte, le service de géocodage et les
+var navigator;
 
-
-			function initMap() {
-				
+			function initMap() {			
 				//indispensable pour l'affichage ultérieur du trajet 
-				
-				direction = new google.maps.DirectionsRenderer({
-				    map   : map, 
-				    panel : panel 
-				});
-				
+				directionsDisplay = new google.maps.DirectionsRenderer();			
 				var tableauMarqueurs = [
 					{ lat:43.543265, lng:1.512196 },// BL 43.543265, 1.512196
 					{ lat:43.562192, lng:1.514709 }, //43.562192, 1.514709
@@ -25,32 +19,116 @@ var directionsService = new google.maps.DirectionsService();
 					{ lat:43.591301, lng:1.418863 } //43.591301, 1.418863
 				];
 				var zoneMarqueurs = new google.maps.LatLngBounds();
+	
 				var optionsCarte = {
-					zoom: 8,
-					center: { lat: 43.534352,lng: 1.517772 }//BL 43.543265, 1.512196
+										zoom: 8,
+										center: { lat: 43.534352,lng: 1.517772 }//BL 43.543265, 1.512196
+									}
+
+				map = new google.maps.Map( document.getElementById("divMap"), optionsCarte );
 				
-				}
-				var maCarte = new google.maps.Map( document.getElementById("divMap"), optionsCarte );
 				tableauMarqueurs.forEach( function(latlng) {
 					var latitude = latlng.lat,
 						longitude = latlng.lng;
 					var optionsMarqueur = {
-						map: maCarte,
+						map: map,
 						position: new google.maps.LatLng( latitude, longitude )
 					};
-					var marqueur = new google.maps.Marker( optionsMarqueur );
-					zoneMarqueurs.extend( marqueur.getPosition() );
+					markerUser = new google.maps.Marker( optionsMarqueur );
+					zoneMarqueurs.extend( markerUser.getPosition() );
 				} );
-				maCarte.fitBounds( zoneMarqueurs );
+				map.fitBounds( zoneMarqueurs );
 				/*creation de la map*/
-			   
+				
 				/*connexion de la map + le panneau de l'itinéraire*/
 			    directionsDisplay.setMap(map);
 			    directionsDisplay.setPanel(document.getElementById("divRoute"));
 				/*intialise le geocoder pour localiser les adresses */
 				geocoder = new google.maps.Geocoder();
-				
+				directionsService = new google.maps.DirectionsService();
 			}
+			
+			function trouveRoute() {
+				/* test si les variables sont bien initialisés */
+				if (depart && arrivee) {
+					var request = {
+						origin :depart,
+						destination :arrivee,
+						travelMode : google.maps.DirectionsTravelMode["DRIVING"]
+					};
+					/* appel à l'API pour tracer l'itinéraire */
+					directionsService.route(request, function(response, status) {
+						if (status == google.maps.DirectionsStatus.OK) {
+							directionsDisplay.setDirections(response);
+						}
+					});
+				}
+			}
+			function rechercher(src, src2) {
+				// ptCheck = code; /*adresse de départ ou arrivée ? */
+				if (geocoder) {
+					geocoder
+							.geocode(
+									{
+										'address' : document.getElementById(src).value
+									},
+									function(results, status) {
+										if (status == google.maps.GeocoderStatus.OK) {
+											/* ajoute un marqueur à l'adresse choisie */
+											map.setCenter(results[0].geometry.location);								
+											//récupération des coordonnées GPS du lieu saisi
+											var strposition = results[0].geometry.location+"";
+											strposition=strposition.replace('(','');
+											strposition=strposition.replace(')','');
+											//affichage des coordonnées dans le <span>
+											document.getElementById('text_latlng').innerHTML= strposition;		
+											if (marker) {
+												marker.setMap(null);
+											}
+											marker = new google.maps.Marker({
+												map : map,
+												position : results[0].geometry.location
+											});
+											/*
+											 * on remplace l'adresse par celle fournie du
+											 * geocoder
+											 */
+											document.getElementById(src).value = results[0].formatted_address;
+											depart = results[0].formatted_address;
+											/* trace la route */
+											trouveRoute();
+										}
+									});
+					geocoder
+							.geocode(
+									{
+										'address' : document.getElementById(src2).value
+									},
+									function(results, status) {
+										if (status == google.maps.GeocoderStatus.OK) {
+											/* ajoute un marqueur à l'adresse choisie */
+											if (marker2) {
+												marker2.setMap(null);
+											}
+											marker2 = new google.maps.Marker({
+												map : map,
+												position : results[0].geometry.location
+											});
+											/*
+											 * on remplace l'adresse par celle fournie du
+											 * geocoder
+											 */
+											document.getElementById(src2).value = results[0].formatted_address;
+											arrivee = results[0].formatted_address;
+										}
+										trouveRoute();
+									});
+				}
+			}			
+			
+			
+			
+			
 				// Récupérer l’itinéraire
 //				var adresse_depart = 'capitole, toulouse';
 //				var adresse_arrivee = 'rue rostand, toulouse';
@@ -94,67 +172,4 @@ var directionsService = new google.maps.DirectionsService();
 //			}
 		
 
-			
-			function trouveRoute() {
-				 /*test si les variables sont bien initialisés*/
-				 if (depart && arrivee){
-				 var request = {
-				 origin:depart,
-				 destination:arrivee,
-				 travelMode: google.maps.DirectionsTravelMode["DRIVING"]
-				};
-				 /*appel à l'API pour tracer l'itinéraire*/
-				directionsService.route(request, function(response, status) {
-				if (status == google.maps.DirectionsStatus.OK) {
-				 directionsDisplay.setDirections(response);
-				 }
-				 });
-				 }
-				 }
-			
-			function rechercher(adrDep,adrArr){
-			    var origin      = document.getElementById('adrDep').value; // Le point départ
-			    var destination = document.getElementById('adrArr').value; // Le point d'arrivé
-			    if(origin && destination){
-			        var request = {
-			            origin      : origin,
-			            destination : destination,
-			            travelMode  : google.maps.DirectionsTravelMode.DRIVING // Type de transport
-			        }
-			       
-			        directionsService.route(request, function(response, status){ // Envoie de la requête pour calculer le parcours
-			            if(status == google.maps.DirectionsStatus.OK){
-			                direction.setDirections(response); // Trace l'itinéraire sur la carte et les différentes étapes du parcours
-			                trouveRoute();
-			            }
-			        });
-			    } //http://code.google.com/intl/fr-FR/apis/maps/documentation/javascript/reference.html#DirectionsRequest
-			};
-
-			
-//	   		function geolocate(){
-//   			// Define user location
-//		      GMaps.geolocate({
-//		          success: function(position) {
-//  		            map.setCenter(position.coords.latitude, position.coords.longitude);
-//		          },
-//		          error: function(error) {
-//		            alert('Geolocation failed: '+error.message);
-//		          },
-//		          not_supported: function() {
-//		            alert("Your browser does not support geolocation");
-//		          }
-//		      });
-//		   // Creating marker of user location
-//		      map.addMarker({
-//		          lat: position.coords.latitude,
-//		          lng: position.coords.longitude,
-//		          title: 'Home',
-//		          click: function(e) {
-//		            alert('You clicked in this marker');
-//		          },
-//		          infoWindow: {
-//		              content: '<p>You are here!</p>'
-//		            }
-//		    });
-//			}
+	
