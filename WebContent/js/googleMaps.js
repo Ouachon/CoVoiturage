@@ -3,7 +3,7 @@ var directionsService; // service
 var map, geocoder, marker, marker2; // La carte, le service de géocodage et les
 									// marqueurs
 var depart, arrivee, ptCheck; // point de départ, arrivé et de vérification
-var depLat, depLng,arrLat,arrLng;
+var latDep, lngDep, latArr, lngArr ;
 
 /* initialise google MAP V3 */
 function initMap() {
@@ -31,10 +31,6 @@ function initMap() {
 function trouveRoute() {
 	/* test si les variables sont bien initialisés */
 	if (depart && arrivee) {
-//		latDep =  depart.lat();
-//	    longDep = depart.lng();
-//		latArr =  arrivee.lat();
-//	    longArr = arrivee.lng();
 		var request = {
 			origin :depart,
 			destination :arrivee,
@@ -60,7 +56,13 @@ function rechercher(src, src2) {
 						function(results, status) {
 							if (status == google.maps.GeocoderStatus.OK) {
 								/* ajoute un marqueur à l'adresse choisie */
-								map.setCenter(results[0].geometry.location);
+								map.setCenter(results[0].geometry.location);								
+								//récupération des coordonnées GPS du lieu saisi
+								var strposition = results[0].geometry.location+"";
+								strposition=strposition.replace('(','');
+								strposition=strposition.replace(')','');
+								//affichage des coordonnées dans le <span>
+								document.getElementById('text_latlng').innerHTML= strposition;		
 								if (marker) {
 									marker.setMap(null);
 								}
@@ -74,10 +76,6 @@ function rechercher(src, src2) {
 								 */
 								document.getElementById(src).value = results[0].formatted_address;
 								depart = results[0].formatted_address;
-								latDep =  position.lat();
-							    longDep =  position.lng();
-							    document.getElementById("latDep").innerHTML = "43.543265"; // BL 43.543265, 1.512196
-							    document.getElementById("longDep").innerHTML = longDep;
 								/* trace la route */
 								trouveRoute();
 							}
@@ -103,9 +101,6 @@ function rechercher(src, src2) {
 								 */
 								document.getElementById(src2).value = results[0].formatted_address;
 								arrivee = results[0].formatted_address;
-								//latArr =  arrivee.lat();
-							    //longArr =  arrivee.lng();
-								/* trace la route */
 							}
 							trouveRoute();
 						});

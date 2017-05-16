@@ -1,100 +1,39 @@
-@CHARSET "ISO-8859-1";
-
-li {
-	color: #CD5C5C;
-	list-style: none;
-	font-family: 'Pacifico', cursive;
-}
-li a {
-    text-decoration: none;
-    color: #0B3861;
-    font-size: 16px;
-    font-family: 'open', cursive;
-    font-weight: 100;
-}
-li a:hover {							
-    padding-left: 10px; 			
-	border-left: 5px solid #0A58DF;	
-}
-
-body, p, legend, label, input {
-font: normal 8pt verdana, helvetica, sans-serif;
- html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-}
- #map {
-    height: 100%;
+ body {
+      font: 20px Montserrat, sans-serif;
+      line-height: 1.8;
+      color: #f5f6f7;
   }
-
-divMap{
-	display : block;
-  height : 600px;       /* IMPERATIF */
-  width : 600px;
-  margin : auto;  
-}
-
-fieldset {
- padding:0 20px 20px 20px;
- margin-bottom:10px;
- border:1px solid #0568CD;
- }
-legend {
- color:#0568CD;
- font-weight:bold
- }
-form label {
-float: left;
-width: 200px;
-margin: 3px 0px 0px 0px;
-}
-form input {
-margin: 3px 3px 0px 0px;
-border: 1px #999 solid;
-
-}
-form input.sansLabel {
-margin-left: 200px;
-}
-form .requis {
-color: #c00;
-float: center;
-}
-footer {
-color: #DF3F3F;	
-}
-/* Status */
-.error {
-color: #900;
-}
-.info {
-font-style: italic;
-color: #DF3F3F;
-}
-/* Tables */
-table{
-border-collapse: collapse;
-}
-tr.pair{
-background-color: #fff;
-}
-tr.impair{
-background-color: #ddd;
-}
-th{
-color: #0568CD;
-border: 1px solid #0568CD;
-padding: 5px;
-}
-th.action{
-border: 1px solid #900;
-color: #900;
-}
-td{
-border: 1px solid #ddd;
-padding: 5px;
-}
-td.action{
-text-align: center;
-}
+  p {font-size: 16px;}
+  .margin {margin-bottom: 45px;}
+  .bg-1 { 
+      background-color: #94E7D2; /* Green  #1abc9c*/
+      color: #ffffff;
+  }
+  .bg-2 { 
+      background-color: #474e5d; /* Dark Blue */
+      color: #ffffff;
+  }
+  .bg-3 { 
+      background-color: #ffffff; /* White */
+      color: #555555;
+  }
+  .bg-4 { 
+      background-color: #2f2f2f; /* Black Gray */
+      color: #fff;
+  }
+  .container-fluid {
+      padding-top: 70px;
+      padding-bottom: 70px;
+  }
+  .navbar {
+      padding-top: 15px;
+      padding-bottom: 15px;
+      border: 0;
+      border-radius: 0;
+      margin-bottom: 0;
+      font-size: 12px;
+      letter-spacing: 5px;
+  }
+  .navbar-nav  li a:hover {
+      color: #1abc9c !important;
+  }
