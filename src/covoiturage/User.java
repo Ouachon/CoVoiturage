@@ -12,6 +12,7 @@ public class User {
 	private String nom;
 	private String telephone;	
 	private int age;
+	private String tranche;
 	private int nbAnneesPermis;
 	private String adresseComplete;
 	private String sexe;
@@ -89,6 +90,20 @@ public class User {
 		this.adresseComplete = adresseComplete;
 	}
 	
+	public String getTranche(){
+		if (age <30) {
+		  tranche = "1";
+		}
+		else if (age >=30 && age <50) {
+			tranche = "2";
+		}
+		else 
+		{	
+			tranche ="3";
+		}	
+		
+		return tranche;
+	}
 	
 	public int getAge() {
 		return age;
@@ -113,7 +128,8 @@ public class User {
 	public void setFumeur(String fumeur) {
 		this.fumeur = fumeur;
 	}
-
+	
+	
 	// Il faudrait les fonctions de validation dans la classe User pour etre plus propre
 	public String validateEmail() {
 	  	String ret = "";
