@@ -20,6 +20,8 @@
 
 <body onload="initMap();">
 
+
+
 			<nav class="navbar navbar-default">
  				 <div class="container">
    					 <div class="navbar-header">
@@ -30,7 +32,7 @@
 			</nav>
 <!-- First Container -->
 <div class="container-fluid bg-1 text-center">
-  <h3 class="margin">Bienvenue sur le site de covoiturage de l'entreprise HEP</h3>
+  <h3 class="margin">Bienvenue sur le site de covoiturage de l'entreprise HEP </h3>
  			<div id="panel">
 				<div id="map">
 				 <style>	
@@ -50,15 +52,15 @@
 				<div id="divRoute" style="float:right;width:30%;height 80%"></div>		
 			</div>
 			
-			Nombre d'utilisateurs proche de chez moi: 
-			${ sessionScope.listeUsersProche.size() }
+
+
 		</div>
 		
 </div>		
 		
 <!-- Second Container -->
 	<div class="container-fluid bg-2 text-center">
-		<form method="post" action="UsersProcheServlet">
+		<form method="post" >
 			<div class="form-group">
 				<label for="adrDep">Départ: </label>
 				<div class="input-group mb-2 mr-sm-2 mb-sm-0">
@@ -76,16 +78,13 @@
 					onclick="rechercher('adrDep','adrArr')">
 					<span class="glyphicon glyphicon-search"></span>Rechercher</button></a>
 			<hr>
-			<input type="hidden" name="latDep" id="latDep" value="">
-			<input type="hidden" name="longDep" id="longDep" value="">
-			
-			
-			PositionGPS départ : <span input type="text" id="text_latlng"></span>
-			<input type="submit"  name="utProche" id="utProche" >
+
 			</hr>
-			Nombre d'utilisateurs proche de chez moi: 
-			${ sessionScope.listeUsersProche.size() }
-			
+
+		</form>
+		<form method="post" action="UsersProcheServlet">
+			<input type="hidden" name="latLong" id="latLong" value="">
+			<input type="submit"  name="utProche" id="utProche" value="Voir le nombre d'utilisateurs proches de mon adresse">
 		</form>
 	</div>
 

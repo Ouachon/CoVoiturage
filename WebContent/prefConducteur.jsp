@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Conducteur</title>
+<title>Conducteur </title>
 <link type="text/css" rel="stylesheet" href="styles.css" />
 <style type="text/css">
 body {
@@ -17,6 +17,11 @@ body {
 </style>
 </head>
 <body>
+
+Debug: <br>
+${profilCourant['fumeur']}
+${profilCourant['age']}
+${profilCourant['sexe']}
 	<ul id="menu">
             <li> <a href="<c:url value="index.jsp"/>">Accueil</a>   
     </ul>
@@ -48,8 +53,10 @@ body {
 		<div class="control-group">
 			<label class="control-label"> Passagers </label>
 			<div id="specification">
+
 				<input type="radio" name="preferences" value="F" /> Fumeur <br />
 				<input type="radio" name="preferences" value="N" /> Non
+
 				fumeur <br /> <input type="radio" name="preferences"
 					value="I" checked="checked" /> Pas de preferences
 			</div>
