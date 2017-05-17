@@ -9,7 +9,7 @@ public class CoordGPS {
 	private double latitude;
 	
 	
-	public CoordGPS(double longitude, double latitude) {
+	public CoordGPS(double latitude, double longitude) {
 		super();
 		this.longitude = longitude;
 		this.latitude = latitude;
