@@ -67,7 +67,9 @@ public class LoginAction extends HttpServlet {
 		
 		HashMap<String, String> error= new HashMap<String, String>();
 		HashMap<String, String> form = new HashMap<String, String>();
-
+		
+		HashMap<String, String> profil = new HashMap<String, String>();
+		HashMap<String, String> compte = new HashMap<String, String>();
 		statusMessage = null;
 		
 		
@@ -89,18 +91,21 @@ public class LoginAction extends HttpServlet {
 //		} else {
 //			error.put(FIELD_PWD, msgVal);
 //		}
-
-		if ( authenticate(email, pwd,error,form)) {
+		User userCourant = authenticate(email, pwd,error,form);
+		if (userCourant!=null ) {
 			// Inutile de remettre les donnes puisque correctes
 			// Par contre authenticate va mettre le nom du user
 			// pour affichage dans les pages suivantes  ==>Hicham
-//			form.put(FIELD_EMAIL, email);
 //			form.put(FIELD_PWD, pwd);
+			form.put(FIELD_EMAIL, email);  // la page appelée doit connaitre l'identifiant courant
+
 			statusOk = true;
 			
 			// Hicham: Ce message est inutle, si on revient sur login c'est qu'il
 			// est refusé sinon on revient sur une autre page.
 			//statusMessage = "Connexion acceptée";
+			
+			
 		} else {
 			// C'est ici qu'il faut pousser les form quand login non reconnu=>Hicham
 			form.put(FIELD_EMAIL, email);  // on ne retourne pas le password
@@ -112,25 +117,45 @@ public class LoginAction extends HttpServlet {
 		// Prepare model to view
 		request.setAttribute("formLogin", form);
 		request.setAttribute("errorLogin", error);
+		
 		//request.setAttribute("statusOK", statusOk);
 		//request.setAttribute("statusMessage", statusMessage);
 
 		if (statusOk == true) {
 			if (typeCovoit.equals("typeconducteur")) {
+
 				RequestDispatcher dispat = request.getRequestDispatcher("conducteur.jsp");
 				dispat.forward(request, response);
 			}
 			else if (typeCovoit.equals("typepassager")) {
-			
+
 				RequestDispatcher dispat = request.getRequestDispatcher("passager.jsp");
 				dispat.forward(request, response);
 			}
+			
+			// On met dans hashMap toutes les caracteristique du profil
+			// et du compte courant pour pouvoir facilement les consulter/modifier
+			// A deplacer dans user et dans ProfilUser  pour retourner une HASHMAP
+			//TODO
+			
+			// A priori les Hashmap echangé entre servlet et HTML ne sont que 
+			// Pour la page et pas pour toutes les pages
+			// Sur chaque page connaitre le usercourant et le type
+			// QUand on demande les preférences appeler
+			// la servlet lira les preférences pour le user recu en parametre
+			// et qui ouvrira alors la page JSP qui mettra par defaut les valeurs
+			// recues
+			
+			
 		}	
 		else {
 			// Build view
 			this.getServletContext().getRequestDispatcher(VIEW_PAGES_URL).include(request, response);
 		}
+		
 	}
+	
+
 
 	// Hicham, le test sur la validité du mail est sur la creation du compte
 	// pas sur le login (on doit juste verifier que l'identifiant exite et a
@@ -160,16 +185,17 @@ public class LoginAction extends HttpServlet {
 		return true;
 	}
 
-	private boolean authenticate(String login, String pwd, 
+	private User authenticate(String login, String pwd, 
 			HashMap<String, String> parmErreurs, HashMap<String,String> parmForm) {
 		boolean loginCorrect = true;
+		User userLogge=null;
 		
 		UserGestionnaireInSession myUserManager= UserGestionnaireInSession.getInstance();
 		// PRovisoirement en attendant la persistence de données
 				// On preremlit des comptes users
 		if (myUserManager.getListeDesUsers().size()==0) myUserManager.preRemplir();
 		
-		User userLogge = myUserManager.getListeDesUsers().get(login);
+		userLogge = myUserManager.getListeDesUsers().get(login);
 		
 		if (userLogge==null) {
 			parmErreurs.put(FIELD_EMAIL, "Utilisateur inconnu");
@@ -181,6 +207,7 @@ public class LoginAction extends HttpServlet {
 			if (!userLogge.getPwd().equals(pwd)) {
 				parmErreurs.put(FIELD_PWD, "Mot de passe incorrect pour cet utilisateur");
 				loginCorrect=false;
+				userLogge=null;
 			} else
 			{  // Login correct on retourne le nom pour la page suivante
 				String leNom = userLogge.getNom();
@@ -190,6 +217,6 @@ public class LoginAction extends HttpServlet {
 		}
 	
 
-		return loginCorrect;
+		return userLogge;
 	}
 }

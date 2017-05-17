@@ -43,7 +43,7 @@ public class UsersProcheServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
 		RequestDispatcher dispat;
 		
 		double dlat;// = Double.parseDouble(request.getParameter("latDep"));
@@ -52,7 +52,7 @@ public class UsersProcheServlet extends HttpServlet {
 		HttpSession session = request.getSession();	
 		int rayon = 5;
 		
-		String latLong = request.getParameter("latDep");
+		String latLong = request.getParameter("latLong");
 		String[] parts = latLong.split(",");
 		dlat = Double.parseDouble(parts[0]);
 		dlong = Double.parseDouble(parts[1]);
@@ -80,7 +80,10 @@ public class UsersProcheServlet extends HttpServlet {
 		//session.setAttribute("listeUsersProche", User.unUserManager.usersProcheDeCoordonnees(uneCoord, rayon));
 		session.setAttribute("listeUsersProche", myUserManager.usersProcheDeCoordonnees(uneCoord, rayon));
 		session.setAttribute("formAccueil",formulaireAccueil);
-		dispat = request.getRequestDispatcher("index.jsp");
+		session.setAttribute("listeConducteursPossible", myUserManager.usersProcheDeCoordonnees(uneCoord, rayon));// conducteursPossible
+		session.setAttribute("listePassagersProches", myUserManager.usersProcheDeCoordonnees(uneCoord, rayon));// conducteursPossible
+		
+		dispat = request.getRequestDispatcher("accueilProches.jsp");
 		
 		dispat.include(request, response);
 	}

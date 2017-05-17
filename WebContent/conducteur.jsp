@@ -8,14 +8,18 @@
 </head>
 <body>
 	Bienvenue ${formLogin['nomUser']}
+	
 	<br><br>
 	ON AFFICHE ICI LA LISTE DES PASSAGERS 
 	AYANT essayé de me contacter et le status pour chacun (accepté refusé)
 	<form method="post" action="ConducteurCovoit">
+		<input type="text" name="userCourant" id="userCourant" value="${formLogin['email']}"  style="width: 300px;">
 		<fieldset>
 			 <a
 				href="<c:url value="prefConducteur.jsp"/>">preference Conducteur</a>
 		</fieldset>
+		
+		<input type="submit" value="Préférence Conducteur" class="sansLabel" />
 	</form>
 </body>
 </html>
