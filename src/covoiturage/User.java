@@ -1,6 +1,7 @@
 package covoiturage;
 
 import java.util.HashMap;
+import java.util.Iterator;
 
 import javax.servlet.http.HttpSession;
 
@@ -19,7 +20,28 @@ public class User {
 	
 	ProfilUser profilConducteur;
 	ProfilUser profilPassager;
+	//ajout des boolean pour identifier si conducteur ou passager 
+	private Boolean isConducteur;
+	private Boolean isPassager;
 	
+	public Boolean getIsConducteur() {
+		//forcer à true pour les besoins de tests 
+		//depuis UserGestionnaireInSession
+		return true;
+	}
+
+	public void setIsConducteur(Boolean isConducteur) {
+		this.isConducteur = isConducteur;
+	}
+
+	public Boolean getIsPassager() {
+		return isPassager;
+	}
+
+	public void setIsPassager(Boolean isPassager) {
+		this.isPassager = isPassager;
+	}
+
 	private CoordGPS[] route = null; //new CoordGPS[]();
 	
 	private HashMap<String,String>  hashMapErrors=new HashMap<String,String>();
@@ -36,6 +58,22 @@ public class User {
 		return email;
 	}
 	
+	public ProfilUser getProfilConducteur() {
+		return profilConducteur;
+	}
+
+	public void setProfilConducteur(ProfilUser profilConducteur) {
+		this.profilConducteur = profilConducteur;
+	}
+
+	public ProfilUser getProfilPassager() {
+		return profilPassager;
+	}
+
+	public void setProfilPassager(ProfilUser profilPassager) {
+		this.profilPassager = profilPassager;
+	}
+
 	// EN package car les users ne se crée que depuis la fabrique
 	public User(String email, String pwd, String nom) {
 		super();
@@ -175,14 +213,12 @@ public class User {
 		
 		// A finir ....  
 		// Controle sur d'autres champs et 
-		// Erreurs de cohérence entre les champs d'un User
-		
+		// Erreurs de cohérence entre les champs d'un User	
 	}
 	
 	public HashMap<String,String>  getHashMapValeurs() {
 		return this.hashMapValeurs;
 	}
-
 	
 	public HashMap<String, String> getHashMapErrors() {
 		return hashMapErrors;
@@ -191,9 +227,7 @@ public class User {
 	public static HashMap<String,User>  getListeDesUsers() {
 		return unUserManager.getListeDesUsers();
 	}
-	
-	
-	
+
 	public void addToUsers() {
 		unUserManager.add(this);
 	}
@@ -207,26 +241,26 @@ public class User {
 	}
 	
 	boolean passePresDeCoord(CoordGPS autreCoord, int rayon) {
-		// On balaye tous les points de la route de ce user
-		// Et si un des points est a proximité de la coordonnée recu
-		// On repond true et on sort
+		boolean estProche = false;	
+		CoordGPS unPointDeLaRoute;
+		CoordGPS[] route = this.getRoute();
 		
-		// Rq: Inutile de regarder tous les points mais seulement
-		// si le point est a plus de <rayon> km du point précédent
-		
-		boolean retour = false;
-		return retour;
-		
-		// COMMENT ALIMENTER TOUTE LA ROUTE coté serveur ???
-		// Actuellement connue qu'en java script
-		//(alimenter 800 balise cachées HTML et les lire)
-		// depuis la servlet ???
-	}
-	
-	
-	
-	
-	
-	
+		for (int i = 0; i < route.length; i++) {
+		unPointDeLaRoute = route[i];
+		System.out.println("verif route point "+(i+1) + "/ "+ route.length);
+		estProche = unPointDeLaRoute.estProche(autreCoord, rayon);
+		if (estProche) 
+			{break;}
+		}
+			System.out.println("estProcheFINAL : "+estProche);
+		return estProche;
+}
 
+	public CoordGPS[] getRoute() {
+		return route;
+	}
+
+	public void setRoute(CoordGPS[] route) {
+		this.route = route;
+	}
 }
