@@ -72,19 +72,36 @@ public class UserGestionnaireInSession implements UserGestionnaireInterface {
 		return conducteursPassantPres;
 	}
 	
-	public HashMap<User,Integer> correlationEntre(User unPassager, HashMap<String,User> conducteursProches){
+	public HashMap<User,Integer> correlationEntre(User unUser, HashMap<String,User> listeDeUsers){
 		
-		HashMap<User,Integer> conducteursProchesEtScores =new HashMap<User,Integer>();
+		HashMap<User,Integer> usersEtScores =new HashMap<User,Integer>();
 			int score =0;
-			User conducteurProche;
-			
-			for (Entry<String,User> entry : conducteursProches.entrySet()) {
-				conducteurProche = entry.getValue();				
-				score = conducteurProche.profilConducteur.scoreCompatibiliteAvecUser(unPassager);
-				conducteursProchesEtScores.put(conducteurProche, score);
+			User autreUser;
+			for (Entry<String,User> entry : listeDeUsers.entrySet()) {
+				autreUser = entry.getValue();				
+				score = autreUser.profilConducteur.scoreCompatibiliteAvecUser(unUser);
+				usersEtScores.put(autreUser, score);
+				System.out.println(autreUser.getEmail() +" : "+ score );
 			}
-		return conducteursProchesEtScores; //est une HasMap (conducteurProche,score)
+		return usersEtScores; //est une HasMap (listeDeUsers,score)
 	}
+	
+	public HashMap<User,Integer> conducteursPotentielsPour(User unPassager){
+		HashMap<User,Integer> conducteursPotentiels = new HashMap<User,Integer>();
+		
+		HashMap<String,User> conducteursProches = conducteursPassePresDe(unPassager);
+		HashMap<User,Integer> conducteursEtScore = correlationEntre(unPassager, conducteursProches);
+		int score;
+		User autreUser;
+		for (Entry<User,Integer> entry : conducteursEtScore.entrySet()){
+			autreUser = entry.getKey();
+			score = entry.getValue();
+				conducteursPotentiels.put(autreUser, score);
+				System.out.println("user potentiel, score : "+ score);
+		}	
+		return conducteursPotentiels;
+	}
+	
 	
 	public void preRemplir() {
 		CoordGPS blagnac = new CoordGPS(43.637167, 1.390881);  

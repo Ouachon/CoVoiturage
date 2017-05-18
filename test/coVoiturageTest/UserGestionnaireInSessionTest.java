@@ -3,6 +3,7 @@ package coVoiturageTest;
 import static org.junit.Assert.*;
 
 import java.util.HashMap;
+import java.util.Map.Entry;
 
 import org.junit.After;
 import org.junit.Before;
@@ -95,37 +96,80 @@ public class UserGestionnaireInSessionTest {
 		assertEquals(conducteursPassantPresDe.size(),2);
 		assertTrue(conducteursPassantPresDe.containsKey("VilleFrToAugustins@tracetareoute.com"));
 		assertFalse(conducteursPassantPresDe.containsKey("CugnauxToAugustins@tracetaroute.com"));
-		assertTrue(conducteursPassantPresDe.containsKey("EscalqToOccitanie@tracetaroute.com"));	
-		
+		assertTrue(conducteursPassantPresDe.containsKey("EscalqToOccitanie@tracetaroute.com"));		
 	}
-}
+	
+	@Test
+	public void testCorrelationEntreUnUserEtListeConducteursProches() {
+		
+		// unPassager NonFumeur 30Ans Homme - Conducteurs:  Poids critere  fumeur = 100, age=1, sexe = 10 ;
+		User unPassager = new User("unPassager@tracetaroute.com","11","unPassager");
+		unPassager.setCoordonneesGPS(stOrens); 
+		unPassager.setAge(30);
+		unPassager.setSexe("H");
+		unPassager.setFumeur("N");
+		
+		//Conducteur1 + setRoute passant à proximité
+		CoordGPS route1[] = {villefrancheL,gaumontLabege,carrefourLabege,augustins};
+		User unH25nf = new User("unH25nf@VilleFrToAugustins","11","VilleFrToAugustins");
+		ProfilUser profilH25nf = new ProfilUser("N", "0", "H", 100, 1, 10);
+		unH25nf.setRoute(route1);
+		unH25nf.setProfilConducteur(profilH25nf);
+		//User Homme nonFumeur 25ans ==> doit retourner score 111
+		unH25nf.setSexe("H");
+		unH25nf.setAge(25);
+		unH25nf.setFumeur("N");
+		
+		//Conducteur2 + setRoute pas à prox
+		CoordGPS route2[] = {cugnaux, purpan,augustins};
+		User unH40nf = new User("unH40nf@CugnauxToAugustins","11","CugnauxToAugustins");
+		ProfilUser profilH40nf = new ProfilUser("N", "1", "H", 100, 1, 10);
+		unH40nf.setRoute(route2);
+		unH40nf.setProfilConducteur(profilH40nf);
+		//User homme non fumeur 40 ans ==> 2/3 critères, mais pas à proximité, non retourné
+		unH40nf.setSexe("H");
+		unH40nf.setAge(40);
+		unH40nf.setFumeur("N");
+		
+		//Conducteur3 + setRoutepassant aussi à prox
+		CoordGPS[] route3 = {escalquens,gaumontLabege,occitanie5};
+		User uneF25f = new User("uneF25f@EscalqToOccitanie","11","EscalToOccitanie");
+		ProfilUser profilF25f = new ProfilUser("F", "0", "F", 100, 1, 10);
+		uneF25f.setRoute(route3);
+		uneF25f.setProfilConducteur(profilF25f);
+		// User femme fumeuse 25 ans ==> que critère age : score vaut 1
+		uneF25f.setSexe("F");
+		uneF25f.setAge(25);
+		uneF25f.setFumeur("F");
 
-//	
-//	@Test
-//	public void testCorrelationAvecProfil() {
-//		// Creer un user fumeur , 40 ans , homme
-//		User user1 = new User("toto@oo", "11", "eric");
-//		user1.setSexe("H");
-//		user1.setAge(40);
-//		user1.setFumeur("F");
+		myUserManager.add(unH25nf);
+		myUserManager.add(unH40nf);
+		myUserManager.add(uneF25f);
+	
+		HashMap<User,Integer> conducteursPotentiels = myUserManager.conducteursPotentielsPour(unPassager); 
+		assertEquals(conducteursPotentiels.size(),2);
+		assertTrue(conducteursPotentiels.containsValue(111));
+		assertTrue(conducteursPotentiels.containsValue(1));
+		}
+	}
+//// User homme fumeur 40 ans
+//User unH40f = new User("unH40F@tracetaroute.com", "11", "unH40F");
+//unH40f.setSexe("H");
+//unH40f.setAge(40);
+//unH40f.setFumeur("F");
 //
-//		// et une femme non fumeuse de 25 ans
-//		User user2 = new User("titi@oo", "11", "titi");
-//		user2.setSexe("F");
-//		user2.setAge(25);
-//		user2.setFumeur("N");
-//
-//		// Et 3 autres users ( 5 en tout)
-//		// Les ajouter dans les utilisateurs
-//		UserGestionnaireInSession myUserManager= UserGestionnaireInSession.getInstance();
-//		myUserManager.add(user1);
-//		myUserManager.add(user2);
-//
-//		// On cree un profil
-//		// Toujours Poids critere  fumeur = 100, age=1, sexe = 10 ;
-//		int pondFumeur=100;
-//		int pondAge=1;
-//		int pondSexe=10;// Creer un profil en cherchant  Femme de moins de 30 ans, non fumeur
+//// User femme non fumeuse 25 ans
+//User uneF25nf = new User("uneF25nf@tracetaroute.com", "11", "uneF25nf");
+//uneF25nf.setSexe("F");
+//uneF25nf.setAge(25);
+//uneF25nf.setFumeur("N");
+
+////User homme fumeur 20 ans
+//User unH20f = new User("unH20f@tracetaroute.com", "11", "unH20f");
+//unH20f.setSexe("H");
+//unH20f.setAge(20);
+//unH20f.setFumeur("F");
+
 //		// Score 0
 //		ProfilUser profil1 = new ProfilUser("N","1", "F", pondFumeur,pondAge,pondSexe); 
 //		HashMap<User,Integer> actual = myUserManager.correlationAvecProfil(profil1,myUserManager.getListeDesUsers());
@@ -135,8 +179,7 @@ public class UserGestionnaireInSessionTest {
 //		// Et qu' il y a bien 5 élements.
 //		fail("not implemented");
 //	}
-//	
-//	
+
 //	// Et encore au dessus
 //	//  on s'assurera qu'on trouvera bien 3 des 5 conducteurs
 //	// passant pres de chez moi et trié en fonction de mes critères
@@ -144,7 +187,5 @@ public class UserGestionnaireInSessionTest {
 //	//  chaque conducteur vers son travail ?????
 //	// et balayer alors tous les points de cette route
 //	// (espacé d'un rayon a définir pour ne pas tout regarder tous les 100 metres)
-//	
-//	
-//
+
 //}

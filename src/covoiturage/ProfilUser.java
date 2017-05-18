@@ -5,10 +5,36 @@ public class ProfilUser {
 	String fumeur; // Oui Non Indifférencié
 	String trancheAge; // 1: Moins de 30, 2 :30 50, 3:plus
 	String sexe; // H , F ou I pour indifférencier
-
+	
 	int poidsCritereFumeur;
 	int poidsCritereAge;
 	int poidsCritereSexe;
+
+	public int getPoidsCritereFumeur() {
+		return poidsCritereFumeur;
+	}
+
+	public void setPoidsCritereFumeur(int poidsCritereFumeur) {
+		this.poidsCritereFumeur = poidsCritereFumeur;
+	}
+
+	public int getPoidsCritereAge() {
+		return poidsCritereAge;
+	}
+
+	public void setPoidsCritereAge(int poidsCritereAge) {
+		this.poidsCritereAge = poidsCritereAge;
+	}
+
+	public int getPoidsCritereSexe() {
+		return poidsCritereSexe;
+	}
+
+	public void setPoidsCritereSexe(int poidsCritereSexe) {
+		this.poidsCritereSexe = poidsCritereSexe;
+	}
+
+
 
 	public ProfilUser(String fumeur, String trancheAge, String sexe, int poidsCritereFumeur, int poidsCritereAge,
 			int poidsCritereSexe) {
@@ -87,6 +113,8 @@ public class ProfilUser {
 		System.out.println("critere age unScore =" + unScore);
 		System.out.println("critere age trancheAge =" + trancheAge);
 		System.out.println("critere age autreUser.getTranche()=" + autreUser.getTranche());
+		
+		System.out.println("Retour SCORE = " + retour);
 
 		// On obtient le score de compatibilité avec le user
 		return retour = retour + unScore;

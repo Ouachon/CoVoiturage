@@ -25,23 +25,7 @@ public class User {
 	private Boolean isConducteur;
 	private Boolean isPassager;
 	
-	public Boolean getIsConducteur() {
-		//forcer à true pour les besoins de tests 
-		//depuis UserGestionnaireInSession
-		return true;
-	}
 
-	public void setIsConducteur(Boolean isConducteur) {
-		this.isConducteur = isConducteur;
-	}
-
-	public Boolean getIsPassager() {
-		return isPassager;
-	}
-
-	public void setIsPassager(Boolean isPassager) {
-		this.isPassager = isPassager;
-	}
 
 	private CoordGPS[] route = null; //new CoordGPS[]();
 	
@@ -278,5 +262,22 @@ public class User {
 
 	public void setRoute(CoordGPS[] route) {
 		this.route = route;
+	}
+	public Boolean getIsConducteur() {
+		//forcer à true pour les besoins de tests 
+		//depuis UserGestionnaireInSession
+		return true;
+	}
+
+	public void setIsConducteur(Boolean isConducteur) {
+		this.isConducteur = isConducteur;
+	}
+
+	public Boolean getIsPassager() {
+		return isPassager;
+	}
+
+	public void setIsPassager(Boolean isPassager) {
+		this.isPassager = isPassager;
 	}
 }
