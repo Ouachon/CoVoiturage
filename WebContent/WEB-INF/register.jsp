@@ -12,7 +12,6 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
 <link type="text/css" rel="stylesheet" href="styles.css" />
 <title>Insert title here</title>
-<script src="formulaire.js" type="text/javascript" language="Javascript"></script>
 </head>
 <body>
 	<nav class="navbar navbar-default">

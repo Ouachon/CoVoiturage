@@ -1,3 +1,4 @@
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -5,8 +6,22 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link type="text/css" rel="stylesheet" href="style.css" />
+
+ <meta name="map" content="initial-scale=1.0, user-scalable=no" />
+	 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtwziXLbi6nDuAq5KxSsFjg9jGByOe698&callback=initMap&sensor=false" type="text/javascript"></script>
+	<script type="text/javascript" src="js/googleMapsv2.js" language ="javascript"></script>
+
+
+
+
 </head>
-<body>
+<body onload="initMap();">
 	<div class="panel panel-default"> 
 	    <div class="panel-heading">
 	    <b> Inscription </b>
@@ -38,7 +53,26 @@
 					<span class="error">${errors['name']}</span>
 					</br>
 					
+					<label for="age">Age</label>
+					<input class="form-control" type="text" name="age" id="age" value="${form['age']}" />
+					</br>
 					
+					<label for="sexe">Sexe</label>
+					<input class="form-control" type="text" name="sexe" id="sexe" value="${form['sexe']}" />
+					</br>
+					
+					<label for="adresse">Adresse</label>
+					<input onChange="geoLocaliserDepart('adresse')" class="form-control" type="text" name="adresse" id="adresse" value="${form['adresse']}" />
+					</br>
+					
+					<label for="fumeur">Fumeur</label>
+					<input class="form-control" type="text" name="fumeur" id="fumeur" value="${form['fumeur']}" />
+					</br>
+					<input class="form-control" type="hidden" name="travail" id="travail" value="capitole toulouse" />
+					
+					<input class="form-control" type="text" name="coord_001" id="coord_001" value="" />
+					<input class="form-control" type="text" name="coord_002" id="coord_002" value="" />
+					<input type="text" name="latLong" id="latLong" value="45,32" />
 					<input class="btn-danger" type="submit" value="Enregistrement" />
 						
 		
@@ -46,6 +80,27 @@
 		<p class="info">${actionMessage}</p>
 
 	</div>
+	
+				<div id="panel">
+				<div id="map">
+				 <style>	
+					  #map {
+					  height : 600px;       /* IMPERATIF pour affichage de la map!!!*/
+					  width : 600px;
+					  margin : auto;  
+					  }
+					  html, body {
+					    height: 100%;
+					    margin: 0;
+					    padding: 0;
+					  }
+					</style>	
+				<div id="divMap" style="float:left;width:70%; height:80%">
+					<p>Veuillez patienter pendant le chargement de la carte...</p></div>
+				<div id="divRoute" style="float:right;width:30%;height 80%"></div>		
+	</div>
+	<table name="coordUsersProche" id="coordUsersProche" style="width:100%">
+	</table>
 
 </body>
 </html>

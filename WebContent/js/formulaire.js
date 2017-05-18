@@ -4,6 +4,11 @@
 
 /* gestion d'un formulaire */
 
+function testOnChangeAd() {
+	alert('On change adresse compte');
+	document.getElementById("CoordGPS").value = "1968";
+}
+
 function validForm(unObj)  {
 	
 	

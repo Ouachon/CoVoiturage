@@ -57,6 +57,12 @@ public class UsersProcheServlet extends HttpServlet {
 		dlat = Double.parseDouble(parts[0]);
 		dlong = Double.parseDouble(parts[1]);
 		
+		String adresseDepart = request.getParameter(FIELD_ADR_DEP);
+		System.out.println("adresse de depart " + adresseDepart);
+		
+		
+		System.out.println(request.getParameter("coord_001"));
+		
 		
 		HashMap<String,String> formulaireAccueil = new HashMap<String,String>();
 		
@@ -83,7 +89,7 @@ public class UsersProcheServlet extends HttpServlet {
 		session.setAttribute("listeConducteursPossible", myUserManager.usersProcheDeCoordonnees(uneCoord, rayon));// conducteursPossible
 		session.setAttribute("listePassagersProches", myUserManager.usersProcheDeCoordonnees(uneCoord, rayon));// conducteursPossible
 		
-		dispat = request.getRequestDispatcher("accueilProches.jsp");
+		dispat = request.getRequestDispatcher("index.jsp");
 		
 		dispat.include(request, response);
 	}
