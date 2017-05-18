@@ -56,16 +56,19 @@
 
 		</div>
 		
-</div>		
+</div>	
+
 		
 <!-- Second Container -->
 	<div class="container-fluid bg-2 text-center">
-		<form method="post" >
+		${ sessionScope.listeUsersProche.size() }  utilisateurs habitent près de chez vous
+		
+		<form method="post" action="UsersProcheServlet" >
 			<div class="form-group">
 				<label for="adrDep">Départ: </label>
 				<div class="input-group mb-2 mr-sm-2 mb-sm-0">
 					<div class="input-group-addon glyphicon glyphicon-envelope"></div>
-					<input class="form-control" type="text" id="adrDep" value="${formAccueil['adrDep']}" placeholder="adrDep" style="width: 300px;">
+					<input onChange="geoLocaliserDepart('adrDep')" name="adrDep" id="adrDep" class="form-control" type="text" id="adrDep" value="${formAccueil['adrDep']}"  style="width: 300px;">
 				</div>
 			</div>
 			<div class="form-group">
@@ -74,18 +77,26 @@
 					class="form-control" type="text" id="adrArr"
 					value="Capitole, Toulouse" style="width: 300px;">
 			</div>
-			<a><button type="button" class="btn btn-primary"
-					onclick="rechercher('adrDep','adrArr')">
-					<span class="glyphicon glyphicon-search"></span>Rechercher</button></a>
+	
+			<input type="hidden" name="latLong" id="latLong" value="">
+			<a><input type="submit" class="btn btn-primary" value="Rechercher">
+			</a>
 			<hr>
 
 			</hr>
 
 		</form>
-		<form method="post" action="UsersProcheServlet">
-			<input type="hidden" name="latLong" id="latLong" value="">
-			<input type="submit"  name="utProche" id="utProche" value="Voir le nombre d'utilisateurs proches de mon adresse">
-		</form>
+		<table name="coordUsersProche" id="coordUsersProche" style="width:100%">
+		<c:forEach items="${sessionScope.listeUsersProche}" var="map" >
+			<tr class="impair" >
+				<td> ${ map.value.getCoordonneesGPS().getLongitude() }	</td>
+				,
+				<td> ${ map.value.getCoordonneesGPS().getLatitude() }	</td>
+			</tr>	
+		</c:forEach>
+		</table>
+		<debug name="debug" id="debug"> ooioioi </debug>
+
 	</div>
 
 </body>

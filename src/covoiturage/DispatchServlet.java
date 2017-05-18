@@ -22,6 +22,10 @@ public class DispatchServlet extends HttpServlet {
 	private static final String FIELD_PWD1 = "pwd1";
 	public static final String FIELD_EMAIL = "email";
 	public static final String FIELD_NAME = "name";
+	public static final String FIELD_ADRESSE = "adresse";
+	public static final String FIELD_AGE = "age";
+	public static final String FIELD_SEXE = "sexe";
+	public static final String FIELD_FUMEUR = "fumeur";
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -56,7 +60,7 @@ public class DispatchServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		
+		UserGestionnaireInSession myUserManager = UserGestionnaireInSession.getInstance();
 		String actionMessage="Succés";
 		boolean presenceErreurs = false;
 		HashMap<String,String> erreursParChamps = null;
@@ -68,7 +72,19 @@ public class DispatchServlet extends HttpServlet {
 		// On recupère l'attribut
 		HttpSession session = request.getSession();	
 		
-		User newUser = new User(email,pwd1,name);		
+		User newUser = new User(email,pwd1,name);
+		newUser.setAdresseComplete(request.getParameter(FIELD_ADRESSE));
+		newUser.setAge(Integer.parseInt(request.getParameter(FIELD_AGE)));
+		newUser.setSexe(request.getParameter(FIELD_SEXE));
+		newUser.setFumeur(request.getParameter(FIELD_FUMEUR));
+		// On recupere les coordonnées calculées pour ce user pour les mémoriser
+		String latLong = request.getParameter("coordGPS");
+		String[] parts = latLong.split(",");
+		double dlat = Double.parseDouble(parts[0]);
+		double dlong = Double.parseDouble(parts[1]);
+		
+		newUser.setCoordonneesGPS(new CoordGPS(dlat, dlong));
+		
 		newUser.validateAll();		
 		erreursParChamps = newUser.getHashMapErrors();
 		
@@ -83,19 +99,22 @@ public class DispatchServlet extends HttpServlet {
 			// b) actionMessage
 			actionMessage="Echec";
 			presenceErreurs=true;
+			session.setAttribute("actionMessage",actionMessage);
+			session.setAttribute("errorStatus",presenceErreurs);
+			dispat = request.getRequestDispatcher("Register");
+			
+			dispat.include(request, response);
 		} else
 		{
-			newUser.addToUsers();
-			session.setAttribute("listeDesUsers",User.getListeDesUsers());
-			
-			// Ici il y a une dependance entre user qui doit connaitre userGestionnaire
-			// Il serait mieux que UserGestionnaire ait une dependance sur User, voir DP fabrique
+			myUserManager.add(newUser);
+			session.setAttribute("listeDesUsers",myUserManager.getListeDesUsers());
+			// Ok c'est crée, on revient sur l'accueil
+			System.out.println("Nombre de users : " + myUserManager.getListeDesUsers().size() );
+			dispat = request.getRequestDispatcher("index.jsp");			
+			dispat.include(request, response);
+	
 		}
-		session.setAttribute("actionMessage",actionMessage);
-		session.setAttribute("errorStatus",presenceErreurs);
-		dispat = request.getRequestDispatcher("Register");
-		
-		dispat.include(request, response);
+
 
 	}
 
