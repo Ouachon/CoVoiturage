@@ -22,7 +22,7 @@ public class DispatchServlet extends HttpServlet {
 	private static final String FIELD_PWD1 = "pwd1";
 	public static final String FIELD_EMAIL = "email";
 	public static final String FIELD_NAME = "name";
-	public static final String FIELD_ADRESSE = "adresse";
+	public static final String FIELD_ADRESSE = "adrDep";
 	public static final String FIELD_AGE = "age";
 	public static final String FIELD_SEXE = "sexe";
 	public static final String FIELD_FUMEUR = "fumeur";
@@ -78,7 +78,7 @@ public class DispatchServlet extends HttpServlet {
 		newUser.setSexe(request.getParameter(FIELD_SEXE));
 		newUser.setFumeur(request.getParameter(FIELD_FUMEUR));
 		// On recupere les coordonnées calculées pour ce user pour les mémoriser
-		String latLong = request.getParameter("coordGPS");
+		String latLong = request.getParameter("latLong");
 		String[] parts = latLong.split(",");
 		double dlat = Double.parseDouble(parts[0]);
 		double dlong = Double.parseDouble(parts[1]);

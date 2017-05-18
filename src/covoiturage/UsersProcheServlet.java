@@ -20,9 +20,9 @@ public class UsersProcheServlet extends HttpServlet {
 	
 	private static final String FIELD_ADR_DEP = "adrDep";
 	private static final String FIELD_ADR_ARR = "adrArr";
-	private static final String FIELD_LAT_DEP = "latDep";
-	private static final String FIELD_LONG_DEP = "longDep";
-       
+	private static final String FIELD_LATLONG_DEP = "latLong";
+	private static final String FIELD_LATLONG_ARR = "latLongArr";
+	
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -76,8 +76,9 @@ public class UsersProcheServlet extends HttpServlet {
 		System.out.println(dlong);
 		formulaireAccueil.put(FIELD_ADR_DEP, request.getParameter(FIELD_ADR_DEP));
 		formulaireAccueil.put(FIELD_ADR_ARR, request.getParameter(FIELD_ADR_ARR));
-		formulaireAccueil.put(FIELD_LAT_DEP, request.getParameter(FIELD_LAT_DEP));
-		formulaireAccueil.put(FIELD_LONG_DEP, request.getParameter(FIELD_LONG_DEP));
+		formulaireAccueil.put(FIELD_LATLONG_DEP, request.getParameter(FIELD_LATLONG_DEP));
+		formulaireAccueil.put(FIELD_LATLONG_ARR, request.getParameter(FIELD_LATLONG_ARR));
+		
 		
 		
 		CoordGPS carrefourLabege = new  CoordGPS(43.550481, 1.508069);

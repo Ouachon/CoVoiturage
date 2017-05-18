@@ -62,8 +62,9 @@
 					</br>
 					
 					<label for="adresse">Adresse</label>
-					<input onChange="geoLocaliserDepart('adresse')" class="form-control" type="text" name="adresse" id="adresse" value="${form['adresse']}" />
+					<input onChange="rechercherEtTracer('adrDep','adrArr')" class="form-control" type="text" name="adrDep" id="adrDep" value="${form['adrDep']}" />
 					</br>
+					<input  class="form-control" type="text" name="adrArr" id="adrArr" value="${form['adrArr']}" />
 					
 					<label for="fumeur">Fumeur</label>
 					<input class="form-control" type="text" name="fumeur" id="fumeur" value="${form['fumeur']}" />
@@ -73,6 +74,7 @@
 					<input class="form-control" type="text" name="coord_001" id="coord_001" value="" />
 					<input class="form-control" type="text" name="coord_002" id="coord_002" value="" />
 					<input type="text" name="latLong" id="latLong" value="45,32" />
+					<input type="text" name="latLongArr" id="latLongArr" value="45,32" />
 					<input class="btn-danger" type="submit" value="Enregistrement" />
 						
 		

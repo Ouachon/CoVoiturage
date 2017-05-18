@@ -7,6 +7,9 @@ var directionsService ;
 var map, geocoder, marker, marker2, markerUser; // La carte, le service de géocodage et les
 var navigator;
 
+
+
+
 			function testOnChange() {
 				alert('OnChange googlescript v2');
 			}
@@ -24,10 +27,27 @@ var navigator;
 					{ lat:43.591301, lng:1.418863 } //43.591301, 1.418863
 				];
 				var zoneMarqueurs = new google.maps.LatLngBounds();
-	
+				var mapStyles =
+					  [
+					    {
+					      featureType: "road",
+					      stylers: [
+					        { visibility: "off" }
+					      ]
+					    }
+					  ];
+
 				var optionsCarte = {
 										zoom: 8,
-										center: { lat: 43.534352,lng: 1.517772 }//BL 43.543265, 1.512196
+										center: { lat: 43.534352,lng: 1.517772 },//BL 43.543265, 1.512196
+										disableDefaultUI: true,
+									    zoomControl: true,
+									    zoomControlOptions: {
+									        style: google.maps.ZoomControlStyle.SMALL
+									      },
+									    styles: mapStyles,
+									    mapTypeId : google.maps.MapTypeId.ROADMAP
+
 									}
 
 				map = new google.maps.Map( document.getElementById("divMap"), optionsCarte );
@@ -57,6 +77,50 @@ var navigator;
 					noLig++;
 				}
 				
+				// Puis on ajoute le point d'arrivée, et eventuellement le point depart (adresse indiquée)
+				// Ca permet d'etre centré sur l'arrivée tant qu'aucune adresse n'est indiquée
+				// Ou si aucun user n'est proche
+				rechercherEtTracer('adrDep','adrArr');
+				// Retrouver les coord de l'arrivé et du depart et les ajouter dans les marqueurs
+				var strArr=document.getElementById('latLongArr').value+"";
+				if (strArr.length > 0 )  {
+					var listePositionArr = strArr.split(',');
+					var imageMarqueurArr = {
+							url: "building.png",
+							size: new google.maps.Size(150, 120),
+							anchor: new google.maps.Point(28, 120)
+						};
+					var optionsMarqueurArr = {
+							map: map,
+							position: new google.maps.LatLng( listePositionArr[0], listePositionArr[1] ),
+							icon: imageMarqueurArr
+							};
+					markerUser = new google.maps.Marker( optionsMarqueurArr );
+					zoneMarqueurs.extend( markerUser.getPosition() );
+				}
+				
+				
+
+				var strDep = document.getElementById('latLong').value+"";
+				if (strDep.length > 0 )  {
+					var listePosition = strDep.split(',');
+					var imageMarqueurDep = {
+							url: "maison.jpg",
+							size: new google.maps.Size(100, 80),
+							anchor: new google.maps.Point(28, 120)
+						};
+					
+					var optionsMarqueurDep = {
+							map: map,
+							position: new google.maps.LatLng( listePosition[0], listePosition[1] ),
+							icon: imageMarqueurDep
+							};
+					markerUser = new google.maps.Marker( optionsMarqueurDep );
+					zoneMarqueurs.extend( markerUser.getPosition() );
+					
+				}
+	
+				
 //				tableauMarqueurs.forEach( function(latlng) {
 //					var latitude = latlng.lat,
 //						longitude = latlng.lng;
@@ -79,6 +143,10 @@ var navigator;
 				geocoder = new google.maps.Geocoder();
 				directionsService = new google.maps.DirectionsService();
 				
+				// On trace la route si on a le départ et l'arrivée
+				if (strDep.length > 0 && strArr.length > 0) {
+					rechercherEtTracer('adrDep','adrArr');
+				}
 				//alert('fin initmap');
 				
 			}
@@ -117,11 +185,13 @@ var navigator;
 									map.setCenter(results[0].geometry.location);								
 									//récupération des coordonnées GPS du lieu saisi
 									var strposition = results[0].geometry.location+"";
+									
+									
+									
 									strposition=strposition.replace('(','');
 									strposition=strposition.replace(')','');
-									//affichage des coordonnées dans le <span>
-									//document.getElementById('text_latlng').innerHTML= strposition;
-
+									
+									//Memo des coordonnées dans HTML
 									document.getElementById('latLong').value = strposition;
 
 

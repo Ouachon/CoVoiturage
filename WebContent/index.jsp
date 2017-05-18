@@ -68,7 +68,7 @@
 				<label for="adrDep">Départ: </label>
 				<div class="input-group mb-2 mr-sm-2 mb-sm-0">
 					<div class="input-group-addon glyphicon glyphicon-envelope"></div>
-					<input onChange="geoLocaliserDepart('adrDep')" name="adrDep" id="adrDep" class="form-control" type="text" id="adrDep" value="${formAccueil['adrDep']}"  style="width: 300px;">
+					<input onChange="rechercherEtTracer('adrDep','adrArr')" name="adrDep" id="adrDep" class="form-control" type="text" id="adrDep" value="${formAccueil['adrDep']}"  style="width: 300px;">
 				</div>
 			</div>
 			<div class="form-group">
@@ -78,7 +78,8 @@
 					value="Capitole, Toulouse" style="width: 300px;">
 			</div>
 	
-			<input type="hidden" name="latLong" id="latLong" value="">
+			<input type="hidden" name="latLong" id="latLong" value="${formAccueil['latLong']}">
+			<input type="hidden" name="latLongArr" id="latLongArr" value="${formAccueil['latLongArr']}">
 			<a><input type="submit" class="btn btn-primary" value="Rechercher">
 			</a>
 			<hr>
@@ -89,9 +90,10 @@
 		<table name="coordUsersProche" id="coordUsersProche" style="width:100%">
 		<c:forEach items="${sessionScope.listeUsersProche}" var="map" >
 			<tr class="impair" >
-				<td> ${ map.value.getCoordonneesGPS().getLongitude() }	</td>
-				,
 				<td> ${ map.value.getCoordonneesGPS().getLatitude() }	</td>
+				,
+				<td> ${ map.value.getCoordonneesGPS().getLongitude() }	</td>
+
 			</tr>	
 		</c:forEach>
 		</table>
