@@ -72,68 +72,19 @@ public class UserGestionnaireInSession implements UserGestionnaireInterface {
 		return conducteursPassantPres;
 	}
 	
-	public HashMap<User,Integer> correlationAvecProfil(ProfilUser unProfil, HashMap<String,User> parmHashMap)  {
-		// Travaille sur une HASHMAP<String,User> (resultat des users sur le parcours)
-		//   Et retourne une HashMAP<User,Integer> avec le score de correlation
-		//             de chaque user retenu (A TRIER)
-		HashMap<User,Integer> retour=new HashMap<User,Integer>();
-		// Balayer la hashmap en parametre
-		//  score = unProfil.scoreCompatibiliteAvecUser(entry.getValue)
-		//retour.put(user, score);
-		return retour;
-	}
-	
 	public HashMap<User,Integer> correlationEntre(User unPassager, HashMap<String,User> conducteursProches){
 		
-		//ProfilUser profilDuPassager = unPassager.getProfilPassager();
-		
-		HashMap<User,Integer> conducteursProchesEtScores =new HashMap<User,Integer>();// = correlationAvecProfil(profilDuPassager,conducteursProches);
+		HashMap<User,Integer> conducteursProchesEtScores =new HashMap<User,Integer>();
 			int score =0;
-			String mail;
 			User conducteurProche;
-			//conducteursProches.
-			
 			
 			for (Entry<String,User> entry : conducteursProches.entrySet()) {
-				mail = entry.getKey();
 				conducteurProche = entry.getValue();				
-			
-//				for(Entry<User,Integer> entry2 : conducteursProchesEtScores.entrySet()){
-//				conducteurProche = entry2.getKey();
-//				score = entry2.getValue();
-//				score = conducteurProche.profilConducteur.scoreCompatibiliteAvecUser(unPassager);
-//				}
+				score = conducteurProche.profilConducteur.scoreCompatibiliteAvecUser(unPassager);
+				conducteursProchesEtScores.put(conducteurProche, score);
 			}
-				
-			
-			//public int scoreCompatibiliteAvecUser(User autreUser) {
-			// On obtient le score de compatibilité avec le user
-			//return retour = retour + unScore;
-			
-			
-
-		
-		return conducteursProchesEtScores;
+		return conducteursProchesEtScores; //est une HasMap (conducteurProche,score)
 	}
-	
-//	public HashMap<User,Integer> conducteursPotentielsPourPassager(User unPassager) {
-//		
-//		HashMap<String,User> conducteursProches = conducteursPassePresDe(unPassager);
-//		ProfilUser profilDuPassager = unPassager.getProfilPassager();
-//		
-////		//à voir fonction correlationAvecProfil
-////		int score;
-////		User conducteurProche;
-////		for (Entry<User,Integer> entry : conducteursProchesEtScores.entrySet()) {
-////			conducteurProche = entry.getKey();
-////			score = entry.getValue();
-////			score = conducteurProche.profilConducteur.scoreCompatibiliteAvecUser(unPassager);
-//		
-//		HashMap<User,Integer> conducteursProchesEtScores = correlationAvecProfil(profilDuPassager,conducteursProches);
-//
-//		return conducteursProchesEtScores;
-//	
-//	}
 	
 	public void preRemplir() {
 		CoordGPS blagnac = new CoordGPS(43.637167, 1.390881);  
