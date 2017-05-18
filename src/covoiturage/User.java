@@ -256,7 +256,7 @@ public class User {
 		return coordonneesGPS.estProche(autreCoord,rayon);
 	}
 	
-	boolean passePresDeCoord(CoordGPS autreCoord, int rayon) {
+	public boolean passePresDeCoord(CoordGPS autreCoord, int rayon) {
 		boolean estProche = false;	
 		CoordGPS unPointDeLaRoute;
 		CoordGPS[] route = this.getRoute();
