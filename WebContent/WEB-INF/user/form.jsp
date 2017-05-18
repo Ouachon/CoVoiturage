@@ -75,6 +75,8 @@
 					<input class="form-control" type="text" name="coord_002" id="coord_002" value="" />
 					<input type="text" name="latLong" id="latLong" value="45,32" />
 					<input type="text" name="latLongArr" id="latLongArr" value="45,32" />
+					<input type="text" name="route" id="route" value="45,32:46,33:" />
+					
 					<input class="btn-danger" type="submit" value="Enregistrement" />
 						
 		

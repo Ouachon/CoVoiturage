@@ -163,6 +163,19 @@ var navigator;
 					directionsService.route(request, function(response, status) {
 						if (status == google.maps.DirectionsStatus.OK) {
 							directionsDisplay.setDirections(response);
+							
+							strRoute="Test";
+//							alert(response.routes.length);
+//							alert(response.routes[0].overview_path[0].length)
+//							var monTrajet=response.routes[0];
+//							var point0=monTrajet.overview_path[0];
+//							
+//							var latPoint0= point0.K;
+//							var longPoint0=point0.B;
+//							strRoute=strRoute+lapoint0 + "," + longPoint0 + ":";
+														
+							// On balaye tous les points et la chaine formatté est rangé dans une balise HTML
+							document.getElementById('route').value = strRoute;
 						}
 					});
 				}

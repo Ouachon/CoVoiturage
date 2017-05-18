@@ -80,6 +80,7 @@
 	
 			<input type="hidden" name="latLong" id="latLong" value="${formAccueil['latLong']}">
 			<input type="hidden" name="latLongArr" id="latLongArr" value="${formAccueil['latLongArr']}">
+			<input type="hidden" name="route" id="route" value="">
 			<a><input type="submit" class="btn btn-primary" value="Rechercher">
 			</a>
 			<hr>

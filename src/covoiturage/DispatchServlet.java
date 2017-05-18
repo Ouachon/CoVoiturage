@@ -26,6 +26,8 @@ public class DispatchServlet extends HttpServlet {
 	public static final String FIELD_AGE = "age";
 	public static final String FIELD_SEXE = "sexe";
 	public static final String FIELD_FUMEUR = "fumeur";
+	public static final String FIELD_LATLONG = "latLong";
+	public static final String FIELD_ROUTE = "route";
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -78,12 +80,16 @@ public class DispatchServlet extends HttpServlet {
 		newUser.setSexe(request.getParameter(FIELD_SEXE));
 		newUser.setFumeur(request.getParameter(FIELD_FUMEUR));
 		// On recupere les coordonnées calculées pour ce user pour les mémoriser
-		String latLong = request.getParameter("latLong");
+		String latLong = request.getParameter(FIELD_LATLONG);
 		String[] parts = latLong.split(",");
 		double dlat = Double.parseDouble(parts[0]);
 		double dlong = Double.parseDouble(parts[1]);
 		
 		newUser.setCoordonneesGPS(new CoordGPS(dlat, dlong));
+		
+		System.out.println("route" + request.getParameter(FIELD_ROUTE));
+		// Faire une fonction dans users qui recoit une route sous forme de chaines
+		// Et le traduit en suite de points
 		
 		newUser.validateAll();		
 		erreursParChamps = newUser.getHashMapErrors();
