@@ -32,11 +32,11 @@ public class UserGestionnaireInSession implements UserGestionnaireInterface {
 
 	@Override
 	public HashMap<String, User> getListeDesUsers() {
+		
 		return listeDesUsers;
 	}
 	
-	public HashMap<String,User> usersProcheDeCoordonnees(CoordGPS uneCoord,int rayon) {
-		
+	public HashMap<String,User> usersProcheDeCoordonnees(CoordGPS uneCoord,int rayon) {	
 		// On balaye tous les users 
 		// S'il est proche du point a l'ajoute a la liste retournée
 		HashMap<String,User> retour = new HashMap<String,User>();
@@ -48,11 +48,28 @@ public class UserGestionnaireInSession implements UserGestionnaireInterface {
 			email = entry.getKey();	
 			if (unUser.estProcheDeCoord(uneCoord, rayon)) {
 				retour.put(email, unUser);
-			}
-			
+				System.out.println("user proche : "+email);
+			}	
 		}
 		return retour;
-		
+	}
+	
+	public HashMap<String,User> conducteursPassePresDe(User unPassager){
+		HashMap<String,User> conducteursPassantPres = new HashMap<String,User>();
+		String email;
+		User conducteur;
+		for (Entry<String,User> entry : listeDesUsers.entrySet()) {
+			conducteur = entry.getValue();
+			email = entry.getKey();	
+			if (conducteur.getIsConducteur()==true){
+				if (conducteur.passePresDeCoord(unPassager.getCoordonneesGPS(), CoordGPS.RAYON) == true) 
+					{
+					conducteursPassantPres.put(email, conducteur)  ; 
+					System.out.println("conducteur identifié :" +email);
+					}
+			}	
+		}
+		return conducteursPassantPres;
 	}
 	
 	public HashMap<User,Integer> correlationAvecProfil(ProfilUser unProfil, HashMap<String,User> parmHashMap)  {
@@ -65,6 +82,58 @@ public class UserGestionnaireInSession implements UserGestionnaireInterface {
 		//retour.put(user, score);
 		return retour;
 	}
+	
+	public HashMap<User,Integer> correlationEntre(User unPassager, HashMap<String,User> conducteursProches){
+		
+		//ProfilUser profilDuPassager = unPassager.getProfilPassager();
+		
+		HashMap<User,Integer> conducteursProchesEtScores =new HashMap<User,Integer>();// = correlationAvecProfil(profilDuPassager,conducteursProches);
+			int score =0;
+			String mail;
+			User conducteurProche;
+			//conducteursProches.
+			
+			
+			for (Entry<String,User> entry : conducteursProches.entrySet()) {
+				mail = entry.getKey();
+				conducteurProche = entry.getValue();				
+			
+//				for(Entry<User,Integer> entry2 : conducteursProchesEtScores.entrySet()){
+//				conducteurProche = entry2.getKey();
+//				score = entry2.getValue();
+//				score = conducteurProche.profilConducteur.scoreCompatibiliteAvecUser(unPassager);
+//				}
+			}
+				
+			
+			//public int scoreCompatibiliteAvecUser(User autreUser) {
+			// On obtient le score de compatibilité avec le user
+			//return retour = retour + unScore;
+			
+			
+
+		
+		return conducteursProchesEtScores;
+	}
+	
+//	public HashMap<User,Integer> conducteursPotentielsPourPassager(User unPassager) {
+//		
+//		HashMap<String,User> conducteursProches = conducteursPassePresDe(unPassager);
+//		ProfilUser profilDuPassager = unPassager.getProfilPassager();
+//		
+////		//à voir fonction correlationAvecProfil
+////		int score;
+////		User conducteurProche;
+////		for (Entry<User,Integer> entry : conducteursProchesEtScores.entrySet()) {
+////			conducteurProche = entry.getKey();
+////			score = entry.getValue();
+////			score = conducteurProche.profilConducteur.scoreCompatibiliteAvecUser(unPassager);
+//		
+//		HashMap<User,Integer> conducteursProchesEtScores = correlationAvecProfil(profilDuPassager,conducteursProches);
+//
+//		return conducteursProchesEtScores;
+//	
+//	}
 	
 	public void preRemplir() {
 		CoordGPS blagnac = new CoordGPS(43.637167, 1.390881);  
@@ -96,30 +165,5 @@ public class UserGestionnaireInSession implements UserGestionnaireInterface {
 //		user4.setCoordonneesGPS(carrefourLabege);
 //		add(user4);
 	}
-
-	
-	public HashMap<User,Integer> conducteursPotentielPourPassager(User unUser) {
-		HashMap<User,Integer> retour = new HashMap<User,Integer>();
-	
-		
-		
-		// a) Fabriquer la liste des users passant de <unUser>.coordGPS
-		HashMap<String,User> listeInitiale = new HashMap<String,User>();
-		// Pour chaque User,
-		//   si userCourant.passePresDeCoord(unUser.getCoordGPS()) alors
-		//      l'ajouter a liste initiale
-		
-		// b) Recuperer le profil Passager de <unUser>
-		ProfilUser profilDuPassager=null;
-		// c) Trier par correlation profilPassager/caractUser
-		retour = correlationAvecProfil(profilDuPassager, listeInitiale);
-	
-		return retour;
-	
-	}
-	
-
-	
-	
 	
 }

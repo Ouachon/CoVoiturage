@@ -7,6 +7,7 @@ import java.io.*;
 public class CoordGPS {
 	private double longitude;
 	private double latitude;
+	public static final int RAYON=5;
 	
 	
 	public CoordGPS(double latitude, double longitude) {
