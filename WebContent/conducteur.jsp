@@ -26,22 +26,41 @@
 	</nav>
 
 <div class="container-fluid bg-1 text-left" >
-	Bienvenue ${formLogin['nomUser']}
+	Bienvenue ${formLogin['nomUser']} !
 </div>	
 
 	<br><br>
 	ON AFFICHE ICI LA LISTE DES PASSAGERS 
 	AYANT essayé de me contacter et le status pour chacun (accepté refusé)
+	<fieldset>
+	<!--  	<legend> Liste des utilisateurs </legend> -->
+			
+			<table class="table" >				
+				<tr>
+					<th>Email</th>
+					<th>Nom</th>
+					<th>Etat demande</th>
+				</tr>
+				
+	<tr> <c:forEach var="userItem" items="${sessionScope.users}" >
+	 		<td><c:out value="${userItem.email}" /></td>	
+			<td><c:out value="${userItem.name}" /></td>
+			<td><c:out value="${userItem.etat}" /></td>				
+			</tr>	
+	</c:forEach>
+			</table>
+	</fieldset>	
+	
 	<div class="container-fluid bg-3 text-left" style="width: 550px;">
 				<div class="jumbotron text-center">
 	<form method="post" action="ConducteurCovoit">
-		<input type="text" name="userCourant" id="userCourant" value="${formLogin['email']}"  style="width: 300px;">
+		<input type="text" name="userCourant" id="userCourant" value="${formLogin['email']}"  style="width: 300px;font-size: 14px;">
 		<fieldset>
-			 <a
-				href="<c:url value="prefConducteur.jsp"/>">preference Conducteur</a>
+		<!--	 <a	href="<c:url value="prefConducteur.jsp"/>">preference Conducteur</a> -->
 		</fieldset>
+		<br><br>
 		
-		<input type="submit" value="Préférence Conducteur" class="sansLabel" />
+		<input class="btn-primary" type="submit" href="<c:url value="prefConducteur.jsp"/>" style="font-size: 14px;"value="Préférences Conducteur" />
 	</form>
 	</div>
 	</div>
