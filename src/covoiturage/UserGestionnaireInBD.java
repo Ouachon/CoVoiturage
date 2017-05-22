@@ -19,4 +19,10 @@ public class UserGestionnaireInBD implements UserGestionnaireInterface {
 		return null;
 	}
 
+	@Override
+	public void delete(String identifiantUser) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
