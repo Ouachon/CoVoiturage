@@ -34,18 +34,7 @@ public class CoordGPS {
 		return "(" + strLat+","+strlng + ")";
 	}
 	
-	// PEGGY. Simplifier dans constructeur
-//	public static  CoordGPS convertStringToCoordGPS(String stringPoint){
-//		//coord recue en string "’45.32121,1.6" par ex
-//		String[] uneCoord = stringPoint.split(",");
-//		System.out.println("Point :" +stringPoint);
-//		double latitude = Double.parseDouble(uneCoord[0]);
-//		double longitude =Double.parseDouble(uneCoord[1]);
-//		 CoordGPS coordonneesGPS = new CoordGPS(latitude, longitude);
-//		
-//		
-//		return coordonneesGPS;
-//	}
+	
 	public double getLongitude() {
 		return longitude;
 	}
@@ -61,41 +50,15 @@ public class CoordGPS {
 	
 	public boolean estProche(CoordGPS autreCoord,int rayon) {
 		// Regarder l'ecart en valeur absolue entre longitude et latitude
-		double distanceEnKm = distance(this.latitude, this.longitude, autreCoord.latitude, autreCoord.longitude, "K");
-		System.out.println("distance = " + distanceEnKm);
+		double distanceEnKm = kmAVolOiseauDe(autreCoord);
 		return (distanceEnKm <= rayon);
 	}
-//	public static CoordGPS traduitLatLngEnCoordGPS( String unLatLong) {
-//		CoordGPS retour; 
-//		String[] parts = unLatLong.split(",");
-//		retour = new CoordGPS(Double.parseDouble(parts[0]),Double.parseDouble(parts[1]));
-//		return retour;
-//	}
-//	
-//	// TODO A TESTER, et voir pour un tableau dynamique
-//	public static CoordGPS[] traduitEnRouteDeCoord (String uneChaine) {
-//		CoordGPS[] retour = new CoordGPS[100];
-//		// on recoit (43.1111,1.5)(43.2555,1.6) ...
-//		uneChaine= uneChaine.replace("(", "");
-//		
-//		String[] parts = uneChaine.split(")");
-//		for (int iLatLng=0; iLatLng <= parts.length; iLatLng++) {
-//			CoordGPS uneCoord = traduitLatLngEnCoordGPS(parts[iLatLng]);
-//			retour[iLatLng] = uneCoord;
-//		}
-//		return retour;
-//	}
-	
 
+	public double kmAVolOiseauDe(CoordGPS autreCoord) {
+		return distance(this.latitude, this.longitude, autreCoord.latitude, autreCoord.longitude, "K");
+	}
 
-//		public static void main (String[] args) throws java.lang.Exception
-//		{
-//			System.out.println(distance(32.9697, -96.80322, 29.46786, -98.53506, "M") + " Miles\n");
-//			System.out.println(distance(32.9697, -96.80322, 29.46786, -98.53506, "K") + " Kilometers\n");
-//			System.out.println(distance(32.9697, -96.80322, 29.46786, -98.53506, "N") + " Nautical Miles\n");
-//		}
-
-		private double distance(double lat1, double lon1, double lat2, double lon2, String unit) {
+	private double distance(double lat1, double lon1, double lat2, double lon2, String unit) {
 			double theta = lon1 - lon2;
 			double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
 			dist = Math.acos(dist);

@@ -38,7 +38,10 @@ public class Register extends HttpServlet {
 		HashMap<String,String>  valeursChampsFormulaire = new HashMap<String, String>();
 		String actionMessage="";
 		User razUser= new User("","","");
-		HttpSession session = request.getSession();	
+		HttpSession session = request.getSession();
+		
+		// Pour ne pas ressaisir capitole toulouse comme adresse arrivée
+		valeursChampsFormulaire.put("adrArr","Capitole Toulouse");
 		
 		session.setAttribute("errors",erreursParChamps);
 		session.setAttribute("form",valeursChampsFormulaire);

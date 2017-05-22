@@ -76,7 +76,8 @@ public class DispatchServlet extends HttpServlet {
 		
 		User newUser = new User(email,pwd1,name);
 		newUser.setAdresseComplete(request.getParameter(FIELD_ADRESSE));
-		newUser.setAge(Integer.parseInt(request.getParameter(FIELD_AGE)));
+		String ageCh = request.getParameter(FIELD_AGE);
+		if (ageCh.length() > 0 ) newUser.setAge(Integer.parseInt(ageCh));
 		newUser.setSexe(request.getParameter(FIELD_SEXE));
 		newUser.setFumeur(request.getParameter(FIELD_FUMEUR));
 		// On recupere les coordonnées calculées pour ce user pour les mémoriser

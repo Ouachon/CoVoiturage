@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import covoiturage.CoordGPS;
+import covoiturage.IntersectionUser;
 import covoiturage.User;
 
 public class UserTest {
@@ -42,15 +43,18 @@ public class UserTest {
 	public void testPassePresDeCoord() {
 		//non proche doit retourner faux
 		CoordGPS cugnaux = new CoordGPS(43.535666, 1.346324);
-		assertFalse(user.passePresDeCoord(cugnaux, rayon));
+		IntersectionUser inter1= user.passePresDeCoord(cugnaux, rayon);
+		assertTrue(inter1==null);
 		
 		//proche en point2 "gaumontLabege"-->vrai
 		CoordGPS occitanie5 = new CoordGPS(43.542660, 1.508887);
-		assertTrue(user.passePresDeCoord(occitanie5, rayon));
+		IntersectionUser inter2= user.passePresDeCoord(occitanie5, rayon);
+		assertTrue(inter2!=null);
 		
 		//proche en point final "augustins"-->vrai
 		CoordGPS capitole = new CoordGPS(43.604405, 1.443350);
-		assertTrue(user.passePresDeCoord(capitole, rayon));
+		IntersectionUser inter3=user.passePresDeCoord(capitole, rayon);
+		assertTrue(inter3!=null);
 	}
 
 	@Test
