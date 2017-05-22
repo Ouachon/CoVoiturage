@@ -13,9 +13,14 @@
 	et trié par préférence,
 	(et une carte java script)
 	<form method="post" action="PassagerCovoit">
+	<input type="text" name="userCourant" id="userCourant" value="${formLogin['email']}"  style="width: 300px;">
 		<fieldset>
 			<a href="<c:url value="prefPassager.jsp"/>">preference passager</a>
-			 </fieldset>
+		</fieldset>
+		
+		${ sessionScope.listeDesUsers.size() }  utilisateurs au total </br>
+		<a><input type="submit" class="btn btn-primary" value="Supprimer le compte" name ="suppression">
+			 
     </form>
 </body>
 </html>
