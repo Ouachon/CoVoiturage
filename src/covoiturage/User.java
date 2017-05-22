@@ -241,6 +241,8 @@ public class User {
 		ArrayList<CoordGPS> route = this.getRoute();
 		//CoordGPS[] route = this.getRoute();
 		
+		if (route==null) return estProche;
+		
 		for (int i = 0; i < route.size(); i++) {
 		unPointDeLaRoute = route.get(i);
 		System.out.println("verif route point "+(i+1) + "/ "+ route.size());
@@ -267,18 +269,28 @@ public class User {
 	public void setRoute(ArrayList<CoordGPS> route) {
 		this.route = route;
 	}
+	
+	public void setRoute(String uneRoute) {
+		this.route = convertStringToRouteGPS(uneRoute);
+	}
 
-	public static  ArrayList<CoordGPS> convertStringToRouteGPS(String uneRoute){
+	private static  ArrayList<CoordGPS> convertStringToRouteGPS(String uneRoute){
 		//décortiquer la chaine entrée de la forme   ’45.32121,1.6:46.1255454,1.5…
 		//String stringPoint="";
 		ArrayList<CoordGPS> listePtsDeRoute = new ArrayList<CoordGPS>();
 		System.out.println(uneRoute);
-	
+			uneRoute = uneRoute.replace(")",":");
+			uneRoute = uneRoute.replace("(", "");
+			System.out.println(uneRoute);
 			String[] tabStringPts = uneRoute.split(":");
+			System.out.println("toto");
+			System.out.println(tabStringPts.length);
 			for (int i = 0; i < tabStringPts.length; i++) {
-				String string = tabStringPts[i];
-				CoordGPS coordGpsi = new CoordGPS(tabStringPts[i]);
-				listePtsDeRoute.add(coordGpsi);
+				String uneCoordCh = tabStringPts[i];
+				if (uneCoordCh.length() > 0 )  {
+					CoordGPS coordGpsi = new CoordGPS(uneCoordCh);
+					listePtsDeRoute.add(coordGpsi);
+				}
 			}
 
 		return listePtsDeRoute;

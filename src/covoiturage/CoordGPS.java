@@ -17,8 +17,10 @@ public class CoordGPS {
 	}
 	public CoordGPS(String stringPt) {
 		super();
-		this.latitude = (CoordGPS.convertStringToCoordGPS(stringPt)).latitude;
-		this.longitude = (CoordGPS.convertStringToCoordGPS(stringPt)).longitude;
+		String[] uneCoord = stringPt.split(",");
+		System.out.println("Point :" +stringPt);
+		this.latitude = Double.parseDouble(uneCoord[0]);
+		this.longitude = Double.parseDouble(uneCoord[1]);
 		
 	}
 	
@@ -29,19 +31,21 @@ public class CoordGPS {
 		String strLat = lat.toString();
 		String strlng = lng.toString();
 		
-		return strLat+","+strlng;
+		return "(" + strLat+","+strlng + ")";
 	}
-	public static  CoordGPS convertStringToCoordGPS(String stringPoint){
-		//coord recue en string "’45.32121,1.6" par ex
-		String[] uneCoord = stringPoint.split(",");
-		System.out.println("Point :" +stringPoint);
-		double latitude = Double.parseDouble(uneCoord[0]);
-		double longitude =Double.parseDouble(uneCoord[1]);
-		 CoordGPS coordonneesGPS = new CoordGPS(latitude, longitude);
-		
-		
-		return coordonneesGPS;
-	}
+	
+	// PEGGY. Simplifier dans constructeur
+//	public static  CoordGPS convertStringToCoordGPS(String stringPoint){
+//		//coord recue en string "’45.32121,1.6" par ex
+//		String[] uneCoord = stringPoint.split(",");
+//		System.out.println("Point :" +stringPoint);
+//		double latitude = Double.parseDouble(uneCoord[0]);
+//		double longitude =Double.parseDouble(uneCoord[1]);
+//		 CoordGPS coordonneesGPS = new CoordGPS(latitude, longitude);
+//		
+//		
+//		return coordonneesGPS;
+//	}
 	public double getLongitude() {
 		return longitude;
 	}
@@ -61,26 +65,26 @@ public class CoordGPS {
 		System.out.println("distance = " + distanceEnKm);
 		return (distanceEnKm <= rayon);
 	}
-	public static CoordGPS traduitLatLngEnCoordGPS( String unLatLong) {
-		CoordGPS retour; 
-		String[] parts = unLatLong.split(",");
-		retour = new CoordGPS(Double.parseDouble(parts[0]),Double.parseDouble(parts[1]));
-		return retour;
-	}
-	
-	// TODO A TESTER, et voir pour un tableau dynamique
-	public static CoordGPS[] traduitEnRouteDeCoord (String uneChaine) {
-		CoordGPS[] retour = new CoordGPS[100];
-		// on recoit (43.1111,1.5)(43.2555,1.6) ...
-		uneChaine= uneChaine.replace("(", "");
-		
-		String[] parts = uneChaine.split(")");
-		for (int iLatLng=0; iLatLng <= parts.length; iLatLng++) {
-			CoordGPS uneCoord = traduitLatLngEnCoordGPS(parts[iLatLng]);
-			retour[iLatLng] = uneCoord;
-		}
-		return retour;
-	}
+//	public static CoordGPS traduitLatLngEnCoordGPS( String unLatLong) {
+//		CoordGPS retour; 
+//		String[] parts = unLatLong.split(",");
+//		retour = new CoordGPS(Double.parseDouble(parts[0]),Double.parseDouble(parts[1]));
+//		return retour;
+//	}
+//	
+//	// TODO A TESTER, et voir pour un tableau dynamique
+//	public static CoordGPS[] traduitEnRouteDeCoord (String uneChaine) {
+//		CoordGPS[] retour = new CoordGPS[100];
+//		// on recoit (43.1111,1.5)(43.2555,1.6) ...
+//		uneChaine= uneChaine.replace("(", "");
+//		
+//		String[] parts = uneChaine.split(")");
+//		for (int iLatLng=0; iLatLng <= parts.length; iLatLng++) {
+//			CoordGPS uneCoord = traduitLatLngEnCoordGPS(parts[iLatLng]);
+//			retour[iLatLng] = uneCoord;
+//		}
+//		return retour;
+//	}
 	
 
 

@@ -38,5 +38,16 @@ public class CoordGPSTest {
 		// Carrefour labege est a moins de 5 km de 5 rue occitanie
 	
 	}
+	
+	@Test
+	public void construteurParChaine() {
+		CoordGPS uneCoord = new CoordGPS("43.542660, 1.508887");
+		System.out.println(uneCoord.getLatitude());
+		System.out.println(uneCoord.getLongitude());
+		assertEquals(43.542660, uneCoord.getLatitude());
+		assertEquals(1.508887, uneCoord.getLongitude());
+		
+		
+	}
 
 }

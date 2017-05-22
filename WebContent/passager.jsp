@@ -8,8 +8,11 @@
 </head>
 <body>
 	Bienvenue ${formLogin['nomUser']}
+	${conducteursProche.size()}  utilisateurs connectés
+	${sessionScope.conducteursProche.size()}  utilisateurs connectés
+	
 	<br><br>
-	<table name="conducteursProche" id="conducteursProche" style="width:100%">
+	<table name="condProche" id="condProche" style="width:100%">
 		 <tr>
 	    	<th>email</th>
 	     	<th>Score si Passager</th> 
@@ -18,7 +21,7 @@
 	     	<th>% parcours</th> 
 	    	
 	   	</tr>
-		<c:forEach items="${sessionScope.listeConducteursProche}" var="map" >
+		<c:forEach items="${conducteursProche}" var="map" >
 			<tr class="impair" >
 				<td> ${ map.key.getEmail() } </td>
 				<td> ${ map.value }	</td>

@@ -77,42 +77,21 @@ public class LoginAction extends HttpServlet {
 		
 			
 
-		// Validate page, enlever car msgval toujours null => Hicham
-//		String msgVal = null;
-//		if (msgVal == null) {
-//			form.put(FIELD_EMAIL, email);
-//		} else {
-//			error.put(FIELD_EMAIL, msgVal);
-//		}
-		
-		// Enleve car inutile de tester que le password est conforme a la securite
-		// (il faut juste verifier que c'est celui associé au user)==> HICHAM
-//		msgVal = validatePwd(pwd);
-//		if (msgVal == null) {
-//			form.put(FIELD_PWD, pwd);
-//		} else {
-//			error.put(FIELD_PWD, msgVal);
-//		}
+
 		User userCourant = authenticate(email, pwd,error,form);
 		if (userCourant!=null ) {
-			// Inutile de remettre les donnes puisque correctes
-			// Par contre authenticate va mettre le nom du user
-			// pour affichage dans les pages suivantes  ==>Hicham
-//			form.put(FIELD_PWD, pwd);
+
 			form.put(FIELD_EMAIL, email);  // la page appelée doit connaitre l'identifiant courant
 
 			statusOk = true;
 			
-			// Hicham: Ce message est inutle, si on revient sur login c'est qu'il
-			// est refusé sinon on revient sur une autre page.
-			//statusMessage = "Connexion acceptée";
-			
+
 			
 		} else {
 			// C'est ici qu'il faut pousser les form quand login non reconnu=>Hicham
 			form.put(FIELD_EMAIL, email);  // on ne retourne pas le password
 			statusOk = false;
-			//statusMessage = "Connexion refusée";
+
 
 		}
 
@@ -120,8 +99,7 @@ public class LoginAction extends HttpServlet {
 		request.setAttribute("formLogin", form);
 		request.setAttribute("errorLogin", error);
 		
-		//request.setAttribute("statusOK", statusOk);
-		//request.setAttribute("statusMessage", statusMessage);
+
 
 		if (statusOk == true) {
 			if (typeCovoit.equals("typeconducteur")) {
@@ -132,11 +110,12 @@ public class LoginAction extends HttpServlet {
 			else if (typeCovoit.equals("typepassager")) {
 				HashMap<User,Integer>  condProches=null;
 				// Liste des conducteurs passant près de ....
-				//condProches = myUserManager.listeConducteursPassantPresDe(userCourant);
+				condProches = myUserManager.conducteursPotentielsPour(userCourant);
 				request.setAttribute("conducteursProche", condProches);
+				System.out.println("ConducteursProche taille:" + condProches.size());
 
 				RequestDispatcher dispat = request.getRequestDispatcher("passager.jsp");
-				dispat.forward(request, response);
+				dispat.include(request, response);  // Difference avec forward
 			}
 			
 			// On met dans hashMap toutes les caracteristique du profil

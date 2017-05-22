@@ -64,10 +64,13 @@ public class UserGestionnaireInSession implements UserGestionnaireInterface {
 		for (Entry<String, User> entry : listeDesUsers.entrySet()) {
 			conducteur = entry.getValue();
 			email = entry.getKey();
-			if (conducteur.getIsConducteur() == true) {
-				if (conducteur.passePresDeCoord(unPassager.getCoordonneesGPS(), CoordGPS.RAYON) == true) {
-					conducteursPassantPres.put(email, conducteur);
-					System.out.println("conducteur identifié :" + email);
+			if (conducteur!=unPassager) {
+
+				if (conducteur.getIsConducteur() == true) {
+					if (conducteur.passePresDeCoord(unPassager.getCoordonneesGPS(), CoordGPS.RAYON) == true) {
+						conducteursPassantPres.put(email, conducteur);
+						System.out.println("conducteur identifié :" + email);
+					}
 				}
 			}
 		}
@@ -81,7 +84,7 @@ public class UserGestionnaireInSession implements UserGestionnaireInterface {
 		User autreUser;
 		for (Entry<String, User> entry : listeDeUsers.entrySet()) {
 			autreUser = entry.getValue();
-			score = autreUser.profilConducteur.scoreCompatibiliteAvecUser(unUser);
+			score = 10; // TODO autreUser.profilConducteur.scoreCompatibiliteAvecUser(unUser);
 			usersEtScores.put(autreUser, score);
 			System.out.println(autreUser.getEmail() + " : " + score);
 		}
@@ -89,21 +92,22 @@ public class UserGestionnaireInSession implements UserGestionnaireInterface {
 	}
 
 	public HashMap<User, Integer> conducteursPotentielsPour(User unPassager) {
-		HashMap<User, Integer> conducteursPotentiels = new HashMap<User, Integer>();
+		//HashMap<User, Integer> conducteursPotentiels = new HashMap<User, Integer>();
 
 		HashMap<String, User> conducteursProches = conducteursPassePresDe(unPassager);
 		HashMap<User, Integer> conducteursEtScore = correlationEntre(unPassager, conducteursProches);
-		int score;
-		User autreUser;
-		for (Entry<User, Integer> entry : conducteursEtScore.entrySet()) {
-			autreUser = entry.getKey();
-			score = entry.getValue();
-			conducteursPotentiels.put(autreUser, score);
-			System.out.println("user potentiel, score : " + score);
-			conducteursPotentiels.put(autreUser, score);
-		}	
+//		int score;
+//		User autreUser;
+//		for (Entry<User, Integer> entry : conducteursEtScore.entrySet()) {
+//			autreUser = entry.getKey();
+//			score = entry.getValue();
+//			conducteursPotentiels.put(autreUser, score);
+//			System.out.println("user potentiel, score : " + score);
+//			conducteursPotentiels.put(autreUser, score);
+//		}	
 
-		return conducteursPotentiels;
+		//return conducteursPotentiels;
+		return conducteursEtScore;
 	}
 
 	public void preRemplir() {
