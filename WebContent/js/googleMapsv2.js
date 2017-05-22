@@ -137,7 +137,7 @@ var navigator;
 				/*connexion de la map + le panneau de l'itinéraire*/
 			    directionsDisplay.setMap(map);
 			    //alert('milieu initmap');
-			    directionsDisplay.setPanel(document.getElementById("divRoute"));
+			   // directionsDisplay.setPanel(document.getElementById("divRoute"));//Désactiver pour ne pas afficher le tableau de détail de route
 				/*intialise le geocoder pour localiser les adresses */
 			    
 				geocoder = new google.maps.Geocoder();

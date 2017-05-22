@@ -17,72 +17,74 @@
 	 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtwziXLbi6nDuAq5KxSsFjg9jGByOe698&callback=initMap&sensor=false" type="text/javascript"></script>
 	<script type="text/javascript" src="js/googleMapsv2.js" language ="javascript"></script>
 
+
+
+
 </head>
-<body onload="initMap();"> 
-	<form class="form-group" method="post" onsubmit="return validForm(this)" action="DispatchServlet">
+<body onload="initMap();">
+	<div class="panel panel-default"> 
+	    <div class="panel-heading">
+	    <b> Inscription </b>
+	    <br/>
+		Formulaire d'inscription , les champs <span class="requis">(*)</span> sont requis:
+		</div>
 		
-			<div class="container-fluid bg-3 text-left" style="width: 550px;">
-				<div class="jumbotron text-center">
-					<h3>Inscription</h3>
-				
-					<p>Formulaire d'inscription , les champs <span class="requis">(*)</span> sont requis:</p>
-				</div>
-			
-				<div class="form-group" style="font-size: 14px;">
-				
+		<form class="form-group" onsubmit="return validForm(this)" method="POST" action="DispatchServlet" >
 					<label for="email">Adresse email: <span class="requis">*</span></label>
 					<input class="form-control" type="text" name="email" id="email" value="${form['email']}" placeholder="email" required="required" />
 					<span class="error">${errors['email']}</span>
-				</div>
-				<div class="form-group" style="font-size: 14px;">										
+					</br>
+					
+					
+					
 					<label for="pwd1">Mot de passe <span class="requis">*</span></label>
 					<input class="form-control" type="password" name="pwd1" id="pwd1" value="" placeholder="Mot de passe" required="required" />
 					<span class="error">${errors['pwd1']}</span>
-				</div>
-				<div class="form-group" style="font-size: 14px;">		
+					</br>
+					
+					
 					<label for="pwd1">Confirmation mot de passe <span class="requis">*</span></label>
 					<input class="form-control" type="password" name="pwd2" id="pwd2" value="" placeholder="confirmation" required="required" />
 					<span class="error">${errors['pwd2']}</span>
-				</div>	
-				<div class="form-group" style="font-size: 14px;">
+					</br>
+					
 					<label for="name">Nom</label>
 					<input class="form-control" type="text" name="name" id="name" value="${form['name']}" />
 					<span class="error">${errors['name']}</span>
-				</div>
-				<div class="form-group" style="font-size: 14px;">	
+					</br>
+					
 					<label for="age">Age</label>
 					<input class="form-control" type="text" name="age" id="age" value="${form['age']}" />
-				</div>
-				<div class="form-group" style="font-size: 14px;">	
+					</br>
+					
 					<label for="sexe">Sexe</label>
-					<select name="sexe"><option>Femme</option><option>Homme</option>
-					<input type="text" class="form-control" name="sexe" id="sexe" value="${form['sexe']}" />
-				</div>
-				<div class="form-group" style="font-size: 14px;">	
+					<input class="form-control" type="text" name="sexe" id="sexe" value="${form['sexe']}" />
+					</br>
+					
 					<label for="adresse">Adresse</label>
 					<input onChange="rechercherEtTracer('adrDep','adrArr')" class="form-control" type="text" name="adrDep" id="adrDep" value="${form['adrDep']}" />
-				</div>
-					<input type="text"  class="form-control" name="adrArr" id="adrArr" value="${form['adrArr']}" />
-				<div class="form-group" style="font-size: 14px;">
+					</br>
+					<input  class="form-control" type="text" name="adrArr" id="adrArr" value="${form['adrArr']}" />
+					
 					
 					<label for="fumeur">Fumeur</label>
-					<select name="sexe"><option>Fumeur</option><option>Non Fumeur</option>
-					<input type="hidden" class="form-control" name="fumeur" id="fumeur" value="${form['fumeur']}" />
-				</div>
-					<input class="form-control" type="text" name="travail" id="travail" value="capitole toulouse" />
+					<input class="form-control" type="text" name="fumeur" id="fumeur" value="${form['fumeur']}" />
+					</br>
 					
-					<input type="text" class="form-control"  name="coord_001" id="coord_001" value="" />
-					<input type="text" class="form-control"  name="coord_002" id="coord_002" value="" />
+					
+					<input class="form-control" type="text" name="coord_001" id="coord_001" value="" />
+					<input class="form-control" type="text" name="coord_002" id="coord_002" value="" />
 					<input type="text" name="latLong" id="latLong" value="45,32" />
 					<input type="text" name="latLongArr" id="latLongArr" value="45,32" />
 					<input type="text" name="route" id="route" value="45,32:46,33:" />
-					<div class="text-right">
-					<input class="btn-primary" type="submit"  style="font-size: 14px;" value="Enregistrement" /></div>
-				</div>
+					
+					<input class="btn-danger" type="submit" value="Enregistrement" />
+						
 		
 		</form>
 		<p class="info">${actionMessage}</p>
-</div>
+
+	</div>
 	
 				<div id="panel">
 				<div id="map">

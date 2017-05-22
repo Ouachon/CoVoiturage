@@ -15,6 +15,33 @@ public class CoordGPS {
 		this.longitude = longitude;
 		this.latitude = latitude;
 	}
+	public CoordGPS(String stringPt) {
+		super();
+		this.latitude = (CoordGPS.convertStringToCoordGPS(stringPt)).latitude;
+		this.longitude = (CoordGPS.convertStringToCoordGPS(stringPt)).longitude;
+		
+	}
+	
+	@Override
+	public String toString() {
+		Double lat = this.getLatitude();
+		Double lng = this.getLongitude();
+		String strLat = lat.toString();
+		String strlng = lng.toString();
+		
+		return strLat+","+strlng;
+	}
+	public static  CoordGPS convertStringToCoordGPS(String stringPoint){
+		//coord recue en string "’45.32121,1.6" par ex
+		String[] uneCoord = stringPoint.split(",");
+		System.out.println("Point :" +stringPoint);
+		double latitude = Double.parseDouble(uneCoord[0]);
+		double longitude =Double.parseDouble(uneCoord[1]);
+		 CoordGPS coordonneesGPS = new CoordGPS(latitude, longitude);
+		
+		
+		return coordonneesGPS;
+	}
 	public double getLongitude() {
 		return longitude;
 	}

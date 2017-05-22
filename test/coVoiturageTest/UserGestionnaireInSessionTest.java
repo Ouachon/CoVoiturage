@@ -2,6 +2,7 @@ package coVoiturageTest;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
@@ -70,17 +71,28 @@ public class UserGestionnaireInSessionTest {
 		unPassager.setCoordonneesGPS(stOrens);  
 		
 		//Conducteur1 + setRoute passant à proximité
-		CoordGPS route1[] = {villefrancheL,gaumontLabege,carrefourLabege,augustins};
+		ArrayList<CoordGPS> route1 = new ArrayList<CoordGPS>();
+		route1.add(villefrancheL);
+		route1.add(gaumontLabege);
+		route1.add(carrefourLabege);
+		route1.add(augustins);
+			//{villefrancheL,gaumontLabege,carrefourLabege,augustins};
 		User conducteur1 = new User("VilleFrToAugustins@tracetareoute.com","11","VilleFrToAugustins");
 		conducteur1.setRoute(route1);
 		
 		//Conducteur2 + setRoute pas à prox
-		CoordGPS route2[] = {cugnaux, purpan,augustins};
+		ArrayList<CoordGPS> route2 = new ArrayList<CoordGPS>();
+		route2.add(cugnaux);
+		route2.add(purpan);
+		route2.add(augustins);
 		User conducteur2 = new User("CugnauxToAugustins@tracetareoute.com","11","CugnauxToAugustins");
 		conducteur2.setRoute(route2);
 		
 		//Conducteur3 + setRoutepassant aussi à prox
-		CoordGPS[] route3 = {escalquens,gaumontLabege,occitanie5};
+		ArrayList<CoordGPS> route3 = new ArrayList<CoordGPS>();
+		route3.add(escalquens);
+		route3.add(gaumontLabege);
+		route3.add(occitanie5);
 		User conducteur3 = new User("EscalqToOccitanie@tracetaroute.com","11","EscalToOccitanie");
 		conducteur3.setRoute(route3);
 
@@ -110,7 +122,11 @@ public class UserGestionnaireInSessionTest {
 		unPassager.setFumeur("N");
 		
 		//Conducteur1 + setRoute passant à proximité
-		CoordGPS route1[] = {villefrancheL,gaumontLabege,carrefourLabege,augustins};
+		ArrayList<CoordGPS> route1 = new ArrayList<CoordGPS>();
+		route1.add(villefrancheL);
+		route1.add(gaumontLabege);
+		route1.add(carrefourLabege);
+		route1.add(augustins);
 		User unH25nf = new User("unH25nf@VilleFrToAugustins","11","VilleFrToAugustins");
 		ProfilUser profilH25nf = new ProfilUser("N", "0", "H", 100, 1, 10);
 		unH25nf.setRoute(route1);
@@ -121,7 +137,10 @@ public class UserGestionnaireInSessionTest {
 		unH25nf.setFumeur("N");
 		
 		//Conducteur2 + setRoute pas à prox
-		CoordGPS route2[] = {cugnaux, purpan,augustins};
+		ArrayList<CoordGPS> route2 = new ArrayList<CoordGPS>();
+		route2.add(cugnaux);
+		route2.add(purpan);
+		route2.add(augustins);
 		User unH40nf = new User("unH40nf@CugnauxToAugustins","11","CugnauxToAugustins");
 		ProfilUser profilH40nf = new ProfilUser("N", "1", "H", 100, 1, 10);
 		unH40nf.setRoute(route2);
@@ -132,7 +151,10 @@ public class UserGestionnaireInSessionTest {
 		unH40nf.setFumeur("N");
 		
 		//Conducteur3 + setRoutepassant aussi à prox
-		CoordGPS[] route3 = {escalquens,gaumontLabege,occitanie5};
+		ArrayList<CoordGPS> route3 = new ArrayList<CoordGPS>();
+		route3.add(escalquens);
+		route3.add(gaumontLabege);
+		route3.add(occitanie5);
 		User uneF25f = new User("uneF25f@EscalqToOccitanie","11","EscalToOccitanie");
 		ProfilUser profilF25f = new ProfilUser("F", "0", "F", 100, 1, 10);
 		uneF25f.setRoute(route3);
