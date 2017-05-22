@@ -31,7 +31,7 @@ public class CoordGPS {
 		String strLat = lat.toString();
 		String strlng = lng.toString();
 		
-		return strLat+","+strlng;
+		return "(" + strLat+","+strlng + ")";
 	}
 	
 	// PEGGY. Simplifier dans constructeur

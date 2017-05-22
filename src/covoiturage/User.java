@@ -274,7 +274,7 @@ public class User {
 		this.route = convertStringToRouteGPS(uneRoute);
 	}
 
-	public static  ArrayList<CoordGPS> convertStringToRouteGPS(String uneRoute){
+	private static  ArrayList<CoordGPS> convertStringToRouteGPS(String uneRoute){
 		//décortiquer la chaine entrée de la forme   ’45.32121,1.6:46.1255454,1.5…
 		//String stringPoint="";
 		ArrayList<CoordGPS> listePtsDeRoute = new ArrayList<CoordGPS>();
