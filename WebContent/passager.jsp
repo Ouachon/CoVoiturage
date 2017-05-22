@@ -9,9 +9,24 @@
 <body>
 	Bienvenue ${formLogin['nomUser']}
 	<br><br>
-	ON AFFICHE ICI LA LISTE DES CONDUCTEURS PASSANT PRES de CE PASSAGER
-	et trié par préférence,
-	(et une carte java script)
+	<table name="conducteursProche" id="conducteursProche" style="width:100%">
+		 <tr>
+	    	<th>email</th>
+	     	<th>Score si Passager</th> 
+	     	<th>Score si Conducteurs</th> 
+	     	<th>Km vers point rencontre</th> 
+	     	<th>% parcours</th> 
+	    	
+	   	</tr>
+		<c:forEach items="${sessionScope.listeConducteursProche}" var="map" >
+			<tr class="impair" >
+				<td> ${ map.key.getEmail() } </td>
+				<td> ${ map.value }	</td>
+
+			</tr>	
+		</c:forEach>
+	</table>
+	
 	<form method="post" action="PassagerCovoit">
 		<fieldset>
 			<a href="<c:url value="prefPassager.jsp"/>">preference passager</a>
