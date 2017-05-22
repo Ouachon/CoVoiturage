@@ -87,7 +87,10 @@ public class DispatchServlet extends HttpServlet {
 		
 		newUser.setCoordonneesGPS(new CoordGPS(dlat, dlong));
 		
-		System.out.println("route" + request.getParameter(FIELD_ROUTE));
+		String routeRecue = request.getParameter(FIELD_ROUTE);
+		System.out.println("route" + routeRecue);
+		// TODO
+		//newUser.setRoute(CoordGPS.traduitEnRouteDeCoord(routeRecue));
 		// Faire une fonction dans users qui recoit une route sous forme de chaines
 		// Et le traduit en suite de points
 		

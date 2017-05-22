@@ -61,7 +61,26 @@ public class CoordGPS {
 		System.out.println("distance = " + distanceEnKm);
 		return (distanceEnKm <= rayon);
 	}
+	public static CoordGPS traduitLatLngEnCoordGPS( String unLatLong) {
+		CoordGPS retour; 
+		String[] parts = unLatLong.split(",");
+		retour = new CoordGPS(Double.parseDouble(parts[0]),Double.parseDouble(parts[1]));
+		return retour;
+	}
 	
+	// TODO A TESTER, et voir pour un tableau dynamique
+	public static CoordGPS[] traduitEnRouteDeCoord (String uneChaine) {
+		CoordGPS[] retour = new CoordGPS[100];
+		// on recoit (43.1111,1.5)(43.2555,1.6) ...
+		uneChaine= uneChaine.replace("(", "");
+		
+		String[] parts = uneChaine.split(")");
+		for (int iLatLng=0; iLatLng <= parts.length; iLatLng++) {
+			CoordGPS uneCoord = traduitLatLngEnCoordGPS(parts[iLatLng]);
+			retour[iLatLng] = uneCoord;
+		}
+		return retour;
+	}
 	
 
 

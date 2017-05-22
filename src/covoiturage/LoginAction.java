@@ -72,6 +72,8 @@ public class LoginAction extends HttpServlet {
 		HashMap<String, String> compte = new HashMap<String, String>();
 		statusMessage = null;
 		
+		UserGestionnaireInSession myUserManager= UserGestionnaireInSession.getInstance();
+		
 		
 			
 
@@ -128,6 +130,10 @@ public class LoginAction extends HttpServlet {
 				dispat.forward(request, response);
 			}
 			else if (typeCovoit.equals("typepassager")) {
+				HashMap<User,Integer>  condProches=null;
+				// Liste des conducteurs passant près de ....
+				//condProches = myUserManager.listeConducteursPassantPresDe(userCourant);
+				request.setAttribute("conducteursProche", condProches);
 
 				RequestDispatcher dispat = request.getRequestDispatcher("passager.jsp");
 				dispat.forward(request, response);

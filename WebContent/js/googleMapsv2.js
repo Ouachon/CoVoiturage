@@ -164,10 +164,16 @@ var navigator;
 						if (status == google.maps.DirectionsStatus.OK) {
 							directionsDisplay.setDirections(response);
 							
-							strRoute="Test";
+							var strRoute="Test";
 //							alert(response.routes.length);
 //							alert(response.routes[0].overview_path[0].length)
-//							var monTrajet=response.routes[0];
+							var lesPoints=response.routes[0].overview_path;
+							var nbPoints = lesPoints.length;
+							strRoute="Test nb= " + nbPoints + ":";
+							for (var iPoint = 0; iPoint < nbPoints; iPoint++) {
+								var unStrPoint=lesPoints[iPoint] + "";
+								strRoute=strRoute+unStrPoint;
+							}
 //							var point0=monTrajet.overview_path[0];
 //							
 //							var latPoint0= point0.K;
