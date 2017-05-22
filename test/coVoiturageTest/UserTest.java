@@ -54,10 +54,13 @@ public class UserTest {
 	}
 
 	@Test
-	public void testconvertStringToRouteGPS(){			
-		String uneRoute = "43.399575,1.719759:43.518063,1.562549:43.540139,1.510688";	
-		ArrayList<CoordGPS> ptsDeRoute = new ArrayList<CoordGPS>();
-		ptsDeRoute =  User.convertStringToRouteGPS(uneRoute);
+	public void testSetRouteEnChaine(){			
+		String uneRoute = "(43.399575,1.719759)(43.518063,1.562549)(43.540139,1.510688)";
+		user.setRoute(uneRoute);
+		
+		ArrayList<CoordGPS> ptsDeRoute = user.getRoute();
+		
+
 
 		assertEquals(ptsDeRoute.size(),3);
 		assertEquals(ptsDeRoute.get(0).toString(), "43.399575,1.719759");

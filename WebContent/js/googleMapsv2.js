@@ -169,7 +169,7 @@ var navigator;
 //							alert(response.routes[0].overview_path[0].length)
 							var lesPoints=response.routes[0].overview_path;
 							var nbPoints = lesPoints.length;
-							strRoute="Test nb= " + nbPoints + ":";
+							strRoute="";//Test nb= " + nbPoints + ":";
 							for (var iPoint = 0; iPoint < nbPoints; iPoint++) {
 								var unStrPoint=lesPoints[iPoint] + "";
 								strRoute=strRoute+unStrPoint;
