@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/ConducteurCovoit")
 public class ConducteurCovoit extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	public static final String FIELD_NOM_USER = "nomUser";
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -38,6 +39,9 @@ public class ConducteurCovoit extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher dispat;
+		
+		HashMap<String, String> form = new HashMap<String, String>();
+		
 		String identifiantUser = request.getParameter("userCourant");
 		System.out.println("identifiant = " + identifiantUser);
 		UserGestionnaireInSession myUserManager = UserGestionnaireInSession.getInstance();
@@ -47,6 +51,14 @@ public class ConducteurCovoit extends HttpServlet {
 
 		request.setAttribute("profilCourant", 
 				exporteUnProfilVersHTML(userLogge.profilConducteur));
+		
+		// Login on retourne le nom pour la page prefConducteur
+		String email = userLogge.getEmail();
+		System.out.println("conducteur.jsp email = " + email);
+		form.put(FIELD_NOM_USER, email); 
+		request.setAttribute("formLogin", form);
+		
+		// on charge les préférences du prefConducteur
 		dispat = request.getRequestDispatcher("prefConducteur.jsp");		
 		dispat.include(request, response);
 		}
@@ -56,6 +68,9 @@ public class ConducteurCovoit extends HttpServlet {
 		retour.put("fumeur",unProfil.getFumeur());
 		retour.put("age", unProfil.getTrancheAge());
 		retour.put("sexe", unProfil.getSexe());
+		System.out.println("fumeur= " + unProfil.getFumeur());
+		System.out.println("age= " + unProfil.getTrancheAge());
+		System.out.println("sexe= " + unProfil.getSexe());
 		return retour;
 	}
 
