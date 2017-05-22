@@ -1,7 +1,12 @@
 package covoiturage;
 
+import java.awt.List;
+import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map.Entry;
+import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpSession;
 
@@ -26,8 +31,8 @@ public class User {
 	private Boolean isPassager;
 	
 
-
-	private CoordGPS[] route = null; //new CoordGPS[]();
+	private ArrayList<CoordGPS> route;
+//	private CoordGPS[] route = null; //new CoordGPS[]();
 	
 	private HashMap<String,String>  hashMapErrors=new HashMap<String,String>();
 	private HashMap<String,String>  hashMapValeurs=new HashMap<String,String>();
@@ -88,23 +93,13 @@ public class User {
 		this.nom = nom;
 	}
 	
-	
 	public Long getId() {
 		return Id;
 	}
 	public void setId(Long id) {
 		Id = id;
 	}
-	
-	
-	public CoordGPS getCoordonneesGPS() {
-		return coordonneesGPS;
-	}
-	public void setCoordonneesGPS(CoordGPS coordonneesGPS) {
-		this.coordonneesGPS = coordonneesGPS;
-	}
-	
-	
+
 	public String getAdresseComplete() {
 		return adresseComplete;
 	}
@@ -243,26 +238,54 @@ public class User {
 	public boolean passePresDeCoord(CoordGPS autreCoord, int rayon) {
 		boolean estProche = false;	
 		CoordGPS unPointDeLaRoute;
-		CoordGPS[] route = this.getRoute();
+		ArrayList<CoordGPS> route = this.getRoute();
+		//CoordGPS[] route = this.getRoute();
 		
-		for (int i = 0; i < route.length; i++) {
-		unPointDeLaRoute = route[i];
-		System.out.println("verif route point "+(i+1) + "/ "+ route.length);
+		for (int i = 0; i < route.size(); i++) {
+		unPointDeLaRoute = route.get(i);
+		System.out.println("verif route point "+(i+1) + "/ "+ route.size());
 		estProche = unPointDeLaRoute.estProche(autreCoord, rayon);
 		if (estProche) 
 			{break;}
 		}
 			System.out.println("estProcheFINAL : "+estProche);
 		return estProche;
-}
+	}	
+	
+	
+	public CoordGPS getCoordonneesGPS() {
+		return coordonneesGPS;
+	}
+	public void setCoordonneesGPS(CoordGPS coordonneesGPS) {
+		this.coordonneesGPS = coordonneesGPS;
+	}
 
-	public CoordGPS[] getRoute() {
+	public ArrayList<CoordGPS> getRoute() {
 		return route;
 	}
 
-	public void setRoute(CoordGPS[] route) {
+	public void setRoute(ArrayList<CoordGPS> route) {
 		this.route = route;
 	}
+
+	public static  ArrayList<CoordGPS> convertStringToRouteGPS(String uneRoute){
+		//décortiquer la chaine entrée de la forme   ’45.32121,1.6:46.1255454,1.5…
+		//String stringPoint="";
+		ArrayList<CoordGPS> listePtsDeRoute = new ArrayList<CoordGPS>();
+		System.out.println(uneRoute);
+	
+			String[] tabStringPts = uneRoute.split(":");
+			for (int i = 0; i < tabStringPts.length; i++) {
+				String string = tabStringPts[i];
+				CoordGPS coordGpsi = new CoordGPS(tabStringPts[i]);
+				listePtsDeRoute.add(coordGpsi);
+			}
+
+		return listePtsDeRoute;
+	}
+
+	
+	
 	public Boolean getIsConducteur() {
 		//forcer à true pour les besoins de tests 
 		//depuis UserGestionnaireInSession

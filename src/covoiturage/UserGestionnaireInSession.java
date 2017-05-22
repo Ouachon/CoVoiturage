@@ -97,7 +97,6 @@ public class UserGestionnaireInSession implements UserGestionnaireInterface {
 			autreUser = entry.getKey();
 			score = entry.getValue();
 				conducteursPotentiels.put(autreUser, score);
-				System.out.println("user potentiel, score : "+ score);
 		}	
 		return conducteursPotentiels;
 	}
