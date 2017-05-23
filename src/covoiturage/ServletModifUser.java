@@ -19,6 +19,16 @@ import javax.servlet.http.HttpSession;
 @WebServlet("/ServletModifUser")
 public class ServletModifUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+
+	public static final String FIELD_EMAIL = "email";
+	private static final String FIELD_PWD1 = "pwd1";
+	public static final String FIELD_NAME = "name";
+	public static final String FIELD_ADRESSE = "adrDep";
+	public static final String FIELD_AGE = "age";
+	public static final String FIELD_SEXE = "sexe";
+	public static final String FIELD_FUMEUR = "fumeur";
+	public static final String FIELD_LATLONG = "latLong";
+	public static final String FIELD_ROUTE = "route";
 	
 	public static String VIEW_PAGES_URL="/WEB-INF/user/formModify.jsp"; 
 	
