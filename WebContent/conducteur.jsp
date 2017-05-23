@@ -64,17 +64,12 @@
 		<input class="btn-primary" type="submit" href="<c:url value="prefConducteur.jsp"/>" style="font-size: 14px;"value="Préférences Conducteur" />
 	</form>	
 	
-		<form method="post" action="ServletModifUser">
+	<form method="post" action="ServletModifUser">
 		<input type="hidden" name="userCourant" id="userCourant" value="${formLogin['email']}"  style="width: 300px;font-size: 14px;">
 		<input class="btn-primary" type="submit" href="<c:url value="formModify.jsp"/>" style="font-size: 14px;"value="Modification du compte" />
 	
 	</form>
 	</div>
 	</div>
-		
-	<br />
-	<c:if test="${ registerStatus }">
-		<c:import url="/WEB-INF/user/formModify.jsp" />
-	</c:if>
 </body>
 </html>

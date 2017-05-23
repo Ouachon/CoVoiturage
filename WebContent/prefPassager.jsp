@@ -4,23 +4,27 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Passager</title>
-<link type="text/css" rel="stylesheet" href="styles.css" />
-<style type="text/css">
-body {
-	background-color: #A7A1B1;
-}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link type="text/css" rel="stylesheet" href="style.css" />
+<title>Préférences Passager</title>
 
-.widget-header .title {
-	text-align: center;
-}
-</style>
 </head>
 <body>
-    <ul id="menu">
-            <li> <a href="<c:url value="index.jsp"/>">Accueil</a>   
-    </ul>
-    <br>
+	<nav class="navbar navbar-default">
+	 <div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target="#myNavbar"></button>
+				<h5>
+					<c:import url="/WEB-INF/menu/menu.jsp" />
+				</h5>
+			</div>
+			</div>
+	</nav>
+	<div class="container-fluid bg-1 text-center" >
+	
 	<form class="form-horizontal no-margin" action="preferencePassager"
 		method="post">
 
