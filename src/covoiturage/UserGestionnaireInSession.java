@@ -57,8 +57,8 @@ public class UserGestionnaireInSession implements UserGestionnaireInterface {
 		return retour;
 	}
 
-	public HashMap<String, User> conducteursPassePresDe(User unPassager) {
-		HashMap<String, User> conducteursPassantPres = new HashMap<String, User>();
+	public HashMap< User, IntersectionUser> conducteursPassePresDe(User unPassager) {
+		HashMap< User, IntersectionUser> conducteursPassantPres = new HashMap<User,IntersectionUser>();
 		String email;
 		User conducteur;
 		for (Entry<String, User> entry : listeDesUsers.entrySet()) {
@@ -67,8 +67,12 @@ public class UserGestionnaireInSession implements UserGestionnaireInterface {
 			if (conducteur!=unPassager) {
 
 				if (conducteur.getIsConducteur() == true) {
-					if (conducteur.passePresDeCoord(unPassager.getCoordonneesGPS(), CoordGPS.RAYON) == true) {
-						conducteursPassantPres.put(email, conducteur);
+					IntersectionUser uneIntersection = 
+						(conducteur.passePresDeCoord(unPassager.getCoordonneesGPS(), CoordGPS.RAYON));
+					if (uneIntersection != null) {
+						// Le conducteur passe près de la coord GPS du passager
+						// on a rétourné un objet détaillant cette intersection
+						conducteursPassantPres.put(conducteur,uneIntersection);
 						System.out.println("conducteur identifié :" + email);
 					}
 				}
@@ -77,36 +81,39 @@ public class UserGestionnaireInSession implements UserGestionnaireInterface {
 		return conducteursPassantPres;
 	}
 
-	public HashMap<User, Integer> correlationEntre(User unUser, HashMap<String, User> listeDeUsers) {
+	public HashMap<User, IntersectionUser> correlationEntre(User inUser, HashMap< User, IntersectionUser> listeDeUsers) {
 
-		HashMap<User, Integer> usersEtScores = new HashMap<User, Integer>();
-		int score = 0;
-		User autreUser;
-		for (Entry<String, User> entry : listeDeUsers.entrySet()) {
-			autreUser = entry.getValue();
-			score = 10; // TODO autreUser.profilConducteur.scoreCompatibiliteAvecUser(unUser);
-			usersEtScores.put(autreUser, score);
-			System.out.println(autreUser.getEmail() + " : " + score);
+		HashMap<User, IntersectionUser> usersEtScores = new HashMap<User, IntersectionUser>();
+		int score1 = 0;
+		int score2 = 0;
+		User userCourant;
+		IntersectionUser intersectionCourante;
+		for (Entry<User, IntersectionUser> entry : listeDeUsers.entrySet()) {
+			userCourant = entry.getKey();
+			intersectionCourante = entry.getValue();
+			ProfilUser profilCourant = userCourant.profilConducteur;
+			if (profilCourant != null) {
+				score1 = profilCourant.scoreCompatibiliteAvecUser(inUser);
+			}
+			intersectionCourante.setScoreUser1ConduitParUser2(score1);
+			
+//			ProfilUser profilCourantInverse= inUser.profilConducteur;
+//			score2 = profilCourantInverse.scoreCompatibiliteAvecUser(userCourant);
+			score2=score1;// TODO
+			intersectionCourante.setScoreUser1ConduitUser2(score2);
+			
+			usersEtScores.put(userCourant, intersectionCourante);
+			System.out.println(userCourant.getEmail() + " : " + score1);
 		}
-		return usersEtScores; // est une HasMap (listeDeUsers,score)
+		return usersEtScores; // est une HasMap (User, detail de l'intersection)
 	}
 
-	public HashMap<User, Integer> conducteursPotentielsPour(User unPassager) {
+	public HashMap<User, IntersectionUser> conducteursPotentielsPour(User unPassager) {
 		//HashMap<User, Integer> conducteursPotentiels = new HashMap<User, Integer>();
 
-		HashMap<String, User> conducteursProches = conducteursPassePresDe(unPassager);
-		HashMap<User, Integer> conducteursEtScore = correlationEntre(unPassager, conducteursProches);
-//		int score;
-//		User autreUser;
-//		for (Entry<User, Integer> entry : conducteursEtScore.entrySet()) {
-//			autreUser = entry.getKey();
-//			score = entry.getValue();
-//			conducteursPotentiels.put(autreUser, score);
-//			System.out.println("user potentiel, score : " + score);
-//			conducteursPotentiels.put(autreUser, score);
-//		}	
+		HashMap< User, IntersectionUser> conducteursProches = conducteursPassePresDe(unPassager);
+		HashMap<User, IntersectionUser> conducteursEtScore = correlationEntre(unPassager, conducteursProches);
 
-		//return conducteursPotentiels;
 		return conducteursEtScore;
 	}
 

@@ -3,6 +3,7 @@ package covoiturage;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -108,12 +109,25 @@ public class LoginAction extends HttpServlet {
 				dispat.forward(request, response);
 			}
 			else if (typeCovoit.equals("typepassager")) {
-				HashMap<User,Integer>  condProches=null;
+				HashMap<User,IntersectionUser>  condProches=null;
 				// Liste des conducteurs passant près de ....
 				condProches = myUserManager.conducteursPotentielsPour(userCourant);
 				request.setAttribute("conducteursProche", condProches);
 				System.out.println("ConducteursProche taille:" + condProches.size());
-
+				
+				// Debug : sortie ecran
+				for (Entry<User, IntersectionUser> entry : condProches.entrySet()) {
+					User autreUser = entry.getKey();
+					IntersectionUser uneInter = entry.getValue();
+					System.out.println(autreUser.getEmail());
+					System.out.println(uneInter.getPourcUser1ConduitParUser2());
+					System.out.println(uneInter.getEloignementPointRencontre());
+					
+				}
+				
+				// Amettre dans jsp mais ne fonctionne pas 
+				//<td> ${ map.value.getPourcUser1ConduitParUser2(); }
+				//<td> ${ map.value.getPourcUser1ConduitUser2(); }
 				RequestDispatcher dispat = request.getRequestDispatcher("passager.jsp");
 				dispat.include(request, response);  // Difference avec forward
 			}

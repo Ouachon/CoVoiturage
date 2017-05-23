@@ -24,8 +24,12 @@
 		<c:forEach items="${conducteursProche}" var="map" >
 			<tr class="impair" >
 				<td> ${ map.key.getEmail() } </td>
-				<td> ${ map.value }	</td>
-
+				<td> ${ map.value.getScoreUser1ConduitParUser2() } </td>
+				<td> ${ map.value.getScoreUser1ConduitUser2() }</td>
+				<td> ${ map.value.getEloignementPointRencontre() }	</td>
+				<td> ${ map.value.getPourcUser1ConduitParUser2() } </td>
+				
+			
 			</tr>	
 		</c:forEach>
 	</table>

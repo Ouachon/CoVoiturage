@@ -235,23 +235,38 @@ public class User {
 		return coordonneesGPS.estProche(autreCoord,rayon);
 	}
 	
-	public boolean passePresDeCoord(CoordGPS autreCoord, int rayon) {
+	public IntersectionUser passePresDeCoord(CoordGPS autreCoord, int rayon) {
+		IntersectionUser retour = null;
 		boolean estProche = false;	
 		CoordGPS unPointDeLaRoute;
 		ArrayList<CoordGPS> route = this.getRoute();
-		//CoordGPS[] route = this.getRoute();
 		
-		if (route==null) return estProche;
 		
-		for (int i = 0; i < route.size(); i++) {
-		unPointDeLaRoute = route.get(i);
-		System.out.println("verif route point "+(i+1) + "/ "+ route.size());
-		estProche = unPointDeLaRoute.estProche(autreCoord, rayon);
-		if (estProche) 
-			{break;}
-		}
-			System.out.println("estProcheFINAL : "+estProche);
-		return estProche;
+		if (route==null) return retour;
+		
+		int nbPoints= route.size();
+		
+		for (int i = 0; i < nbPoints; i++) {
+			unPointDeLaRoute = route.get(i);
+			estProche = unPointDeLaRoute.estProche(autreCoord, rayon);
+			if (estProche) {
+				retour = new IntersectionUser();
+				retour.setUser1(this);
+				retour.setCoordRencontre(unPointDeLaRoute);
+				retour.setEloignementPointRencontre(unPointDeLaRoute.kmAVolOiseauDe(autreCoord));
+				// On calcule le % de parcours commun
+				CoordGPS depart = route.get(0);
+				CoordGPS arrivee = route.get(nbPoints - 1);
+				double kmTotalConducteur= depart.kmAVolOiseauDe(arrivee);
+				double kmEnCommun = unPointDeLaRoute.kmAVolOiseauDe(arrivee);
+				int pourcArrondi = (int) Math.round(kmEnCommun / kmTotalConducteur * 100);
+				retour.setPourcUser1ConduitParUser2(pourcArrondi);
+				retour.setPourcUser1ConduitUser2(5);
+				break;
+			}
+			}
+		System.out.println("estProcheFINAL : "+estProche);
+		return retour;
 	}	
 	
 	

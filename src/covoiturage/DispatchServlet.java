@@ -76,7 +76,8 @@ public class DispatchServlet extends HttpServlet {
 		
 		User newUser = new User(email,pwd1,name);
 		newUser.setAdresseComplete(request.getParameter(FIELD_ADRESSE));
-		newUser.setAge(Integer.parseInt(request.getParameter(FIELD_AGE)));
+		String ageCh = request.getParameter(FIELD_AGE);
+		if (ageCh.length() > 0 ) newUser.setAge(Integer.parseInt(ageCh));
 		newUser.setSexe(request.getParameter(FIELD_SEXE));
 		newUser.setFumeur(request.getParameter(FIELD_FUMEUR));
 		// On recupere les coordonnées calculées pour ce user pour les mémoriser
@@ -91,6 +92,13 @@ public class DispatchServlet extends HttpServlet {
 		System.out.println("route" + routeRecue);
 		
 		newUser.setRoute(routeRecue);
+		
+		// ON insere un profil par defaut pour ce nouvel user
+		// (non fumeur, indifférencié pour sexe, et 30 -50 pour age)
+		ProfilUser profCond = new ProfilUser("N", "2", "I", 10, 1, 1);
+		ProfilUser profPass = new ProfilUser("N", "2", "I", 10, 1, 1);
+		newUser.profilConducteur=profCond;
+		newUser.profilPassager=profPass;
 		
 		
 		newUser.validateAll();		
