@@ -72,6 +72,20 @@ public class ConducteurCovoit extends HttpServlet {
 				form.put(FIELD_NOM_USER, email);
 				request.setAttribute("formLogin", form);
 
+				// on récupère le profil du userlogger
+				ProfilUser profilConducteur = userLogge.getProfilConducteur();
+
+				// String valFumeur = profilConducteur.getFumeur();
+				// System.out.println("profilConducteur.getFumeur()= " +
+				// profilConducteur.getFumeur());
+				//
+				// if (valFumeur == "Fu") {
+				// System.out.println("Fumeur oui ");
+				// form.put("fumeurOui", "checked");
+				// } else {
+				// form.put("fumeurOui", "");
+				// }
+
 				// on charge les préférences du prefConducteur
 				dispat = request.getRequestDispatcher("prefConducteur.jsp");
 				dispat.include(request, response);
@@ -101,9 +115,36 @@ public class ConducteurCovoit extends HttpServlet {
 
 	private HashMap<String, String> exporteUnProfilVersHTML(ProfilUser unProfil) {
 		HashMap<String, String> retour = new HashMap<String, String>();
+
+		// Idem pour age et sexe
 		retour.put("fumeur", unProfil.getFumeur());
 		retour.put("age", unProfil.getTrancheAge());
 		retour.put("sexe", unProfil.getSexe());
+
+		String valFumeur = unProfil.getFumeur();
+		System.out.println("profilConducteur.getFumeur()= " + unProfil.getFumeur());
+
+		if (valFumeur == "Fu") {
+			System.out.println("Fumeur oui ");
+			retour.put("fumeurOui", "checked");
+		} else {
+			retour.put("fumeurOui", "");
+		}
+
+		if (valFumeur == "N") {
+			System.out.println("Fumeur non ");
+			retour.put("fumeurNon", "checked");
+		} else {
+			retour.put("fumeurNon", "");
+		}
+
+		if (valFumeur == "I") {
+			System.out.println("Fumeur indifferent ");
+			retour.put("fumeurInd", "checked");
+		} else {
+			retour.put("fumeurInd", "");
+		}
+
 		System.out.println("fumeur= " + unProfil.getFumeur());
 		System.out.println("age= " + unProfil.getTrancheAge());
 		System.out.println("sexe= " + unProfil.getSexe());
