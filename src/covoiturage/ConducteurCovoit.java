@@ -127,40 +127,40 @@ public class ConducteurCovoit extends HttpServlet {
 
 		System.out.println("profilConducteur.getFumeur()= " + unProfil.getFumeur());
 
-		if (valFumeur == "F") {
+		if (valFumeur.equals("F")) {
 			System.out.println("Fumeur oui ");
 			retour.put("fumeurOui", "checked");
 		} else {
 			retour.put("fumeurOui", "");
 		}
 
-		if (valFumeur == "N") {
+		if (valFumeur.equals("N")) {
 			System.out.println("Fumeur non ");
 			retour.put("fumeurNon", "checked");
 		} else {
 			retour.put("fumeurNon", "");
 		}
 
-		if (valFumeur == "I") {
+		if (valFumeur.equals("I")) {
 			System.out.println("Fumeur indifferent ");
 			retour.put("fumeurInd", "checked");
 		} else {
 			retour.put("fumeurInd", "");
 		}
 
-		if (valSexe == "H") {
+		if (valSexe.equals("H")) {
 			retour.put("homme", "checked");
 		} else {
 			retour.put("homme", "");
 		}
 
-		if (valSexe == "F") {
+		if (valSexe.equals("F")) {
 			retour.put("femme", "checked");
 		} else {
 			retour.put("femme", "");
 		}
 
-		if (valSexe == "I") {
+		if (valSexe.equals("I")) {
 			retour.put("indifferent", "checked");
 		} else {
 			retour.put("indifferent", "");

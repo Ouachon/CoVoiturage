@@ -49,7 +49,7 @@
         <br>
         
 		<div class="control-group">
-			<label class="control-label"> Passagers fumeur = ${profilCourant['fumeurOui']}   nonfumeur = ${profilCourant['fumeurNon']}  ind = ${profilCourant['fumeurInd']}</label>
+			<label class="control-label"> Passagers</label>
 			<div id="specification">
 
                 <input type="radio" name="preferences" value="F" ${profilCourant['fumeurOui']} /> Fumeur <br />   
