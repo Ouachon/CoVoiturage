@@ -88,7 +88,7 @@
 			</hr>
 
 		</form>
-		<table name="coordUsersProche" id="coordUsersProche" style="width:100%">
+		<table type="hidden" name="coordUsersProche" id="coordUsersProche" style="width:100%">
 		<c:forEach items="${sessionScope.listeUsersProche}" var="map" >
 			<tr class="impair" >
 				<td> ${ map.value.getCoordonneesGPS().getLatitude() }	</td>
@@ -98,7 +98,7 @@
 			</tr>	
 		</c:forEach>
 		</table>
-		<debug name="debug" id="debug"> ooioioi </debug>
+		<debug name="debug" id="debug">  </debug>
 
 	</div>
 

@@ -71,11 +71,11 @@
 				</div>
 					<input class="form-control" type="text" name="travail" id="travail" value="capitole toulouse" />
 					
-					<input type="text" class="form-control"  name="coord_001" id="coord_001" value="" />
-					<input type="text" class="form-control"  name="coord_002" id="coord_002" value="" />
-					<input type="text" name="latLong" id="latLong" value="45,32" />
-					<input type="text" name="latLongArr" id="latLongArr" value="45,32" />
-					<input type="text" name="route" id="route" value="45,32:46,33:" />
+					<input type="hidden" class="form-control"  name="coord_001" id="coord_001" value="" />
+					<input type="hidden" class="form-control"  name="coord_002" id="coord_002" value="" />
+					<input type="hidden" name="latLong" id="latLong" value="45,32" />
+					<input type="hidden" name="latLongArr" id="latLongArr" value="45,32" />
+					<input type="hidden" name="route" id="route" value="45,32:46,33:" />
 					<div class="text-right">
 					<input class="btn-primary" type="submit"  style="font-size: 14px;" value="Enregistrement" /></div>
 				</div>
