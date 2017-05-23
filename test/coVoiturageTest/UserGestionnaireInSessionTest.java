@@ -41,7 +41,7 @@ public class UserGestionnaireInSessionTest {
 		 myUserManager.getListeDesUsers().clear();
 	}
 
-	@Test
+
 	public void testUsersProcheDe() {
 		
 		User user1 = new User("toto@cugnaux","11","toto");
@@ -65,8 +65,8 @@ public class UserGestionnaireInSessionTest {
 		assertTrue(actual.containsKey("tutu@OCCITANIE5"));
 		assertFalse(actual.containsKey("toto@cugnaux"));	
 	}
-	@Test
-	public void testConducteurPassePresDe(){
+	
+	public void testConducteurPassePresDeMaisonDe(){
 		// unPassager
 		User unPassager = new User("stOrens@tracetaroute.com","11","StOrens");
 		unPassager.setCoordonneesGPS(stOrens);  
@@ -102,7 +102,7 @@ public class UserGestionnaireInSessionTest {
 		myUserManager.add(conducteurEscalquens);
 		
 		//HashMap<String,User> conducteursPassantPresDe = new HashMap<String,User>();
-		HashMap<User,IntersectionUser>conducteursPassantPresDe = myUserManager.conducteursPassePresDe(unPassager);
+		HashMap<User,IntersectionUser>conducteursPassantPresDe = myUserManager.conducteursPassePresDeMaisonDe(unPassager);
 		
 		//= myUserManager.conducteursPassePresDe(unPassager);
 		//la map doit contenir 2 enregistrements : conducteur 1 et 3, le 2 ne doit pas y ^tre
@@ -113,6 +113,33 @@ public class UserGestionnaireInSessionTest {
 	}
 	
 	@Test
+	public void testConducteursPassePresDeRouteDe() {
+		//Conducteur1 + setRoute passant à proximité
+				ArrayList<CoordGPS> route1 = new ArrayList<CoordGPS>();
+				route1.add(villefrancheL);
+				route1.add(carrefourLabege);
+				route1.add(augustins);
+					//{villefrancheL,gaumontLabege,carrefourLabege,augustins};
+				User conducteurVillefranche = new User("VilleFrToAugustins@tracetareoute.com","11","VilleFrToAugustins");
+				conducteurVillefranche.setRoute(route1);
+				
+				ArrayList<CoordGPS> route2 = new ArrayList<CoordGPS>();
+				route2.add(purpan);
+				route2.add(cugnaux);
+				route2.add(augustins);
+					//{villefrancheL,gaumontLabege,carrefourLabege,augustins};
+				User conducteurPurpan = new User("purpan@tracetareoute.com","11","purpan");
+				conducteurPurpan.setRoute(route2);
+				
+				myUserManager.add(conducteurVillefranche);
+				myUserManager.add(conducteurPurpan);
+				
+				HashMap<User,IntersectionUser> result = myUserManager.conducteursPassePresDeRouteDe(conducteurPurpan);
+				System.out.println("taille resultat = " + result.size());
+				assertEquals(1, result.size());
+	}
+	
+	
 	public void testCorrelationEntreUnUserEtListeConducteursProches() {
 
 		// unPassager NonFumeur 30Ans Homme - Conducteurs:  Poids critere  fumeur = 100, age=1, sexe = 10 ;

@@ -1,6 +1,7 @@
 package covoiturage;
 
 import java.awt.List;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
@@ -56,30 +57,102 @@ public class UserGestionnaireInSession implements UserGestionnaireInterface {
 		}
 		return retour;
 	}
-
-	public HashMap< User, IntersectionUser> conducteursPassePresDe(User unPassager) {
+	
+	public HashMap< User, IntersectionUser> conducteursPassePresDeMaisonDe(User inUser) {
+		return conducteursPassePresDeCoord(inUser.getCoordonneesGPS());
+	}
+	public HashMap< User, IntersectionUser> conducteursPassePresDeCoord(CoordGPS uneCoord) {
 		HashMap< User, IntersectionUser> conducteursPassantPres = new HashMap<User,IntersectionUser>();
 		String email;
 		User conducteur;
+		System.out.println("conducteurs passe pres de coord " + uneCoord.getLatitude() + "," + uneCoord.getLongitude());
+		int cpt = 0 ;
 		for (Entry<String, User> entry : listeDesUsers.entrySet()) {
 			conducteur = entry.getValue();
 			email = entry.getKey();
-			if (conducteur!=unPassager) {
-
+			cpt ++;
 				if (conducteur.getIsConducteur() == true) {
 					IntersectionUser uneIntersection = 
-						(conducteur.passePresDeCoord(unPassager.getCoordonneesGPS(), CoordGPS.RAYON));
+						(conducteur.passePresDeCoord(uneCoord, CoordGPS.RAYON));
 					if (uneIntersection != null) {
 						// Le conducteur passe près de la coord GPS du passager
 						// on a rétourné un objet détaillant cette intersection
 						conducteursPassantPres.put(conducteur,uneIntersection);
-						System.out.println("conducteur identifié :" + email);
+						System.out.println("conducteur identifié :" + email + " au tour no " + cpt);
 					}
 				}
-			}
+
 		}
 		return conducteursPassantPres;
 	}
+	
+	
+	// Intersection des routes
+	public HashMap< User, IntersectionUser> conducteursPassePresDeRouteDe(User unPassager) {
+		
+		HashMap< User, IntersectionUser> conducteursPassantPresRoute = new HashMap<User,IntersectionUser>();
+		
+		HashMap< User, IntersectionUser> conducteursPassantPresPoint = new HashMap<User,IntersectionUser>();
+		
+		User conducteur;
+		IntersectionUser uneInter;
+		CoordGPS uneCoord;
+		ArrayList<CoordGPS> uneRoute = unPassager.getRoute();
+		// Pour chaque point de la route, on verifie si un conducteurs passe près de ce point
+		int nbPoints= uneRoute.size();	
+		nbPoints = nbPoints - 1;  // on ne regarde pas les 1 derniers points, trop pres du travail
+		for (int i = 0; i < nbPoints; i++) {
+				uneCoord = uneRoute.get(i);
+				conducteursPassantPresPoint = conducteursPassePresDeCoord(uneCoord);
+				System.out.println(unPassager.getEmail());
+				System.out.println("Pres de la route: resultat intermediare = " + conducteursPassantPresPoint.size() );
+				// copier la hashmap resultat dans conducteursPassantPres
+				// Si le user est déja présent ne pas le remettre ( il passait déja près d'un autre point)
+				for (Entry< User, IntersectionUser> entry : conducteursPassantPresPoint.entrySet()) {
+					conducteur = entry.getKey();
+					uneInter = entry.getValue();
+					if (conducteur.getEmail().equals(unPassager.getEmail())) {
+						// le conducteur lui meme passe pres de sa route
+						// mais ca n'a aucun interet
+					} else
+					{
+						if (conducteursPassantPresRoute.containsKey(conducteur)) {
+							// Ce conducteur passait déja près d'un autre point de ma route
+						} else
+						{
+							// On ajoute ce conducteur avec sa correspondance.
+							conducteursPassantPresRoute.put(conducteur, uneInter);
+						}
+					}
+				}
+		}
+
+		return conducteursPassantPresRoute;
+	}
+
+//	public HashMap< User, IntersectionUser> conducteursPassePresDeProtec(User unPassager) {
+//		HashMap< User, IntersectionUser> conducteursPassantPres = new HashMap<User,IntersectionUser>();
+//		String email;
+//		User conducteur;
+//		for (Entry<String, User> entry : listeDesUsers.entrySet()) {
+//			conducteur = entry.getValue();
+//			email = entry.getKey();
+//			if (conducteur!=unPassager) {
+//
+//				if (conducteur.getIsConducteur() == true) {
+//					IntersectionUser uneIntersection = 
+//						(conducteur.passePresDeCoord(unPassager.getCoordonneesGPS(), CoordGPS.RAYON));
+//					if (uneIntersection != null) {
+//						// Le conducteur passe près de la coord GPS du passager
+//						// on a rétourné un objet détaillant cette intersection
+//						conducteursPassantPres.put(conducteur,uneIntersection);
+//						System.out.println("conducteur identifié :" + email);
+//					}
+//				}
+//			}
+//		}
+//		return conducteursPassantPres;
+//	}
 
 	public HashMap<User, IntersectionUser> correlationEntre(User inUser, HashMap< User, IntersectionUser> listeDeUsers) {
 
@@ -111,7 +184,8 @@ public class UserGestionnaireInSession implements UserGestionnaireInterface {
 	public HashMap<User, IntersectionUser> conducteursPotentielsPour(User unPassager) {
 		//HashMap<User, Integer> conducteursPotentiels = new HashMap<User, Integer>();
 
-		HashMap< User, IntersectionUser> conducteursProches = conducteursPassePresDe(unPassager);
+		//HashMap< User, IntersectionUser> conducteursProches = conducteursPassePresDeMaisonDe(unPassager);
+		HashMap< User, IntersectionUser> conducteursProches = conducteursPassePresDeRouteDe(unPassager);
 		HashMap<User, IntersectionUser> conducteursEtScore = correlationEntre(unPassager, conducteursProches);
 
 		return conducteursEtScore;
