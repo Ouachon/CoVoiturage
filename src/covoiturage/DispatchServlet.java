@@ -93,6 +93,13 @@ public class DispatchServlet extends HttpServlet {
 		
 		newUser.setRoute(routeRecue);
 		
+		// ON insere un profil par defaut pour ce nouvel user
+		// (non fumeur, indifférencié pour sexe, et 30 -50 pour age)
+		ProfilUser profCond = new ProfilUser("N", "2", "I", 10, 1, 1);
+		ProfilUser profPass = new ProfilUser("N", "2", "I", 10, 1, 1);
+		newUser.profilConducteur=profCond;
+		newUser.profilPassager=profPass;
+		
 		
 		newUser.validateAll();		
 		erreursParChamps = newUser.getHashMapErrors();
