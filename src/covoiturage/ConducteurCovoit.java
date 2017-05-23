@@ -122,9 +122,12 @@ public class ConducteurCovoit extends HttpServlet {
 		retour.put("sexe", unProfil.getSexe());
 
 		String valFumeur = unProfil.getFumeur();
+		String valTranche = unProfil.getTrancheAge();
+		String valSexe = unProfil.getSexe();
+
 		System.out.println("profilConducteur.getFumeur()= " + unProfil.getFumeur());
 
-		if (valFumeur == "Fu") {
+		if (valFumeur == "F") {
 			System.out.println("Fumeur oui ");
 			retour.put("fumeurOui", "checked");
 		} else {
@@ -145,6 +148,49 @@ public class ConducteurCovoit extends HttpServlet {
 			retour.put("fumeurInd", "");
 		}
 
+		if (valSexe == "H") {
+			retour.put("homme", "checked");
+		} else {
+			retour.put("homme", "");
+		}
+
+		if (valSexe == "F") {
+			retour.put("femme", "checked");
+		} else {
+			retour.put("femme", "");
+		}
+
+		if (valSexe == "I") {
+			retour.put("indifferent", "checked");
+		} else {
+			retour.put("indifferent", "");
+		}
+
+		
+		
+		if (valTranche == "0") {
+			retour.put("part0", "checked");
+		} else {
+			retour.put("part0", "");
+		}
+
+		if (valTranche == "1") {
+			retour.put("part1", "checked");
+		} else {
+			retour.put("part1", "");
+		}
+
+		if (valTranche == "2") {
+			retour.put("part2", "checked");
+		} else {
+			retour.put("part2", "");
+		}
+		
+		if (valTranche == "3") {
+			retour.put("part3", "checked");
+		} else {
+			retour.put("part3", "");
+		}
 		System.out.println("fumeur= " + unProfil.getFumeur());
 		System.out.println("age= " + unProfil.getTrancheAge());
 		System.out.println("sexe= " + unProfil.getSexe());

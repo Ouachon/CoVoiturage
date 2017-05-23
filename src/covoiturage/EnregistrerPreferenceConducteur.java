@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet implementation class EnregistrerPreferenceConducteur
  */
-@WebServlet("/EnregistrerPreferenceConducteur")
+@WebServlet("/preferenceConducteur")
 public class EnregistrerPreferenceConducteur extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	public static final String FIELD_NOM_USER = "email";

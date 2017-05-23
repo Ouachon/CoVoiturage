@@ -26,11 +26,6 @@
 			</div>
 	</nav>
 <div class="container-fluid bg-1 text-center" >
-
-
-
-
-	
 <div class="container-fluid bg-3 text-left" style="width: 500px;">
 	<div class="jumbotron text-center">
 		<h3>Mes préférences</h3>
@@ -56,20 +51,19 @@
 		<div class="control-group">
 			<label class="control-label"> Passagers </label>
 			<div id="specification">
-        
-			 <input type="radio" name="preferences"  value="F" /> Fumeur <br />
-				<input type="radio" name="preferences" value="N" /> Non fumeur <br />
-				<input type="radio" name="preferences" value="I" checked="checked" />
-				Pas de preferences
-			</div>
+
+                <input type="radio" name="preferences" value="F" checked="${profilCourant['fumeurOui']}" /> Fumeur <br /> 
+                <input type="radio" name="preferences" value="N" checked="${profilCourant['fumeurNon']}"/> Non fumeur <br /> 
+                <input type="radio" name="preferences" value="I" checked="${profilCourant['fumeurInd']}"/> Pas de preferences
+            </div>
 		</div>
 		<br>
 		<div class="control-group">
 			<label class="control-label" for="type"> Type de passagers </label>
 			<div id="sexe">
-				<input type="radio" name="type_passager" value="H" /> Homme <br />
-				<input type="radio" name="type_passager" value="F" /> Femme <br />
-				<input type="radio" name="type_passager" value="I" checked="checked" />
+				<input type="radio" name="type_passager" value="H" checked="${profilCourant['homme']}"/> Homme <br />
+				<input type="radio" name="type_passager" value="F" checked="${profilCourant['femme']}"/> Femme <br />
+				<input type="radio" name="type_passager" value="I" checked="${profilCourant['indifferent']}" />
 				Homme/Femme <br />
 			</div>
 		</div>
@@ -98,6 +92,7 @@
 		<div class="clearfix"></div>
 	</form>
 	</div>
+    </div>	
 
 </body>
 </html>
