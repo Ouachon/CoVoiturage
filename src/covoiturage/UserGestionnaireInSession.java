@@ -122,7 +122,7 @@ public class UserGestionnaireInSession implements UserGestionnaireInterface {
 		CoordGPS carrefourLabege = new CoordGPS(43.550481, 1.508069);
 		CoordGPS gaumontLabege = new CoordGPS(43.540139, 1.510688);
 
-		ProfilUser profil1 = new ProfilUser("Fu", "Moinsde30", "Homme", 100, 10, 1);
+		ProfilUser profil1 = new ProfilUser("F", "1", "H", 100, 10, 1);
 
 		User user1 = new User("BLAGNAC@gmail", "11", "toto");
 		user1.setCoordonneesGPS(blagnac);

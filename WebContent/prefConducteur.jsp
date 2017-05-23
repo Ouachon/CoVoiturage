@@ -4,31 +4,39 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Conducteur</title>
-<link type="text/css" rel="stylesheet" href="styles.css" />
-<style type="text/css">
-body {
-	background-color: #A7A1B1;
-}
 
-.widget-header .title {
-	text-align: center;
-}
-</style>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link type="text/css" rel="stylesheet" href="style.css" />
+
+<title>Préférences Conducteur </title>
+
 </head>
 <body>
+	<nav class="navbar navbar-default">
+	 <div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target="#myNavbar"></button>
+				<h5>
+					<c:import url="/WEB-INF/menu/menu.jsp" />
+				</h5>
+			</div>
+			</div>
+	</nav>
+<div class="container-fluid bg-1 text-center" >
 
-	Debug:
-	<br> ${profilCourant['fumeur']} ${profilCourant['age']}
-	${profilCourant['sexe']} 
-	<br>
-	Bienvenue ${formLogin['nomUser']}
-	<ul id="menu">
-		<li><a href="<c:url value="index.jsp"/>">Accueil</a>
-	</ul>
-	<br>
-	<form class="form-horizontal no-margin" action="EnregistrerPreferenceConducteur"
-		method="post">
+
+
+
+	
+<div class="container-fluid bg-3 text-left" style="width: 500px;">
+	<div class="jumbotron text-center">
+		<h3>Mes préférences</h3>
+	</div>
+
+	<form class="form-group"  style="font-size: 14px;" action="preferenceConducteur" method="post">
 		  <input type="hidden" name="userCourant" id="userCourant" value=${formLogin['nomUser']}  style="width: 300px;"> </br>
 		<br>
 	
@@ -41,10 +49,10 @@ body {
 					<option value="2">2</option>
 					<option value="3">3</option>
 				</select>
-
 			</div>
 		</div>
-		<br>
+        <br>
+        
 		<div class="control-group">
 			<label class="control-label"> Passagers </label>
 			<div id="specification">
@@ -67,6 +75,19 @@ body {
 		</div>
 		<br>
 		<div class="control-group">
+        <div class="control-group">
+            <label class="control-label">Age </label>${profilCourant['age']}
+            <div class="controls controls-row">
+                <select class="span4" name="mini_kmr">
+                    <option value="0">tout âge</option>
+                    <option value="1">moins de 30 ans</option>
+                    <option value="2">moins de 50 ans</option>
+                    <option value="3">plus de 50 ans</option>
+                </select>
+            </div>
+        </div>
+     
+<!-- 		<div class="control-group">
 			<label class="control-label">Age </label>
 			<div class="controls controls-row">
 				<select class="span4" name="age">
@@ -86,5 +107,7 @@ body {
 
 		<div class="clearfix"></div>
 	</form>
+	</div>
+
 </body>
 </html>
