@@ -49,21 +49,21 @@
         <br>
         
 		<div class="control-group">
-			<label class="control-label"> Passagers </label>
+			<label class="control-label"> Passagers fumeur = ${profilCourant['fumeurOui']}   nonfumeur = ${profilCourant['fumeurNon']}  ind = ${profilCourant['fumeurInd']}</label>
 			<div id="specification">
 
-                <input type="radio" name="preferences" value="F" checked="${profilCourant['fumeurOui']}" /> Fumeur <br /> 
-                <input type="radio" name="preferences" value="N" checked="${profilCourant['fumeurNon']}"/> Non fumeur <br /> 
-                <input type="radio" name="preferences" value="I" checked="${profilCourant['fumeurInd']}"/> Pas de preferences
+                <input type="radio" name="preferences" value="F" ${profilCourant['fumeurOui']} /> Fumeur <br />   
+                <input type="radio" name="preferences" value="N" ${profilCourant['fumeurNon']}/> Non fumeur <br /> 
+                <input type="radio" name="preferences" value="I" ${profilCourant['fumeurInd']} /> Pas de preferences
             </div>
 		</div>
 		<br>
 		<div class="control-group">
 			<label class="control-label" for="type"> Type de passagers </label>
 			<div id="sexe">
-				<input type="radio" name="type_passager" value="H" checked="${profilCourant['homme']}"/> Homme <br />
-				<input type="radio" name="type_passager" value="F" checked="${profilCourant['femme']}"/> Femme <br />
-				<input type="radio" name="type_passager" value="I" checked="${profilCourant['indifferent']}" />
+				<input type="radio" name="type_passager" value="H" ${profilCourant['homme']}/> Homme <br />
+				<input type="radio" name="type_passager" value="F" ${profilCourant['femme']}/> Femme <br />
+				<input type="radio" name="type_passager" value="I" ${profilCourant['indifferent']} />
 				Homme/Femme <br />
 			</div>
 		</div>

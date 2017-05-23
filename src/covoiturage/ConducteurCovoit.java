@@ -166,31 +166,6 @@ public class ConducteurCovoit extends HttpServlet {
 			retour.put("indifferent", "");
 		}
 
-		
-		
-		if (valTranche == "0") {
-			retour.put("part0", "checked");
-		} else {
-			retour.put("part0", "");
-		}
-
-		if (valTranche == "1") {
-			retour.put("part1", "checked");
-		} else {
-			retour.put("part1", "");
-		}
-
-		if (valTranche == "2") {
-			retour.put("part2", "checked");
-		} else {
-			retour.put("part2", "");
-		}
-		
-		if (valTranche == "3") {
-			retour.put("part3", "checked");
-		} else {
-			retour.put("part3", "");
-		}
 		System.out.println("fumeur= " + unProfil.getFumeur());
 		System.out.println("age= " + unProfil.getTrancheAge());
 		System.out.println("sexe= " + unProfil.getSexe());
