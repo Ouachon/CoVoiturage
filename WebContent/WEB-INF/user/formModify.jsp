@@ -48,19 +48,25 @@
 				</div>
 				<div class="form-group" style="font-size: 14px;">	
 					<label for="sexe">Sexe</label>
-					<select name="sexe" id="sexe"><option id="F" value="F">Femme</option><option id="H" value="H">Homme</option></select>
+					<select name="sexe" id="sexe">
+						<option id="F" value="F">Femme</option>
+						<option id="H" value="H">Homme</option>
+						</select>
 					<input type="text" class="form-control" name="sexe" id="sexe" value="${form['sexe']}" />
 				</div>
 				<div class="form-group" style="font-size: 14px;">	
 					<label for="adresse">Adresse</label>
 					<input onChange="rechercherEtTracer('adrDep','adrArr')" class="form-control" type="text" name="adrDep" id="adrDep" value="${form['adrDep']}" />
 				</div>
-					<input type="text"  class="form-control" name="adrArr" id="adrArr" value="${form['adrArr']}" />
+					<input type="hidden"  class="form-control" name="adrArr" id="adrArr" value="Capitole, Toulouse, France" />
 				<div class="form-group" style="font-size: 14px;">
 					
 					<label for="fumeur">Fumeur</label>
-					<select name="sexe"><option id="F" value="F">Fumeur</option><option id="N" value="N">Non Fumeur</option></select>
-					<input type="hidden" class="form-control" name="fumeur" id="fumeur" value="${form['fumeur']}" />
+					<select name="fumeur">
+						<option id="F" value="F">Fumeur</option>
+						<option id="N" value="N">Non Fumeur</option>
+						</select>
+					<input type="text" class="form-control" name="fumeur" id="fumeur" value="${form['fumeur']}" />
 				</div>
 					<input class="form-control" type="hidden" name="travail" id="travail" value="capitole toulouse" />
 					

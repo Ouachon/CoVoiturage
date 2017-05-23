@@ -30,7 +30,7 @@ public class ServletModifUser extends HttpServlet {
 	public static final String FIELD_LATLONG = "latLong";
 	public static final String FIELD_ROUTE = "route";
 	
-	public static String VIEW_PAGES_URL="/WEB-INF/user/formModify.jsp"; 
+
 	
     /**
      * @see HttpServlet#HttpServlet()
@@ -55,6 +55,8 @@ public class ServletModifUser extends HttpServlet {
 		// TODO Auto-generated method stub
 		RequestDispatcher dispat;
 		HttpSession session = request.getSession();
+		HashMap<String, String> form = new HashMap<String, String>();
+
 		//enregistrement des éléments du compte
 		String identifiantUser = request.getParameter("userCourant");
 			System.out.println("identifiant User : "+ identifiantUser);
@@ -65,16 +67,30 @@ public class ServletModifUser extends HttpServlet {
 		String mdp = userLogge.getPwd();
 		String name = userLogge.getNom();
 		int age = userLogge.getAge();
+		String userAge = Integer.toString(age);
 		String sexe = userLogge.getSexe();	
 		String adresse = userLogge.getAdresseComplete();
-		String fumer = userLogge.getFumeur();
+		String fumeur = userLogge.getFumeur();
 		
 		// On tient le user loggé on exporte son profil pour le mettre dans
 		// une hashMap que le JSP exploitera
+		
+		System.out.println("conducteur.jsp email = " + email);
+		form.put(FIELD_EMAIL, email);
+		form.put(FIELD_PWD1, mdp);
+		form.put(FIELD_NAME, name);
+		form.put(FIELD_AGE, userAge);
+		form.put( FIELD_SEXE, sexe);
+		form.put(FIELD_FUMEUR,fumeur);
+		form.put(FIELD_ADRESSE, adresse);
+		request.setAttribute("form", form);
+		
 
-		request.setAttribute("email", email);
-		dispat = request.getRequestDispatcher("/formModify.jsp");		
+		// on charge les préférences du prefConducteur
+		dispat = request.getRequestDispatcher("formModify.jsp");
 		dispat.include(request, response);
+		
+
 		}
 
 
