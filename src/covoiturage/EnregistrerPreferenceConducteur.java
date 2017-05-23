@@ -45,39 +45,37 @@ public class EnregistrerPreferenceConducteur extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		HashMap<String, String> form = new HashMap<String, String>();
-		
+
 		HttpSession session = request.getSession();
 
 		// enregistrement des préference du conducteur
-		
+
 		String identifiantUser = request.getParameter("userCourant");
 		System.out.println("identifiant = " + identifiantUser);
 
-		
 		UserGestionnaireInSession myUserManager = UserGestionnaireInSession.getInstance();
 
 		User userLogge = myUserManager.getListeDesUsers().get(identifiantUser);
-		
+
 		System.out.println("valeur de fumeur = " + request.getParameter("preferences"));
 		System.out.println("valeur de age = " + request.getParameter("age"));
 		System.out.println("valeur de type_passager = " + request.getParameter("type_passager"));
-		
+
 		ProfilUser unProfil = userLogge.getProfilConducteur();
-		
+
 		// unProfil.setFumeur(request.getParameter(FIELD_FUMEUR));
-		
-		 unProfil.setFumeur(request.getParameter("preferences"));
-		 unProfil.setFumeur(request.getParameter("age"));
-		 unProfil.setFumeur(request.getParameter("type_passager"));
-		
-		 
+
+		unProfil.setFumeur(request.getParameter("preferences"));
+		unProfil.setTrancheAge(request.getParameter("age"));
+		unProfil.setSexe(request.getParameter("type_passager"));
+
 		// Login on retourne le nom pour la page Conducteur
-			String email = userLogge.getEmail();
-			System.out.println("conducteur.jsp email = " + email);
-			form.put(FIELD_NOM_USER, email); 
-			
-			request.setAttribute("formLogin", form);
-			
+		String email = userLogge.getEmail();
+		System.out.println("conducteur.jsp email = " + email);
+		form.put(FIELD_NOM_USER, email);
+
+		request.setAttribute("formLogin", form);
+
 		RequestDispatcher dispat = request.getRequestDispatcher("conducteur.jsp");
 		dispat.forward(request, response);
 	}
