@@ -87,17 +87,7 @@
             </div>
         </div>
      
-<!-- 		<div class="control-group">
-			<label class="control-label">Age </label>
-			<div class="controls controls-row">
-				<select class="span4" name="age">
-					<option value="0">tout âge</option>
-					<option value="1">moins de 30 ans</option>
-					<option value="2">moins de 50 ans</option>
-					<option value="3">plus de 50 ans</option>
-				</select>
-			</div>
-		</div>
+
 		<br>
 			
 		<div class="controls">
