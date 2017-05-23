@@ -60,7 +60,9 @@
 		</fieldset>
 		<br><br>
 		
-		<input class="btn-primary" type="submit" href="<c:url value="prefConducteur.jsp"/>" style="font-size: 14px;"value="Préférences Conducteur" />
+		<input class="btn-primary" type="submit" name="prefConducteur" style="font-size: 14px;"value="Préférences Conducteur" /> </br>
+		<br>
+		<input class="btn-primary" type="submit" name ="suppression" style="font-size: 14px;"value="Supprimer le compte" />
 	</form>
 	</div>
 	</div>
