@@ -8,8 +8,8 @@
 </head>
 <body>
 	Bienvenue ${formLogin['nomUser']}
-	${conducteursProche.size()}  utilisateurs connectés
-	${sessionScope.conducteursProche.size()}  utilisateurs connectés
+	${conducteursProche.size()}  utilisateurs proches de vous : 
+	
 	
 	<br><br>
 	<table name="condProche" id="condProche" style="width:100%">
@@ -27,20 +27,18 @@
 				<td> ${ map.value.getScoreUser1ConduitParUser2() } </td>
 				<td> ${ map.value.getScoreUser1ConduitUser2() }</td>
 				<td> ${ map.value.getEloignementPointRencontre() }	</td>
-				<td> ${ map.value.getPourcUser1ConduitParUser2() } </td>
+				<td> ${ map.value.getPourcUser1ConduitUser2() } </td>
 				
 			
 			</tr>	
 		</c:forEach>
 	</table>
+	Cliquez sur une entete de colonne pour trier.
+	Cliquez sur un score pour voir le profil correspondant
 	
 	<form method="post" action="PassagerCovoit">
-	<input type="text" name="userCourant" id="userCourant" value="${formLogin['email']}"  style="width: 300px;">
-		<fieldset>
-			<a href="<c:url value="prefPassager.jsp"/>">preference passager</a>
-		</fieldset>
-		
-		${ sessionScope.listeDesUsers.size() }  utilisateurs au total </br>
+	<input type="hidden" name="userCourant" id="userCourant" value="${formLogin['email']}"  style="width: 300px;">
+
 		<a><input type="submit" class="btn btn-primary" value="Supprimer le compte" name ="suppression">
 			 
     </form>

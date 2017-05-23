@@ -86,6 +86,19 @@ public class UserGestionnaireInSession implements UserGestionnaireInterface {
 		return conducteursPassantPres;
 	}
 	
+	public boolean HashMapContientIdentifiant(HashMap< User, IntersectionUser> inHashMap, String unIdentifiant) {
+		boolean ret = false;
+		User conducteur;
+		
+		for (Entry< User, IntersectionUser> entry : inHashMap.entrySet()) {
+			conducteur = entry.getKey();
+			if (conducteur.getEmail().equals(unIdentifiant)) {
+				ret = true;
+			}
+			
+		}
+		return ret;
+	}
 	
 	// Intersection des routes
 	public HashMap< User, IntersectionUser> conducteursPassePresDeRouteDe(User unPassager) {
@@ -96,18 +109,30 @@ public class UserGestionnaireInSession implements UserGestionnaireInterface {
 		
 		User conducteur;
 		IntersectionUser uneInter;
-		CoordGPS uneCoord;
+		CoordGPS coordRencontre;
+		int lePourcentage=0;
 		ArrayList<CoordGPS> uneRoute = unPassager.getRoute();
 		// Pour chaque point de la route, on verifie si un conducteurs passe près de ce point
 		int nbPoints= uneRoute.size();	
-		nbPoints = nbPoints - 1;  // on ne regarde pas les 1 derniers points, trop pres du travail
-		for (int i = 0; i < nbPoints; i++) {
-				uneCoord = uneRoute.get(i);
-				conducteursPassantPresPoint = conducteursPassePresDeCoord(uneCoord);
+		int nbPointsSansArrivee = nbPoints - 1;  // on ne regarde pas les 1 derniers points, trop pres du travail
+		for (int i = 0; i < nbPointsSansArrivee; i++) {
+				coordRencontre = uneRoute.get(i);
+				conducteursPassantPresPoint = conducteursPassePresDeCoord(coordRencontre);
 				System.out.println(unPassager.getEmail());
 				System.out.println("Pres de la route: resultat intermediare = " + conducteursPassantPresPoint.size() );
 				// copier la hashmap resultat dans conducteursPassantPres
 				// Si le user est déja présent ne pas le remettre ( il passait déja près d'un autre point)
+				if (conducteursPassantPresPoint.size()>0) {
+					CoordGPS depart = uneRoute.get(0);
+					CoordGPS arrivee = uneRoute.get(nbPoints - 1);
+					
+					double kmTotalConducteur= depart.kmAVolOiseauDe(arrivee);
+					System.out.println("km total" + kmTotalConducteur);
+					double kmEnCommun = coordRencontre.kmAVolOiseauDe(arrivee);
+					System.out.println("km arrivee" + kmEnCommun);
+					lePourcentage = (int) Math.round(kmEnCommun / kmTotalConducteur * 100);
+				}
+				
 				for (Entry< User, IntersectionUser> entry : conducteursPassantPresPoint.entrySet()) {
 					conducteur = entry.getKey();
 					uneInter = entry.getValue();
@@ -116,11 +141,19 @@ public class UserGestionnaireInSession implements UserGestionnaireInterface {
 						// mais ca n'a aucun interet
 					} else
 					{
+						//if (conducteursPassantPresRoute.containsKey(conducteur)) {
+						//if (HashMapContientIdentifiant(conducteursPassantPresRoute,conducteur.getEmail()))  {
+						System.out.println("taille passant pres de route " + conducteursPassantPresRoute.size());
+						if (conducteursPassantPresRoute.containsKey(conducteur)) {
+							System.out.println(conducteur.getEmail() + "deja présent");
+						}
 						if (conducteursPassantPresRoute.containsKey(conducteur)) {
 							// Ce conducteur passait déja près d'un autre point de ma route
 						} else
 						{
 							// On ajoute ce conducteur avec sa correspondance.
+							// On ajuste le pourcentage
+							uneInter.setScoreUser1ConduitParUser2(lePourcentage);
 							conducteursPassantPresRoute.put(conducteur, uneInter);
 						}
 					}
