@@ -91,9 +91,9 @@
 		<table type="hidden" name="coordUsersProche" id="coordUsersProche" style="width:100%">
 		<c:forEach items="${sessionScope.listeUsersProche}" var="map" >
 			<tr class="impair" >
-				<td> ${ map.value.getCoordonneesGPS().getLatitude() }	</td>
+				<td> ${ map.value.getCoordonneesGPSMaison().getLatitude() }	</td>
 				,
-				<td> ${ map.value.getCoordonneesGPS().getLongitude() }	</td>
+				<td> ${ map.value.getCoordonneesGPSMaison().getLongitude() }	</td>
 
 			</tr>	
 		</c:forEach>

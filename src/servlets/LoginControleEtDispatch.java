@@ -20,7 +20,7 @@ import metier.UserGestionnaireInSession;
  * Servlet implementation class LoginAction
  */
 @WebServlet("/login")
-public class LoginAction extends HttpServlet {
+public class LoginControleEtDispatch extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	// View
@@ -40,7 +40,7 @@ public class LoginAction extends HttpServlet {
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public LoginAction() {
+	public LoginControleEtDispatch() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
