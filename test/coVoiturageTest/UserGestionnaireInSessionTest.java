@@ -10,11 +10,11 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import covoiturage.CoordGPS;
-import covoiturage.IntersectionUser;
-import covoiturage.ProfilUser;
-import covoiturage.User;
-import covoiturage.UserGestionnaireInSession;
+import donnees.CoordGPS;
+import donnees.ProfilUser;
+import donnees.User;
+import metier.IntersectionUser;
+import metier.UserGestionnaireInSession;
 
 public class UserGestionnaireInSessionTest {
 	CoordGPS villefrancheL  = new CoordGPS(43.399575, 1.719759);
@@ -45,15 +45,15 @@ public class UserGestionnaireInSessionTest {
 	public void testUsersProcheDe() {
 		
 		User user1 = new User("toto@cugnaux","11","toto");
-		user1.setCoordonneesGPS(cugnaux);
+		user1.setCoordonneesGPSMaison(cugnaux);
 		myUserManager.add(user1);
 		
 		User user2 = new User("titi@GAUMONT","11","titi");
-		user2.setCoordonneesGPS(gaumontLabege);
+		user2.setCoordonneesGPSMaison(gaumontLabege);
 		myUserManager.add(user2);
 			
 		User user3 = new User("tutu@OCCITANIE5","11","tutu");
-		user3.setCoordonneesGPS(occitanie5);
+		user3.setCoordonneesGPSMaison(occitanie5);
 		myUserManager.add(user3);
 		
 		HashMap <String,User> actual = myUserManager.usersProcheDeCoordonnees(carrefourLabege, 5);
@@ -69,7 +69,7 @@ public class UserGestionnaireInSessionTest {
 	public void testConducteurPassePresDeMaisonDe(){
 		// unPassager
 		User unPassager = new User("stOrens@tracetaroute.com","11","StOrens");
-		unPassager.setCoordonneesGPS(stOrens);  
+		unPassager.setCoordonneesGPSMaison(stOrens);  
 		
 		//Conducteur1 + setRoute passant à proximité
 		ArrayList<CoordGPS> route1 = new ArrayList<CoordGPS>();
@@ -144,7 +144,7 @@ public class UserGestionnaireInSessionTest {
 
 		// unPassager NonFumeur 30Ans Homme - Conducteurs:  Poids critere  fumeur = 100, age=1, sexe = 10 ;
 		User unPassager = new User("unPassager@tracetaroute.com","11","unPassager");
-		unPassager.setCoordonneesGPS(stOrens); 
+		unPassager.setCoordonneesGPSMaison(stOrens); 
 		unPassager.setAge(30);
 		unPassager.setSexe("H");
 		unPassager.setFumeur("N");

@@ -1,4 +1,4 @@
-package covoiturage;
+package donnees;
 
 public class ProfilUser {
 

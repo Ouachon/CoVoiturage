@@ -1,4 +1,4 @@
-package covoiturage;
+package donnees;
 
 import java.awt.List;
 import java.util.ArrayList;
@@ -9,6 +9,9 @@ import java.util.Map.Entry;
 import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpSession;
+
+import metier.IntersectionUser;
+import metier.UserGestionnaireInSession;
 
 public class User {
 	private Long Id;
@@ -24,20 +27,20 @@ public class User {
 	private String sexe;
 	private String fumeur; 
 	
-	ProfilUser profilConducteur;
-	ProfilUser profilPassager;
+	private ProfilUser profilConducteur;
+	private ProfilUser profilPassager;
 	//ajout des boolean pour identifier si conducteur ou passager 
 	private Boolean isConducteur;
 	private Boolean isPassager;
 	
 
 	private ArrayList<CoordGPS> route;
-//	private CoordGPS[] route = null; //new CoordGPS[]();
+
 	
 	private HashMap<String,String>  hashMapErrors=new HashMap<String,String>();
 	private HashMap<String,String>  hashMapValeurs=new HashMap<String,String>();
 	
-	CoordGPS coordonneesGPS;
+	CoordGPS coordonneesGPSMaison;
 	
 	public static UserGestionnaireInSession unUserManager=null;
 	
@@ -147,7 +150,6 @@ public class User {
 	}
 	
 	
-	// Il faudrait les fonctions de validation dans la classe User pour etre plus propre
 	public String validateEmail() {
 	  	String ret = "";
     	if (email !=null && email.trim().length() != 0 )   {
@@ -227,12 +229,12 @@ public class User {
 		unUserManager.add(this);
 	}
 	
-	boolean estProcheDeUser(User autreUser, int rayon)  {
-		return (coordonneesGPS.estProche(autreUser.getCoordonneesGPS(),rayon));
+	public boolean estProcheDeUser(User autreUser, int rayon)  {
+		return (coordonneesGPSMaison.estProche(autreUser.getCoordonneesGPSMaison(),rayon));
 	}
 
-	boolean estProcheDeCoord(CoordGPS autreCoord, int rayon)  {
-		return coordonneesGPS.estProche(autreCoord,rayon);
+	public boolean estProcheDeCoord(CoordGPS autreCoord, int rayon)  {
+		return coordonneesGPSMaison.estProche(autreCoord,rayon);
 	}
 	
 	public IntersectionUser passePresDeCoord(CoordGPS autreCoord, int rayon) {
@@ -270,11 +272,11 @@ public class User {
 	}	
 	
 	
-	public CoordGPS getCoordonneesGPS() {
-		return coordonneesGPS;
+	public CoordGPS getCoordonneesGPSMaison() {
+		return coordonneesGPSMaison;
 	}
-	public void setCoordonneesGPS(CoordGPS coordonneesGPS) {
-		this.coordonneesGPS = coordonneesGPS;
+	public void setCoordonneesGPSMaison(CoordGPS coordonneesGPS) {
+		this.coordonneesGPSMaison = coordonneesGPS;
 	}
 
 	public ArrayList<CoordGPS> getRoute() {
@@ -289,17 +291,16 @@ public class User {
 		this.route = convertStringToRouteGPS(uneRoute);
 	}
 
-	private static  ArrayList<CoordGPS> convertStringToRouteGPS(String uneRoute){
-		//décortiquer la chaine entrée de la forme   ’45.32121,1.6:46.1255454,1.5…
-		//String stringPoint="";
+	private   ArrayList<CoordGPS> convertStringToRouteGPS(String uneRoute){
+		//décortiquer la chaine entrée de la forme   ’(45.32121,1.6)(46.1255454,1.5)…
+		
 		ArrayList<CoordGPS> listePtsDeRoute = new ArrayList<CoordGPS>();
-		System.out.println(uneRoute);
+		
 			uneRoute = uneRoute.replace(")",":");
 			uneRoute = uneRoute.replace("(", "");
-			System.out.println(uneRoute);
+
 			String[] tabStringPts = uneRoute.split(":");
-			System.out.println("toto");
-			System.out.println(tabStringPts.length);
+
 			for (int i = 0; i < tabStringPts.length; i++) {
 				String uneCoordCh = tabStringPts[i];
 				if (uneCoordCh.length() > 0 )  {
@@ -307,6 +308,7 @@ public class User {
 					listePtsDeRoute.add(coordGpsi);
 				}
 			}
+			System.out.println("Route de " + listePtsDeRoute.size() + " points enregistrée pour " + this.email);
 
 		return listePtsDeRoute;
 	}

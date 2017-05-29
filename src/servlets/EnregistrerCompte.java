@@ -1,4 +1,4 @@
-package covoiturage;
+package servlets;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -11,11 +11,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import donnees.CoordGPS;
+import donnees.ProfilUser;
+import donnees.User;
+import metier.UserGestionnaireInSession;
+
 /**
  * Servlet implementation class DispatchServlet
  */
-@WebServlet("/DispatchServlet")
-public class DispatchServlet extends HttpServlet {
+@WebServlet("/EnregistrerCompte")
+public class EnregistrerCompte extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	private static final String FIELD_PWD2 = "pwd2";
@@ -31,9 +36,9 @@ public class DispatchServlet extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DispatchServlet() {
+    public EnregistrerCompte() {
         super();
-        // TODO Auto-generated constructor stub
+        
     }
     
     
@@ -73,7 +78,7 @@ public class DispatchServlet extends HttpServlet {
 		
 		// On recupère l'attribut
 		HttpSession session = request.getSession();	
-		
+		System.out.println("servlet pour creer user:" + email);
 		User newUser = new User(email,pwd1,name);
 		newUser.setAdresseComplete(request.getParameter(FIELD_ADRESSE));
 		String ageCh = request.getParameter(FIELD_AGE);
@@ -86,10 +91,10 @@ public class DispatchServlet extends HttpServlet {
 		double dlat = Double.parseDouble(parts[0]);
 		double dlong = Double.parseDouble(parts[1]);
 		
-		newUser.setCoordonneesGPS(new CoordGPS(dlat, dlong));
+		newUser.setCoordonneesGPSMaison(new CoordGPS(dlat, dlong));
 		
 		String routeRecue = request.getParameter(FIELD_ROUTE);
-		System.out.println("route" + routeRecue);
+		
 		
 		newUser.setRoute(routeRecue);
 		
@@ -97,8 +102,8 @@ public class DispatchServlet extends HttpServlet {
 		// (non fumeur, indifférencié pour sexe, et 30 -50 pour age)
 		ProfilUser profCond = new ProfilUser("N", "2", "I", 10, 1, 1);
 		ProfilUser profPass = new ProfilUser("N", "2", "I", 10, 1, 1);
-		newUser.profilConducteur=profCond;
-		newUser.profilPassager=profPass;
+		newUser.setProfilConducteur(profCond);
+		newUser.setProfilPassager(profPass);
 		
 		
 		newUser.validateAll();		

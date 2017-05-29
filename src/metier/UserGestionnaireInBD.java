@@ -1,6 +1,8 @@
-package covoiturage;
+package metier;
 
 import java.util.HashMap;
+
+import donnees.User;
 
 public class UserGestionnaireInBD implements UserGestionnaireInterface {
 

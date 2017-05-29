@@ -1,4 +1,4 @@
-package covoiturage;
+package servlets;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -11,6 +11,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import donnees.User;
+import metier.IntersectionUser;
+import metier.UserGestionnaireInSession;
 
 /**
  * Servlet implementation class LoginAction
@@ -115,28 +119,11 @@ public class LoginAction extends HttpServlet {
 				request.setAttribute("conducteursProche", condProches);
 				System.out.println("ConducteursProche taille:" + condProches.size());
 				
-				// Debug : sortie ecran
-				for (Entry<User, IntersectionUser> entry : condProches.entrySet()) {
-					User autreUser = entry.getKey();
-					IntersectionUser uneInter = entry.getValue();
-					System.out.println(autreUser.getEmail());
-					System.out.println(uneInter.getPourcUser1ConduitParUser2());
-					System.out.println(uneInter.getEloignementPointRencontre());
-					
-				}
-				
-				// Amettre dans jsp mais ne fonctionne pas 
-				//<td> ${ map.value.getPourcUser1ConduitParUser2(); }
-				//<td> ${ map.value.getPourcUser1ConduitUser2(); }
 				RequestDispatcher dispat = request.getRequestDispatcher("passager.jsp");
 				dispat.include(request, response);  // Difference avec forward
 			}
 			
-			// On met dans hashMap toutes les caracteristique du profil
-			// et du compte courant pour pouvoir facilement les consulter/modifier
-			// A deplacer dans user et dans ProfilUser  pour retourner une HASHMAP
-			//TODO
-			
+		
 			// A priori les Hashmap echangé entre servlet et HTML ne sont que 
 			// Pour la page et pas pour toutes les pages
 			// Sur chaque page connaitre le usercourant et le type
@@ -157,7 +144,7 @@ public class LoginAction extends HttpServlet {
 
 
 	// Hicham, le test sur la validité du mail est sur la creation du compte
-	// pas sur le login (on doit juste verifier que l'identifiant exite et a
+	// pas sur le login (on doit juste verifier que l'identifiant existe et a
 	// a le mot de passe associé
 	private String validateEmail(String email) {
 		if (email != null && email.trim().length() != 0) {

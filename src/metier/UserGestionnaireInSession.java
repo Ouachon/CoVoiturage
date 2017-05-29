@@ -1,9 +1,13 @@
-package covoiturage;
+package metier;
 
 import java.awt.List;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
+
+import donnees.CoordGPS;
+import donnees.ProfilUser;
+import donnees.User;
 
 public class UserGestionnaireInSession implements UserGestionnaireInterface {
 
@@ -59,7 +63,7 @@ public class UserGestionnaireInSession implements UserGestionnaireInterface {
 	}
 	
 	public HashMap< User, IntersectionUser> conducteursPassePresDeMaisonDe(User inUser) {
-		return conducteursPassePresDeCoord(inUser.getCoordonneesGPS());
+		return conducteursPassePresDeCoord(inUser.getCoordonneesGPSMaison());
 	}
 	public HashMap< User, IntersectionUser> conducteursPassePresDeCoord(CoordGPS uneCoord) {
 		HashMap< User, IntersectionUser> conducteursPassantPres = new HashMap<User,IntersectionUser>();
@@ -197,7 +201,7 @@ public class UserGestionnaireInSession implements UserGestionnaireInterface {
 		for (Entry<User, IntersectionUser> entry : listeDeUsers.entrySet()) {
 			userCourant = entry.getKey();
 			intersectionCourante = entry.getValue();
-			ProfilUser profilCourant = userCourant.profilConducteur;
+			ProfilUser profilCourant = userCourant.getProfilConducteur();
 			if (profilCourant != null) {
 				score1 = profilCourant.scoreCompatibiliteAvecUser(inUser);
 			}
@@ -232,21 +236,21 @@ public class UserGestionnaireInSession implements UserGestionnaireInterface {
 		ProfilUser profil1 = new ProfilUser("F", "1", "H", 100, 10, 1);
 
 		User user1 = new User("BLAGNAC@gmail", "11", "toto");
-		user1.setCoordonneesGPS(blagnac);
-		user1.profilPassager = profil1;
-		user1.profilConducteur = profil1;
+		user1.setCoordonneesGPSMaison(blagnac);
+		user1.setProfilPassager(profil1);
+		user1.setProfilConducteur(profil1);
 		add(user1);
 
 		User user2 = new User("GAUMONT@gmail", "12", "titi");
-		user2.setCoordonneesGPS(gaumontLabege);
-		user2.profilPassager = profil1;
-		user2.profilConducteur = profil1;
+		user2.setCoordonneesGPSMaison(gaumontLabege);
+		user2.setProfilPassager(profil1);
+		user2.setProfilConducteur(profil1);
 		add(user2);
 
 		User user3 = new User("CARREFOURLABEGE@gmail", "13", "tutu");
-		user3.setCoordonneesGPS(carrefourLabege);
-		user3.profilPassager = profil1;
-		user3.profilConducteur = profil1;
+		user3.setCoordonneesGPSMaison(carrefourLabege);
+		user3.setProfilPassager(profil1);
+		user3.setProfilConducteur(profil1);
 		add(user3);
 
 		// User user4 = new User("CARREFOURLABEGE2@gmail","11","eric");

@@ -1,6 +1,9 @@
-package covoiturage;
+package metier;
 // DIfférent score caractérisant l'intersection entre 2 users
 // Cet objet sera mis dans le HASPMAP <user, intersection> et non plus <user,score>
+
+import donnees.CoordGPS;
+import donnees.User;
 
 // C'est cet objet qui sera affiché sur la page passager
 public class IntersectionUser {

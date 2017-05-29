@@ -8,9 +8,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import covoiturage.CoordGPS;
-import covoiturage.IntersectionUser;
-import covoiturage.User;
+import donnees.CoordGPS;
+import donnees.User;
+import metier.IntersectionUser;
 
 public class UserTest {
 

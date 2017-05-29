@@ -19,7 +19,7 @@
 
 </head>
 <body onload="initMap();"> 
-	<form class="form-group" method="post" onsubmit="return validForm(this)" action="DispatchServlet">
+	<form class="form-group" method="post" onsubmit="return validForm(this)" action="EnregistrerCompte">
 		
 			<div class="container-fluid bg-3 text-left" style="width: 550px;">
 				<div class="jumbotron text-center">

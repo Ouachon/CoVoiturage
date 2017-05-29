@@ -6,7 +6,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import covoiturage.CoordGPS;
+import donnees.CoordGPS;
 
 public class CoordGPSTest {
 

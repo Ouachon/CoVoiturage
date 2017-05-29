@@ -1,26 +1,27 @@
-package covoiturage;
+package servlets;
 
 import java.io.IOException;
+import java.util.HashMap;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class WelcomeServlet
+ * Servlet implementation class UserManagerAction
  */
-@WebServlet("/WelcomeServlet")
-public class WelcomeServlet extends HttpServlet {
+@WebServlet("/Users")
+public class UserManagerAction extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-	public static String VIEW_PAGES_URL="/WEB-INF/login.jsp"; // Page jsp de demarrage
-	   
-       
+     
+	public static String VIEW_PAGES_URL="/WEB-INF/users.jsp"; // Page jsp de demarrage
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public WelcomeServlet() {
+    public UserManagerAction() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,9 +30,10 @@ public class WelcomeServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//response.getWriter().append(" Bienvenue " + request.getParameter("email") + ":" + request.getParameter("name"));
-		this.getServletContext().getRequestDispatcher(VIEW_PAGES_URL).forward( request, response );
-
+	
+		
+		// Puis on appele la page
+				this.getServletContext().getRequestDispatcher(VIEW_PAGES_URL).forward( request, response );
 	}
 
 	/**
