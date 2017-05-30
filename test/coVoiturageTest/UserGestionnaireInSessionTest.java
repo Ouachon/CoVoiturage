@@ -27,6 +27,7 @@ public class UserGestionnaireInSessionTest {
 	CoordGPS purpan = new CoordGPS(43.611634, 1.397174);
 	CoordGPS stOrens = new CoordGPS(43.548706, 1.535876);
 	UserGestionnaireInSession myUserManager =  UserGestionnaireInSession.getInstance();
+	ArrayList<String> erreurs = new ArrayList<String>();
 
 	@Before
 	public void setUp() throws Exception {
@@ -34,14 +35,38 @@ public class UserGestionnaireInSessionTest {
 		//pour en maîtriser le contenu et donc la cohérence des tests
 		//fonction de reset crée dans la classe
 		 myUserManager.getListeDesUsers().clear();
+		 erreurs.clear();
 	}
 
 	@After
 	public void tearDown() throws Exception {
 		 myUserManager.getListeDesUsers().clear();
+		 erreurs.clear();
 	}
 
+	
+	public void testAuthenticate() {
+		// rq: authenticate crée 3 users par defaut.
+		String expected = "user_a_blagnac";
+		User userLogge = myUserManager.authenticate("BLAGNAC@gmail.com", "11", erreurs);
+		String actual = userLogge.getNom();
+		assertEquals(expected,actual);		
+	}
+	
+	
+	public void testAuthenticateLoginInexistant() {
+		String expected = "Login:Erreur 001:Utilisateur inconnu";
+		User userLogge = myUserManager.authenticate("INCONNU@xyz.com", "11", erreurs);
+		assertTrue(erreurs.contains(expected));		
+	}
+	
+	public void testAuthenticatePwdIncorrect() {
+		String expected = "Pwd:Erreur 001:Mot de passe incorrect pour cet utilisateur";
+		User userLogge = myUserManager.authenticate("BLAGNAC@gmail.com", "pwdIncorrect", erreurs);
+		assertTrue(erreurs.contains(expected));	
+	}
 
+	
 	public void testUsersProcheDe() {
 		
 		User user1 = new User("toto@cugnaux","11","toto");
@@ -65,6 +90,7 @@ public class UserGestionnaireInSessionTest {
 		assertTrue(actual.containsKey("tutu@OCCITANIE5"));
 		assertFalse(actual.containsKey("toto@cugnaux"));	
 	}
+	
 	
 	public void testConducteurPassePresDeMaisonDe(){
 		// unPassager
@@ -112,7 +138,7 @@ public class UserGestionnaireInSessionTest {
 		assertTrue(conducteursPassantPresDe.containsKey(conducteurEscalquens));//"EscalqToOccitanie@tracetaroute.com"));		
 	}
 	
-	@Test
+	
 	public void testConducteursPassePresDeRouteDe() {
 		//Conducteur1 + setRoute passant à proximité
 				ArrayList<CoordGPS> route1 = new ArrayList<CoordGPS>();
@@ -139,7 +165,7 @@ public class UserGestionnaireInSessionTest {
 				assertEquals(1, result.size());
 	}
 	
-	
+	@Test
 	public void testCorrelationEntreUnUserEtListeConducteursProches() {
 
 		// unPassager NonFumeur 30Ans Homme - Conducteurs:  Poids critere  fumeur = 100, age=1, sexe = 10 ;
@@ -148,14 +174,18 @@ public class UserGestionnaireInSessionTest {
 		unPassager.setAge(30);
 		unPassager.setSexe("H");
 		unPassager.setFumeur("N");
+		ArrayList<CoordGPS> route0 = new ArrayList<CoordGPS>();
+		route0.add(stOrens);
+		route0.add(augustins);
+		unPassager.setRoute(route0);
 
-		//Conducteur1 + setRoute passant à proximité
+		//Conducteur1 + setRoute passant à proximité de storens
 		ArrayList<CoordGPS> route1 = new ArrayList<CoordGPS>();
 		route1.add(villefrancheL);
 		route1.add(gaumontLabege);
 		route1.add(carrefourLabege);
 		route1.add(augustins);
-		User unH25nf = new User("unH25nf@VilleFrToAugustins","11","VilleFrToAugustins");
+		User unH25nf = new User("unH25nf@VilleFrToAugustins.com","11","VilleFrToAugustins");
 		ProfilUser profilH25nf = new ProfilUser("N", "0", "H", 100, 1, 10);
 		unH25nf.setRoute(route1);
 		unH25nf.setProfilConducteur(profilH25nf);
@@ -169,7 +199,7 @@ public class UserGestionnaireInSessionTest {
 		route2.add(cugnaux);
 		route2.add(purpan);
 		route2.add(augustins);
-		User unH40nf = new User("unH40nf@CugnauxToAugustins","11","CugnauxToAugustins");
+		User unH40nf = new User("unH40nf@CugnauxToAugustins.com","11","CugnauxToAugustins");
 		ProfilUser profilH40nf = new ProfilUser("N", "1", "H", 100, 1, 10);
 		unH40nf.setRoute(route2);
 		unH40nf.setProfilConducteur(profilH40nf);
@@ -183,7 +213,7 @@ public class UserGestionnaireInSessionTest {
 		route3.add(escalquens);
 		route3.add(gaumontLabege);
 		route3.add(occitanie5);
-		User uneF25f = new User("uneF25f@EscalqToOccitanie","11","EscalToOccitanie");
+		User uneF25f = new User("uneF25f@EscalqToOccitanie.com","11","EscalToOccitanie");
 		ProfilUser profilF25f = new ProfilUser("F", "0", "F", 100, 1, 10);
 		uneF25f.setRoute(route3);
 		uneF25f.setProfilConducteur(profilF25f);
@@ -195,54 +225,25 @@ public class UserGestionnaireInSessionTest {
 		myUserManager.add(unH25nf);
 		myUserManager.add(unH40nf);
 		myUserManager.add(uneF25f);
+		
+		System.out.println(myUserManager.getListeDesUsers().size());
 
 		HashMap<User,IntersectionUser> conducteursPotentiels = myUserManager.conducteursPotentielsPour(unPassager); 
 		assertEquals(conducteursPotentiels.size(),2);
+		System.out.println("testCorrelationEntreUnUserEtListeConducteursProches=" + conducteursPotentiels.size() );
 		
-		//TODO
-//		if (conducteursPotentiels.size()==2) {
-//			int scoreAvecConducteur1 = conducteursPotentiels.get(0).getScoreUser1ConduitParUser2();
-//			//System.out.println("score1" + score);
-//			assertTrue(scoreAvecConducteur1==111); //containsValue(111));
-//			int scoreAvecConducteur2 = conducteursPotentiels.get(1).getScoreUser1ConduitParUser2();
-//			assertTrue(scoreAvecConducteur2==1);
-//		}
+		if (conducteursPotentiels.size()==2) {
+			
+			IntersectionUser inter1 = conducteursPotentiels.get(unH25nf);
+			int scoreAvecConducteur1 = inter1.getScoreUser1ConduitParUser2();
+			System.out.println("score1" + scoreAvecConducteur1);
+			assertEquals(111,scoreAvecConducteur1);
+			
+			IntersectionUser inter2 = conducteursPotentiels.get(uneF25f);
+			int scoreAvecConducteur3 = inter2.getScoreUser1ConduitParUser2();
+			System.out.println("score3" + scoreAvecConducteur1);			
+			assertEquals(1, scoreAvecConducteur3);
+		}
 	}
 }
-//// User homme fumeur 40 ans
-//User unH40f = new User("unH40F@tracetaroute.com", "11", "unH40F");
-//unH40f.setSexe("H");
-//unH40f.setAge(40);
-//unH40f.setFumeur("F");
-//
-//// User femme non fumeuse 25 ans
-//User uneF25nf = new User("uneF25nf@tracetaroute.com", "11", "uneF25nf");
-//uneF25nf.setSexe("F");
-//uneF25nf.setAge(25);
-//uneF25nf.setFumeur("N");
 
-////User homme fumeur 20 ans
-//User unH20f = new User("unH20f@tracetaroute.com", "11", "unH20f");
-//unH20f.setSexe("H");
-//unH20f.setAge(20);
-//unH20f.setFumeur("F");
-
-//		// Score 0
-//		ProfilUser profil1 = new ProfilUser("N","1", "F", pondFumeur,pondAge,pondSexe); 
-//		HashMap<User,Integer> actual = myUserManager.correlationAvecProfil(profil1,myUserManager.getListeDesUsers());
-//		//assertEquals(5, profil1.scoreCompatibiliteAvecUser(user1));
-//		//Test que l'element 1 de la liste est bien celui le + compatible
-//		// que l'element 5 est le moins compatible
-//		// Et qu' il y a bien 5 élements.
-//		fail("not implemented");
-//	}
-
-//	// Et encore au dessus
-//	//  on s'assurera qu'on trouvera bien 3 des 5 conducteurs
-//	// passant pres de chez moi et trié en fonction de mes critères
-//	// Ce qui implique de stocker la route de 
-//	//  chaque conducteur vers son travail ?????
-//	// et balayer alors tous les points de cette route
-//	// (espacé d'un rayon a définir pour ne pas tout regarder tous les 100 metres)
-
-//}

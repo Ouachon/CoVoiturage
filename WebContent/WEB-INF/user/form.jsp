@@ -16,6 +16,7 @@
  <meta name="map" content="initial-scale=1.0, user-scalable=no" />
 	 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtwziXLbi6nDuAq5KxSsFjg9jGByOe698&callback=initMap&sensor=false" type="text/javascript"></script>
 	<script type="text/javascript" src="js/googleMapsv2.js" language ="javascript"></script>
+	<script type="text/javascript" src="js/controleCompte.js" language ="javascript"></script>
 
 </head>
 <body onload="initMap();"> 

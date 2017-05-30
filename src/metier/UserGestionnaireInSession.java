@@ -15,6 +15,8 @@ public class UserGestionnaireInSession implements UserGestionnaireInterface {
 
 	private static UserGestionnaireInSession userManagerUnique;
 
+	
+	
 	public static UserGestionnaireInSession getInstance() {
 		if (userManagerUnique == null) {
 			userManagerUnique = new UserGestionnaireInSession();
@@ -116,6 +118,11 @@ public class UserGestionnaireInSession implements UserGestionnaireInterface {
 		CoordGPS coordRencontre;
 		int lePourcentage=0;
 		ArrayList<CoordGPS> uneRoute = unPassager.getRoute();
+		if (uneRoute==null) {
+			System.out.println("route null pour " + unPassager.getEmail());
+			return conducteursPassantPresRoute;
+		}
+		
 		// Pour chaque point de la route, on verifie si un conducteurs passe près de ce point
 		int nbPoints= uneRoute.size();	
 		int nbPointsSansArrivee = nbPoints - 1;  // on ne regarde pas les 1 derniers points, trop pres du travail
@@ -166,30 +173,33 @@ public class UserGestionnaireInSession implements UserGestionnaireInterface {
 
 		return conducteursPassantPresRoute;
 	}
+	
+	public User authenticate(String login, String pwd, ArrayList<String> erreurs) {
+			//HashMap<String, String> parmErreurs, HashMap<String,String> parmForm) {
+		User userLogge=null;
+		
+		
+		// PRovisoirement en attendant la persistence de données
+		// On preremlit des comptes users
+		if (userManagerUnique.getListeDesUsers().size()==0) userManagerUnique.preRemplir();
+		
+		userLogge = userManagerUnique.getListeDesUsers().get(login);
+		if (userLogge==null) {
+			erreurs.add("Login:Erreur 001:Utilisateur inconnu");
+	
+		} else
+		{
+			if (!userLogge.getPwd().equals(pwd)) {
+				userLogge=null;
+				erreurs.add("Pwd:Erreur 001:Mot de passe incorrect pour cet utilisateur");
+			} 
+		}
+	
 
-//	public HashMap< User, IntersectionUser> conducteursPassePresDeProtec(User unPassager) {
-//		HashMap< User, IntersectionUser> conducteursPassantPres = new HashMap<User,IntersectionUser>();
-//		String email;
-//		User conducteur;
-//		for (Entry<String, User> entry : listeDesUsers.entrySet()) {
-//			conducteur = entry.getValue();
-//			email = entry.getKey();
-//			if (conducteur!=unPassager) {
-//
-//				if (conducteur.getIsConducteur() == true) {
-//					IntersectionUser uneIntersection = 
-//						(conducteur.passePresDeCoord(unPassager.getCoordonneesGPS(), CoordGPS.RAYON));
-//					if (uneIntersection != null) {
-//						// Le conducteur passe près de la coord GPS du passager
-//						// on a rétourné un objet détaillant cette intersection
-//						conducteursPassantPres.put(conducteur,uneIntersection);
-//						System.out.println("conducteur identifié :" + email);
-//					}
-//				}
-//			}
-//		}
-//		return conducteursPassantPres;
-//	}
+		return userLogge;
+	}
+
+
 
 	public HashMap<User, IntersectionUser> correlationEntre(User inUser, HashMap< User, IntersectionUser> listeDeUsers) {
 
@@ -235,27 +245,24 @@ public class UserGestionnaireInSession implements UserGestionnaireInterface {
 
 		ProfilUser profil1 = new ProfilUser("F", "1", "H", 100, 10, 1);
 
-		User user1 = new User("BLAGNAC@gmail", "11", "toto");
+		User user1 = new User("BLAGNAC@gmail.com", "11", "user_a_blagnac");
 		user1.setCoordonneesGPSMaison(blagnac);
 		user1.setProfilPassager(profil1);
 		user1.setProfilConducteur(profil1);
 		add(user1);
 
-		User user2 = new User("GAUMONT@gmail", "12", "titi");
+		User user2 = new User("GAUMONT@gmail.com", "12", "user_a_gaumont");
 		user2.setCoordonneesGPSMaison(gaumontLabege);
 		user2.setProfilPassager(profil1);
 		user2.setProfilConducteur(profil1);
 		add(user2);
 
-		User user3 = new User("CARREFOURLABEGE@gmail", "13", "tutu");
+		User user3 = new User("CARREFOURLABEGE@gmail.com", "13", "user_a_carrefour");
 		user3.setCoordonneesGPSMaison(carrefourLabege);
 		user3.setProfilPassager(profil1);
 		user3.setProfilConducteur(profil1);
 		add(user3);
 
-		// User user4 = new User("CARREFOURLABEGE2@gmail","11","eric");
-		// user4.setCoordonneesGPS(carrefourLabege);
-		// add(user4);
 	}
 
 }

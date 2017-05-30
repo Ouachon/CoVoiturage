@@ -153,8 +153,8 @@ public class User {
 	public String validateEmail() {
 	  	String ret = "";
     	if (email !=null && email.trim().length() != 0 )   {
-    		if (!email.contains("@")) {
-    			ret = "L'adresse mail doit au moins contenir un @";
+    		if (!email.matches("([^.@]+)(\\.[^.@]+)*@([^.@]+\\.)+([^.@]+)")) {
+    			ret = "Veuillez saisir une adresse mail valide";
     		}    		
     	} else
     		ret = "L adresse mail est obligatoire";
