@@ -44,7 +44,7 @@ public class UserGestionnaireInSessionTest {
 		 erreurs.clear();
 	}
 
-	
+	@Test
 	public void testAuthenticate() {
 		// rq: authenticate crée 3 users par defaut.
 		String expected = "user_a_blagnac";
@@ -53,20 +53,20 @@ public class UserGestionnaireInSessionTest {
 		assertEquals(expected,actual);		
 	}
 	
-	
+	@Test
 	public void testAuthenticateLoginInexistant() {
 		String expected = "Login:Erreur 001:Utilisateur inconnu";
 		User userLogge = myUserManager.authenticate("INCONNU@xyz.com", "11", erreurs);
 		assertTrue(erreurs.contains(expected));		
 	}
-	
+	@Test
 	public void testAuthenticatePwdIncorrect() {
 		String expected = "Pwd:Erreur 001:Mot de passe incorrect pour cet utilisateur";
 		User userLogge = myUserManager.authenticate("BLAGNAC@gmail.com", "pwdIncorrect", erreurs);
 		assertTrue(erreurs.contains(expected));	
 	}
 
-	
+	@Test
 	public void testUsersProcheDe() {
 		
 		User user1 = new User("toto@cugnaux","11","toto");
@@ -91,7 +91,7 @@ public class UserGestionnaireInSessionTest {
 		assertFalse(actual.containsKey("toto@cugnaux"));	
 	}
 	
-	
+	@Test
 	public void testConducteurPassePresDeMaisonDe(){
 		// unPassager
 		User unPassager = new User("stOrens@tracetaroute.com","11","StOrens");
@@ -138,7 +138,7 @@ public class UserGestionnaireInSessionTest {
 		assertTrue(conducteursPassantPresDe.containsKey(conducteurEscalquens));//"EscalqToOccitanie@tracetaroute.com"));		
 	}
 	
-	
+	@Test
 	public void testConducteursPassePresDeRouteDe() {
 		//Conducteur1 + setRoute passant à proximité
 				ArrayList<CoordGPS> route1 = new ArrayList<CoordGPS>();
