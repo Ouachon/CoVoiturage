@@ -100,15 +100,21 @@ public class ProfilUser {
 		retour = retour + unScore;
 		
 		System.out.println("critere fumeur unScore=" + unScore);
-
-		unScore = 0;
-		// Compatibilité tranche d'age
-		if (trancheAge.equals("0") || (trancheAge.equals(autreUser.getTranche()))) {
-			unScore = 1;
-		}
 		
-		if (poidsCritereAge > 0)
-			unScore = unScore * poidsCritereAge;
+		if (trancheAge==null) {
+			trancheAge="0";
+			System.out.println("tranche age a null dans profil");
+		}
+	
+			unScore = 0;
+			// Compatibilité tranche d'age
+			if (trancheAge.equals("0") || (trancheAge.equals(autreUser.getTranche()))) {
+				unScore = 1;
+			}
+			
+			if (poidsCritereAge > 0)
+				unScore = unScore * poidsCritereAge;
+		
 		
 		System.out.println("critere age unScore =" + unScore);
 		System.out.println("critere age trancheAge =" + trancheAge);

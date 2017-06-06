@@ -39,13 +39,13 @@ public class ProfilUserTest {
 		int pondSexe = 10;
 
 		// Creer un profil en cherchant Femme de moins de 30 ans, non fumeur
-		// Score 0
+		// on doit trouver score 0 avec user1
 
 		ProfilUser profil1 = new ProfilUser("N", "1", "F", pondFumeur, pondAge, pondSexe);
 		assertEquals(0, profil1.scoreCompatibiliteAvecUser(user1));
 
 		// Profil en cherchant Homme, 30 a 50 ans, fumeur
-		// Score 111 (les3) 
+		// Score 111 (les 3 criteres sont ok) 
 		ProfilUser profil2 = new ProfilUser("F", "2", "H", pondFumeur, pondAge, pondSexe);
 		assertEquals(111, profil2.scoreCompatibiliteAvecUser(user1));
 
