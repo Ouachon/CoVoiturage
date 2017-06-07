@@ -131,7 +131,7 @@ public class EnregistrerCompte extends HttpServlet {
 			session.setAttribute("listeDesUsers",myUserManager.getListeDesUsers());
 			// Ok c'est crée, on revient sur l'accueil
 			System.out.println("Nombre de users : " + myUserManager.getListeDesUsers().size() );
-			dispat = request.getRequestDispatcher("index.jsp");			
+			dispat = request.getRequestDispatcher("UsersProcheServlet");			
 			dispat.include(request, response);
 	
 		}

@@ -38,8 +38,25 @@ public class UsersProcheServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		RequestDispatcher dispat;
+		HttpSession session = request.getSession();	
+		UserGestionnaireInSession myUserManager= UserGestionnaireInSession.getInstance();
+		int rayon = 5;
+		HashMap<String,String> formulaireAccueil = new HashMap<String,String>();
+		
+		// PRovisoirement en attendant la persistence de données
+		// On preremlit des comptes users
+		myUserManager.preRemplir();
+		
+		CoordGPS carrefourLabege = new  CoordGPS(43.550481, 1.508069);
+		session.setAttribute("listeUsersProche", myUserManager.usersProcheDeCoordonnees(carrefourLabege, rayon));
+		formulaireAccueil.put(FIELD_ADR_DEP, "carrefour labege") ;
+		formulaireAccueil.put(FIELD_ADR_ARR, "capitole");
+		formulaireAccueil.put(FIELD_LATLONG_DEP, "43.550481, 1.508069");
+		formulaireAccueil.put(FIELD_LATLONG_ARR, "43.600953, 1.446260");
+		
+		dispat = request.getRequestDispatcher("index.jsp");		
+		dispat.include(request, response);
 	}
 
 	/**
@@ -71,9 +88,9 @@ public class UsersProcheServlet extends HttpServlet {
 		
 		UserGestionnaireInSession myUserManager= UserGestionnaireInSession.getInstance();
 		
-		// PRovisoirement en attendant la persistence de données
-		// On preremlit des comptes users
-		myUserManager.preRemplir();
+//		// PRovisoirement en attendant la persistence de données
+//		// On preremlit des comptes users
+//		myUserManager.preRemplir();
 		
 		System.out.println(dlat);
 		System.out.println(dlong);
@@ -90,8 +107,8 @@ public class UsersProcheServlet extends HttpServlet {
 		//session.setAttribute("listeUsersProche", User.unUserManager.usersProcheDeCoordonnees(uneCoord, rayon));
 		session.setAttribute("listeUsersProche", myUserManager.usersProcheDeCoordonnees(uneCoord, rayon));
 		session.setAttribute("formAccueil",formulaireAccueil);
-		session.setAttribute("listeConducteursPossible", myUserManager.usersProcheDeCoordonnees(uneCoord, rayon));// conducteursPossible
-		session.setAttribute("listePassagersProches", myUserManager.usersProcheDeCoordonnees(uneCoord, rayon));// conducteursPossible
+		//session.setAttribute("listeConducteursPossible", myUserManager.usersProcheDeCoordonnees(uneCoord, rayon));// conducteursPossible
+		//session.setAttribute("listePassagersProches", myUserManager.usersProcheDeCoordonnees(uneCoord, rayon));// conducteursPossible
 		
 		dispat = request.getRequestDispatcher("index.jsp");
 		

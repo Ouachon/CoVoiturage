@@ -78,8 +78,8 @@
 					value="Capitole, Toulouse" style="width: 300px;">
 			</div>
 	
-			<input type="hidden" name="latLong" id="latLong" value="${formAccueil['latLong']}">
-			<input type="hidden" name="latLongArr" id="latLongArr" value="${formAccueil['latLongArr']}">
+			<input type="text" name="latLong" id="latLong" value="${formAccueil['latLong']}">
+			<input type="text" name="latLongArr" id="latLongArr" value="${formAccueil['latLongArr']}">
 			<input type="hidden" name="route" id="route" value="">
 			<a><input type="submit" class="btn btn-primary" value="Rechercher">
 			</a>
